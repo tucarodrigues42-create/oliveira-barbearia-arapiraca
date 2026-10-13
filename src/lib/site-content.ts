@@ -14,7 +14,14 @@ export const siteContent = {
   instagramHandle: '@oliveirabsarapiraca',
   address: { street: 'Rua Justino Sebastião da Silva, 75', neighborhood: 'Santa Esmeralda', city: 'Arapiraca–AL', postalCode: '57312-070' },
   about: { title: 'O cuidado faz parte do estilo.', text: 'Na Oliveira, o cuidado com o visual tem lugar na sua rotina. Conheça a barbearia, acompanhe os trabalhos e escolha seu próximo horário.' },
-  subscription: { title: 'Seu estilo não tira folga.', text: 'A Oliveira oferece planos por assinatura. Conheça as opções disponíveis e consulte as condições para encontrar o plano que combina com a sua rotina.' },
+  subscription: {
+    name: 'Clube OLVR',
+    description: 'Clube de assinatura da Oliveira Barbearia',
+    title: 'Seu estilo não tira folga.',
+    text: 'A Oliveira oferece planos por assinatura no Clube OLVR. Conheça as opções disponíveis e consulte as condições para encontrar o plano que combina com a sua rotina.',
+    action: 'Consultar planos do Clube OLVR',
+    logo: { status: 'pending', sourcePage: 'https://cashbarber.com.br/oliveirabsara' },
+  },
   reviews: {
     rating: 5.0,
     count: 315,
@@ -25,7 +32,7 @@ export const siteContent = {
   },
   navigation: [
     { id: 'sobre', label: 'A barbearia' },
-    { id: 'planos', label: 'Assinatura' },
+    { id: 'planos', label: 'Clube OLVR' },
     { id: 'avaliacoes', label: 'Avaliações' },
     { id: 'contato', label: 'Contato' },
   ],
@@ -36,7 +43,7 @@ export const siteContent = {
   ],
   faq: [
     { question: 'Como faço meu agendamento?', answer: 'Toque em “Agendar horário” para abrir o Cash Barber. A reserva é feita diretamente no sistema da barbearia.' },
-    { question: 'Onde consulto os valores dos planos?', answer: 'Acesse “Consultar planos” ou fale com a equipe pelo WhatsApp. Confirme as opções incluídas, os valores e as condições antes de contratar.' },
+    { question: 'Onde consulto os planos do Clube OLVR?', answer: 'Acesse “Consultar planos do Clube OLVR” ou fale com a equipe pelo WhatsApp. Confirme as opções incluídas, os valores e as condições antes de contratar.' },
     { question: 'Posso tirar dúvidas antes de agendar?', answer: 'Sim. Use o link do WhatsApp para conversar com a equipe sobre os atendimentos e a sua visita.' },
   ],
 } as const;
