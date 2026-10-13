@@ -58,7 +58,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.
 h2 { font-size: 57px; }
 h2 em { font-style: normal; color: var(--primary); }
 .page-container { width: min(1280px, calc(100% - 112px)); margin-inline: auto; }
-.eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 2px; line-height: 1.5; }
+.eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0; line-height: 1.5; }
 .skip-link { position: fixed; top: 12px; left: 12px; transform: translateY(-150%); padding: 12px 18px; z-index: 100; background: var(--primary); color: var(--primary-foreground); }
 .skip-link:focus { transform: none; }
 .site-header { position: sticky; top: 0; z-index: 30; background: var(--background); border-bottom: 1px solid var(--border); }
@@ -88,14 +88,14 @@ h1 span { color: var(--primary); }
 .opening-copy > p { color: var(--muted-foreground); font-size: 14px; max-width: 355px; margin-top: 27px; }
 .opening-actions { display: flex; align-items: center; gap: 28px; margin-top: 28px; }
 .brand-composition { transform: rotate(-7deg); padding: 20px 8px 20px 0; }
-.brand-frame { position: relative; aspect-ratio: 1.15; border: 1px solid var(--primary); display: flex; align-items: center; padding: 35px; }
-.brand-frame::before { content: ''; position: absolute; inset: 11px; border: 1px solid var(--border); pointer-events: none; }
-.brand-frame-top { position: absolute; top: 29px; left: 29px; font-size: 9px; letter-spacing: 2px; color: var(--primary); }
-.brand-frame-bottom { position: absolute; bottom: 28px; left: 29px; right: 29px; display: flex; justify-content: space-between; color: var(--muted-foreground); font-size: 8px; letter-spacing: 1.3px; gap: 10px; }
-.brand-caption { display: block; text-align: right; margin-top: 16px; text-transform: uppercase; color: var(--muted-foreground); font-size: 8px; letter-spacing: 2px; }
-.opening-bottom { padding: 21px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; color: var(--muted-foreground); font-size: 8px; letter-spacing: 1.5px; }
+.brand-frame { position: relative; aspect-ratio: 1.15; border: 0; display: flex; align-items: center; padding: 15px; }
+.brand-frame::before { display: none; }
+.brand-frame-top { position: absolute; top: 29px; left: 29px; font-size: 9px; letter-spacing: 0; color: var(--primary); }
+.brand-frame-bottom { position: absolute; bottom: 28px; left: 29px; right: 29px; display: flex; justify-content: space-between; color: var(--muted-foreground); font-size: 8px; letter-spacing: 0; gap: 10px; }
+.brand-caption { display: block; text-align: right; margin-top: 16px; text-transform: uppercase; color: var(--muted-foreground); font-size: 8px; letter-spacing: 0; }
+.opening-bottom { padding: 21px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; color: var(--muted-foreground); font-size: 8px; letter-spacing: 0; }
 .opening-bottom a { display: flex; align-items: center; gap: 20px; }
-.identity-strip { display: flex; justify-content: space-around; align-items: center; gap: 35px; overflow: hidden; white-space: nowrap; background: var(--primary); color: var(--primary-foreground); padding: 17px 20px; font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: 1px; }
+.identity-strip { display: flex; justify-content: space-around; align-items: center; gap: 35px; overflow: hidden; white-space: nowrap; background: var(--primary); color: var(--primary-foreground); padding: 17px 20px; font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: 0; }
 .identity-strip span:nth-child(even) { font-size: 27px; line-height: 1; }
 .section { padding: 95px 0; }
 .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 110px; }
@@ -197,13 +197,13 @@ h1 span { color: var(--primary); }
   .opening-inner { padding-top: 30px; }
   .opening-location { font-size: 9px; }
   .opening-composition { grid-template-columns: 1fr; padding: 29px 0 26px; gap: 0; }
-  h1 { font-size: 72px; }
+  h1 { font-size: 55px; }
   .opening-copy > p { max-width: 315px; font-size: 13px; margin-top: 23px; }
   .opening-actions { gap: 17px; margin-top: 23px; }
   .editorial-button { padding: 0 18px; gap: 20px; min-height: 48px; font-size: 11px; }
   .editorial-link { font-size: 11px; gap: 10px; }
   .brand-composition { display: none; }
-  .opening-bottom { font-size: 7px; letter-spacing: 1px; gap: 15px; padding: 18px 0; }
+  .opening-bottom { font-size: 7px; letter-spacing: 0; gap: 15px; padding: 18px 0; }
   .opening-bottom a { gap: 10px; }
   .identity-strip { justify-content: flex-start; gap: 25px; padding: 12px 20px; font-size: 17px; }
   .identity-strip span:nth-child(even) { font-size: 22px; }
@@ -237,5 +237,5 @@ h1 span { color: var(--primary); }
   .mobile-booking { position: fixed; z-index: 25; bottom: 0; left: 0; right: 0; display: block; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: var(--background); border-top: 1px solid var(--border); }
   .mobile-booking .editorial-button { width: 100%; justify-content: space-between; }
 }
-@media (max-width: 359px) { h1 { font-size: 63px; } .opening-actions { gap: 6px 15px; } .opening-bottom { font-size: 6px; } .footer-top { flex-direction: column; } }
+@media (max-width: 359px) { h1 { font-size: 48px; } .opening-actions { gap: 6px 15px; } .opening-bottom { font-size: 6px; } .footer-top { flex-direction: column; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
