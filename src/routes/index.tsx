@@ -6,7 +6,7 @@ import { siteContent as content } from '@/lib/site-content';
 import logo from '@/assets/oliveira-logo-oficial.png.asset.json';
 
 const title = 'Oliveira Barbearia | Barbearia por assinatura em Arapiraca–AL';
-const description = 'Seu estilo. Sua presença. Sempre em dia. Conheça a Oliveira Barbearia em Arapiraca, consulte planos por assinatura e agende pelo Cash Barber.';
+const description = 'Seu estilo. Sua presença. Sempre em dia. Conheça a Oliveira Barbearia e o Clube OLVR em Arapiraca, consulte planos e agende pelo Cash Barber.';
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -81,7 +81,7 @@ function Index() {
               <div className="opening-copy">
                 <h1 id="opening-title">Seu estilo.<br />Sua presença.<br /><span>Sempre em dia.</span></h1>
                 <p>{content.introduction}</p>
-                <div className="opening-actions"><ExternalLink href={content.links.booking}>Agendar horário</ExternalLink><Button asChild variant="editorialLink"><a href="#planos">Conhecer os planos<ArrowDown aria-hidden="true" /></a></Button></div>
+                <div className="opening-actions"><ExternalLink href={content.links.booking}>Agendar horário</ExternalLink><Button asChild variant="editorialLink"><a href="#planos">Conhecer o Clube OLVR<ArrowDown aria-hidden="true" /></a></Button></div>
               </div>
               <div className="brand-composition" aria-hidden="true">
                 <div className="brand-frame"><span className="brand-frame-top">ESTILO É PRESENÇA</span><Logo /><div className="brand-frame-bottom"><span>BARBEARIA POR ASSINATURA</span><span>AL / BR</span></div></div>
@@ -99,7 +99,7 @@ function Index() {
         </section>
 
         <section id="planos" className="section subscription-section" tabIndex={-1} aria-labelledby="plans-title">
-          <div className="page-container two-column"><div><p className="eyebrow">02 / ASSINATURA OLIVEIRA</p><h2 id="plans-title">Seu estilo<br />não tira <em>folga.</em></h2><p className="section-subtitle">Para quem faz do cuidado um hábito.</p></div><div className="section-copy"><p>{content.subscription.text}</p><ExternalLink href={content.links.booking}>Consultar planos</ExternalLink><div className="subscription-note"><Check size={16} aria-hidden="true" /><span>Opções e condições no Cash Barber</span></div></div></div>
+          <div className="page-container two-column"><div><p className="eyebrow">02 / {content.subscription.description}</p><h2 id="plans-title">{content.subscription.name}</h2><p className="club-tagline">{content.subscription.title}</p></div><div className="section-copy"><p>{content.subscription.text}</p><ExternalLink href={content.links.booking}>{content.subscription.action}</ExternalLink><div className="subscription-note"><Check size={16} aria-hidden="true" /><span>Opções e condições no Cash Barber</span></div></div></div>
         </section>
 
         <section className="section booking-section" aria-labelledby="booking-title">

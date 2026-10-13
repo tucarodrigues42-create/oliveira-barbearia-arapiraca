@@ -1,4 +1,11 @@
 # Oliveira Barbearia
+- [x] Ajustar enquadramento após inspeção visual; preservar checkpoint 225c6954a3cc95ca78be068efbf0c022321c2ad2 sem alterar histórico.
+- [x] Aplicar nome Clube OLVR na navegação, seção, chamadas e FAQ.
+- [ ] Aplicar logo original OLVR — bloqueado: apresentação pública Cash Barber exibe somente logo Oliveira e em seguida exige criar conta/login; aguarda arquivo original ou URL pública inequívoca do clube.
+- [x] Revalidar 320/390/768/1440px e entregar preview sem publicar.
+
+Correção OLVR: screenshots antes/depois; container 1160px, logo principal horizontal sem rotação e sem proporção quadrada artificial, colunas/alinhamentos e espaçamentos compactados. Verificação Playwright em 320/390/768/1440px: sem overflow, botões não sobrepostos, logos principais integrais/proporcionais, menu/Escape/retorno de foco e seleção, FAQ, skip link, links seguros e rodapé livre do CTA fixo. Axe WCAG A/AA sem violações nas quatro telas; teste de rota aprovado; compilação automática OK. Não publicado. Checkpoint anterior continua existente no histórico.
+Consulta pública com JS: https://cashbarber.com.br/oliveirabsara; apresentação de planos exibe https://cdn.cashbarber.com.br/1774460805-293458.png (512×590), que é a marca Oliveira, não OLVR. Os três backgrounds públicos são arquivos idênticos. Nenhuma logo do clube foi inventada ou reutilizada indevidamente; não houve login/reserva/compra.
 - [x] Implementar apresentação e conteúdo real, logo original e favicon.
 - [x] Verificar navegação, acessibilidade e celular/tablet/desktop.
 - [x] Conferir sinais de compilação e entregar somente preview com pendências reais.
