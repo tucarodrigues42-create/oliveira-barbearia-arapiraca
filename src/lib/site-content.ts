@@ -1,0 +1,42 @@
+export const siteContent = {
+  name: 'Oliveira Barbearia',
+  city: 'Arapiraca · Alagoas',
+  headline: ['Seu estilo.', 'Sua presença.', 'Sempre em dia.'],
+  introduction: 'A sua barbearia por assinatura em Arapiraca. Reserve um momento para cuidar de você.',
+  links: {
+    booking: 'https://cashbarber.com.br/oliveirabsara',
+    whatsapp: 'https://wa.me/5582981820974',
+    instagram: 'https://www.instagram.com/oliveirabsarapiraca/',
+    maps: 'https://maps.app.goo.gl/x1bCGX52mGnLAja78',
+    phone: 'tel:+5582981820974',
+  },
+  phone: '(82) 98182-0974',
+  instagramHandle: '@oliveirabsarapiraca',
+  address: { street: 'Rua Justino Sebastião da Silva, 75', neighborhood: 'Santa Esmeralda', city: 'Arapiraca–AL', postalCode: '57312-070' },
+  about: { title: 'O cuidado faz parte do estilo.', text: 'Na Oliveira, o cuidado com o visual tem lugar na sua rotina. Conheça a barbearia, acompanhe os trabalhos e escolha seu próximo horário.' },
+  subscription: { title: 'Seu estilo não tira folga.', text: 'A Oliveira oferece planos por assinatura. Conheça as opções disponíveis e consulte as condições para encontrar o plano que combina com a sua rotina.' },
+  reviews: {
+    rating: 5.0,
+    count: 315,
+    date: '13/10/2026',
+    source: 'Dados do perfil Google fornecidos',
+    profileUrl: 'https://maps.app.goo.gl/x1bCGX52mGnLAja78',
+    independentlyVerified: false,
+  },
+  navigation: [
+    { id: 'sobre', label: 'A barbearia' },
+    { id: 'planos', label: 'Assinatura' },
+    { id: 'avaliacoes', label: 'Avaliações' },
+    { id: 'contato', label: 'Contato' },
+  ],
+  steps: [
+    { title: 'Acesse a agenda', text: 'Abra o agendamento online da Oliveira no Cash Barber.' },
+    { title: 'Escolha seu atendimento', text: 'Consulte as opções e os horários disponíveis no sistema.' },
+    { title: 'Finalize sua reserva', text: 'Siga as orientações e confira a confirmação do seu agendamento.' },
+  ],
+  faq: [
+    { question: 'Como faço meu agendamento?', answer: 'Toque em “Agendar horário” para abrir o Cash Barber. A reserva é feita diretamente no sistema da barbearia.' },
+    { question: 'Onde consulto os valores dos planos?', answer: 'Acesse “Consultar planos” ou fale com a equipe pelo WhatsApp. Confirme as opções incluídas, os valores e as condições antes de contratar.' },
+    { question: 'Posso tirar dúvidas antes de agendar?', answer: 'Sim. Use o link do WhatsApp para conversar com a equipe sobre os atendimentos e a sua visita.' },
+  ],
+} as const;
