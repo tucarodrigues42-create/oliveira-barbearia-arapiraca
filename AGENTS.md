@@ -8,3 +8,9 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Site architecture
+- Keep institutional copy, contact URLs, navigation and manually sourced reviews in `src/lib/site-content.ts` so factual updates have a single source.
+- Use a single scrolling index with semantic anchor sections because this site's navigation explicitly requires in-page anchors; do not add a backend or booking implementation.
+- Preserve the original logo through its asset pointer and derive the favicon by proportional padding, never cropping or recreating the artwork.
+- Define the editorial visual system in `src/styles.css` and use Button variants for commands and external calls to action to keep styling consistent.
