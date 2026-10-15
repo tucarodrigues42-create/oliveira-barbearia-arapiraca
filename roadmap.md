@@ -1,7 +1,11 @@
 # Oliveira Barbearia
+- [x] Aplicar luxo discreto: paleta quente, Instrument Serif/Inter, blocos refinados e ações Cash Barber/WhatsApp.
+- [x] Verificar atualização em 320/390/768/1440px e entregar preview sem publicar.
+
+Upgrade de 15/10/2026: logo OLVR original fornecida em Fotos_PNG.zip / 2.png (2000×2000), armazenada integralmente sem alteração de cores ou recorte. Paleta solicitada, títulos Instrument Serif e corpo Inter; faixa discreta e passos em blocos grafite; CTA WhatsApp na abertura e acesso rápido no botão fixo móvel. Preservados conteúdo factual, avaliações e links. Playwright em 320/390/768/1440px: sem overflow, logos carregadas e proporcionais, menu/Escape/foco/âncora, FAQ, links seguros e rodapé livre do botão fixo. Abertura do Cash Barber confirmada, nenhuma reserva efetuada. Screenshots desktop, celular e seção OLVR conferidas. Sem erros de execução; teste de rota aprovado; sinal de compilação automática OK. Sem publicação.
 - [x] Ajustar enquadramento após inspeção visual; preservar checkpoint 225c6954a3cc95ca78be068efbf0c022321c2ad2 sem alterar histórico.
 - [x] Aplicar nome Clube OLVR na navegação, seção, chamadas e FAQ.
-- [ ] Aplicar logo original OLVR — bloqueado: apresentação pública Cash Barber exibe somente logo Oliveira e em seguida exige criar conta/login; aguarda arquivo original ou URL pública inequívoca do clube.
+- [x] Aplicar logo original OLVR — arquivo 2.png do Fotos_PNG.zip enviado pelo proprietário, integral e sem alterações.
 - [x] Revalidar 320/390/768/1440px e entregar preview sem publicar.
 
 Correção OLVR: screenshots antes/depois; container 1160px, logo principal horizontal sem rotação e sem proporção quadrada artificial, colunas/alinhamentos e espaçamentos compactados. Verificação Playwright em 320/390/768/1440px: sem overflow, botões não sobrepostos, logos principais integrais/proporcionais, menu/Escape/retorno de foco e seleção, FAQ, skip link, links seguros e rodapé livre do CTA fixo. Axe WCAG A/AA sem violações nas quatro telas; teste de rota aprovado; compilação automática OK. Não publicado. Checkpoint anterior continua existente no histórico.

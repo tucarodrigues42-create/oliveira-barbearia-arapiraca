@@ -20,7 +20,7 @@ export const siteContent = {
     title: 'Seu estilo não tira folga.',
     text: 'A Oliveira oferece planos por assinatura no Clube OLVR. Conheça as opções disponíveis e consulte as condições para encontrar o plano que combina com a sua rotina.',
     action: 'Consultar planos do Clube OLVR',
-    logo: { status: 'pending', sourcePage: 'https://cashbarber.com.br/oliveirabsara' },
+    logo: { status: 'provided', sourceFile: 'Fotos_PNG.zip / 2.png', sourcePage: 'https://cashbarber.com.br/oliveirabsara' },
   },
   reviews: {
     rating: 5.0,
