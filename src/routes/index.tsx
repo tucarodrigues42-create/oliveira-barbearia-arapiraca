@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUpRight, Check, ChevronDown, Instagram, MapPin, Menu, M
 import { Button } from '@/components/ui/button';
 import { siteContent as content } from '@/lib/site-content';
 import logo from '@/assets/oliveira-logo-oficial.png.asset.json';
+import clubLogo from '@/assets/clube-olvr-oficial.png.asset.json';
 
 const title = 'Oliveira Barbearia | Barbearia por assinatura em Arapiraca–AL';
 const description = 'Seu estilo. Sua presença. Sempre em dia. Conheça a Oliveira Barbearia e o Clube OLVR em Arapiraca, consulte planos e agende pelo Cash Barber.';
@@ -81,7 +82,8 @@ function Index() {
               <div className="opening-copy">
                 <h1 id="opening-title">Seu estilo.<br />Sua presença.<br /><span>Sempre em dia.</span></h1>
                 <p>{content.introduction}</p>
-                <div className="opening-actions"><ExternalLink href={content.links.booking}>Agendar horário</ExternalLink><Button asChild variant="editorialLink"><a href="#planos">Conhecer o Clube OLVR<ArrowDown aria-hidden="true" /></a></Button></div>
+                <div className="opening-actions"><ExternalLink href={content.links.booking}>Agendar horário</ExternalLink><ExternalLink href={content.links.whatsapp} variant="editorialOutline"><MessageCircle aria-hidden="true" />WhatsApp</ExternalLink></div>
+                <Button asChild variant="editorialLink" className="opening-club-link"><a href="#planos">Conhecer o Clube OLVR<ArrowDown aria-hidden="true" /></a></Button>
               </div>
               <div className="brand-composition" aria-hidden="true">
                 <div className="brand-frame"><span className="brand-frame-top">ESTILO É PRESENÇA</span><Logo /><div className="brand-frame-bottom"><span>BARBEARIA POR ASSINATURA</span><span>AL / BR</span></div></div>
@@ -99,7 +101,7 @@ function Index() {
         </section>
 
         <section id="planos" className="section subscription-section" tabIndex={-1} aria-labelledby="plans-title">
-          <div className="page-container two-column"><div><p className="eyebrow">02 / {content.subscription.description}</p><h2 id="plans-title">{content.subscription.name}</h2><p className="club-tagline">{content.subscription.title}</p></div><div className="section-copy"><p>{content.subscription.text}</p><ExternalLink href={content.links.booking}>{content.subscription.action}</ExternalLink><div className="subscription-note"><Check size={16} aria-hidden="true" /><span>Opções e condições no Cash Barber</span></div></div></div>
+          <div className="page-container club-layout"><div className="club-identity"><p className="eyebrow">02 / {content.subscription.description}</p><h2 id="plans-title">{content.subscription.name}</h2><p className="club-tagline">{content.subscription.title}</p></div><img className="club-logo" src={clubLogo.url} width={2000} height={2000} alt="Marca oficial do Clube OLVR, clube de assinatura da Oliveira Barbearia" /><div className="section-copy"><p>{content.subscription.text}</p><ExternalLink href={content.links.booking}>{content.subscription.action}</ExternalLink><div className="subscription-note"><Check size={16} aria-hidden="true" /><span>Opções e condições no Cash Barber</span></div></div></div>
         </section>
 
         <section className="section booking-section" aria-labelledby="booking-title">
@@ -116,7 +118,7 @@ function Index() {
       </main>
 
       <footer className="site-footer"><div className="page-container footer-top"><a href="#inicio" className="footer-logo" aria-label="Oliveira Barbearia — voltar ao início"><Logo /></a><p>Seu estilo. Sua presença.<br /><span>Sempre em dia.</span></p><ExternalLink variant="editorialOutline" href={content.links.booking}>Agendar horário</ExternalLink></div><div className="page-container footer-bottom"><span>© {new Date().getUTCFullYear()} Oliveira Barbearia</span><span>Arapiraca · Alagoas</span><a href={content.links.phone}>{content.phone}</a></div></footer>
-      <div className="mobile-booking"><ExternalLink href={content.links.booking}>Agendar horário</ExternalLink></div>
+      <div className="mobile-booking"><ExternalLink href={content.links.booking}>Agendar horário</ExternalLink><Button asChild variant="editorialOutline" size="icon" className="quick-whatsapp"><a href={content.links.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Atendimento pelo WhatsApp" title="Atendimento pelo WhatsApp"><MessageCircle aria-hidden="true" /></a></Button></div>
     </>
   );
 }

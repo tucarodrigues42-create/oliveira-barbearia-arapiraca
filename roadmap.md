@@ -1,7 +1,9 @@
 # Oliveira Barbearia
+- [ ] Aplicar luxo discreto: paleta quente, Instrument Serif/Inter, blocos refinados e ações Cash Barber/WhatsApp.
+- [ ] Verificar atualização em 320/390/768/1440px e entregar preview sem publicar.
 - [x] Ajustar enquadramento após inspeção visual; preservar checkpoint 225c6954a3cc95ca78be068efbf0c022321c2ad2 sem alterar histórico.
 - [x] Aplicar nome Clube OLVR na navegação, seção, chamadas e FAQ.
-- [ ] Aplicar logo original OLVR — bloqueado: apresentação pública Cash Barber exibe somente logo Oliveira e em seguida exige criar conta/login; aguarda arquivo original ou URL pública inequívoca do clube.
+- [x] Aplicar logo original OLVR — arquivo 2.png do Fotos_PNG.zip enviado pelo proprietário, integral e sem alterações.
 - [x] Revalidar 320/390/768/1440px e entregar preview sem publicar.
 
 Correção OLVR: screenshots antes/depois; container 1160px, logo principal horizontal sem rotação e sem proporção quadrada artificial, colunas/alinhamentos e espaçamentos compactados. Verificação Playwright em 320/390/768/1440px: sem overflow, botões não sobrepostos, logos principais integrais/proporcionais, menu/Escape/retorno de foco e seleção, FAQ, skip link, links seguros e rodapé livre do CTA fixo. Axe WCAG A/AA sem violações nas quatro telas; teste de rota aprovado; compilação automática OK. Não publicado. Checkpoint anterior continua existente no histórico.

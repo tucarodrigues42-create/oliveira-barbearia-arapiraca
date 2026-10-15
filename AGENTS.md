@@ -14,3 +14,4 @@
 - Use a single scrolling index with semantic anchor sections because this site's navigation explicitly requires in-page anchors; do not add a backend or booking implementation.
 - Preserve the original logo through its asset pointer and derive the favicon by proportional padding, never cropping or recreating the artwork.
 - Define the editorial visual system in `src/styles.css` and use Button variants for commands and external calls to action to keep styling consistent.
+- Keep the owner-supplied club mark as a separate full-aspect asset from the principal brand so club updates cannot replace header/footer identity.
