@@ -342,3 +342,10 @@ svg { flex-shrink: 0; }
  .black-result { gap: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { .black-choice { transition: none; } }
+
+.black-unlimited { font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: var(--primary); line-height: 1.2; margin: 12px 0 8px; }
+.black-comparison { margin-top: 28px; padding: 20px; background: var(--secondary); border-left: 2px solid var(--primary); }
+.black-comparison dl { display: grid; gap: 12px; margin: 16px 0; }
+.black-comparison dl > div { display: flex; justify-content: space-between; gap: 16px; font-size: var(--text-sm); }
+.black-comparison dd { font-weight: 600; white-space: nowrap; }
+.black-saving { color: var(--primary); font-size: 20px; font-weight: 700; margin-bottom: 8px; }

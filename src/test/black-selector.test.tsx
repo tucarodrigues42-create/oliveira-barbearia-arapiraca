@@ -7,11 +7,13 @@ describe("Black selector", () => {
   it("updates the chosen plan, booking label and WhatsApp message together", () => {
     render(<BlackSelector />);
     for (const [choice, plan, price] of [
-      ["Minha barba", "Black Barba", "67,90"],
-      ["Visual completo", "Black Corte e Barba", "117,90"],
-      ["Meu cabelo", "Black Corte", "67,90"],
+      ["BARBA", "Black Barba", "67,90"],
+      ["CORTE + BARBA", "Black Corte e Barba", "117,90"],
+      ["CORTE", "Black Corte", "67,90"],
     ] as const) {
-      fireEvent.click(screen.getByRole("radio", { name: new RegExp(choice!) }));
+      fireEvent.click(
+        screen.getByRole("radio", { name: new RegExp(`^${choice.replace("+", "\\+")} R`) }),
+      );
       expect(screen.getByRole("heading", { name: plan })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: `Conhecer o ${plan}` })).toHaveAttribute(
         "href",
@@ -26,10 +28,24 @@ describe("Black selector", () => {
       expect(url.searchParams.get("text")).toContain(price);
     }
   });
+  it("calculates all three comparisons from confirmed service prices", () => {
+    render(<BlackSelector />);
+    const radios = screen.getAllByRole("radio");
+    for (const [index, total, saving, label] of [
+      [0, "R$ 120", "52,10", "4 cortes avulsos"],
+      [1, "R$ 120", "52,10", "4 barbas avulsas"],
+      [2, "R$ 240", "122,10", "4 cortes + 4 barbas"],
+    ] as const) {
+      fireEvent.click(radios[index]!);
+      expect(screen.getByText(total)).toBeInTheDocument();
+      expect(screen.getByText(`Economize R$ ${saving} no mês`)).toBeInTheDocument();
+      expect(screen.getByText(label)).toBeInTheDocument();
+    }
+  });
   it("keeps allowance, rules and alternative plans available", () => {
     render(<BlackSelector />);
     expect(screen.getByText(/100/)).toBeInTheDocument();
-    expect(screen.getByText("Veja todos os benefícios").closest("details")).not.toHaveAttribute(
+    expect(screen.getByText("Veja o que você ganha").closest("details")).not.toHaveAttribute(
       "open",
     );
     expect(screen.getByRole("link", { name: /Conhecer também Smart/ })).toHaveAttribute(

@@ -9,6 +9,15 @@ export function BlackSelector() {
   const [selectedId, setSelectedId] = useState("black-corte");
   const selected = family?.plans.find((plan) => plan.id === selectedId);
   if (!family || !selected) return null;
+  const choice = content.blackSelector.choices.find((item) => item.planId === selected.id);
+  const services = choice?.comparisonServices.map((name) =>
+    content.services.find((service) => service.name === name),
+  );
+  // Hide the comparison if a confirmed service price is missing; never assume zero.
+  const hasPrices = services?.length && services.every((service) => service !== undefined);
+  const totalCents =
+    services?.reduce((sum, service) => sum + Math.round((service?.price ?? 0) * 100) * 4, 0) ?? 0;
+  const savingCents = totalCents - Math.round(selected.price * 100);
   const whatsapp = new URL(content.links.whatsapp);
   whatsapp.searchParams.set(
     "text",
@@ -59,30 +68,65 @@ export function BlackSelector() {
             })}
           </div>
         </fieldset>
-        <div id="black-result" className="black-result" key={selected.id}>
+        <div id="black-result" className="black-result">
           <div className="black-result-copy">
             <div aria-live="polite" aria-atomic="true">
               <p className="eyebrow">Seu cuidado escolhido</p>
               <h3>{selected.label}</h3>
-              <p className="black-inclusions">{selected.includes.join(" + ")} incluídos.</p>
+              <p className="black-unlimited">{choice?.headline}</p>
+              <p className="note">{selected.allowance} · Mediante agendamento.</p>
+              <p className="black-inclusions">{choice?.benefit}</p>
               <p className="plan-price">
                 {formatPrice(selected.price)}
                 <span>/mês</span>
               </p>
             </div>
             <p>{family.days} · Mediante agendamento.</p>
-            <p className="note">{selected.allowance}</p>
+            {Boolean(hasPrices) && choice && (
+              <div
+                className="black-comparison"
+                aria-label="Comparação com serviços avulsos"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <h4>{choice.comparisonTitle}</h4>
+                <p className="note">
+                  {services
+                    ?.map((service) => `${service!.name}: ${formatPrice(service!.price)} avulso`)
+                    .join(" · ")}
+                </p>
+                <dl>
+                  <div>
+                    <dt>{choice.comparisonLabel}</dt>
+                    <dd>{formatPrice(totalCents / 100)}</dd>
+                  </div>
+                  <div>
+                    <dt>{selected.label} por mês</dt>
+                    <dd>{formatPrice(selected.price)}</dd>
+                  </div>
+                </dl>
+                <p className="black-saving">
+                  {savingCents > 0
+                    ? `Economize ${formatPrice(savingCents / 100)} no mês`
+                    : "Compare os serviços e benefícios do plano"}
+                </p>
+                <p className="note">
+                  Comparação para quem faz {choice.comparisonLabel.toLowerCase()} no mês.{" "}
+                  {choice.benefit} Economia condicionada a essa frequência de uso.
+                </p>
+              </div>
+            )}
           </div>
           <div className="black-result-actions">
-            <details className="plan-more black-benefits">
+            <details className="plan-more black-benefits" key={selected.id}>
               <summary>
-                Veja todos os benefícios <span aria-hidden="true">+</span>
+                Veja o que você ganha <span aria-hidden="true">+</span>
               </summary>
               <ul>
                 {selected.includes.map((service) => (
                   <li key={service}>
                     <Check aria-hidden="true" />
-                    {service} incluído
+                    {service} sem pagar a mais
                   </li>
                 ))}
                 <li>
