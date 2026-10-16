@@ -70,3 +70,16 @@ describe("plan calculator", () => {
     expect(formatCents(4190)).toBe("R$ 41,90");
   });
 });
+
+
+describe("full-week availability", () => {
+  it("compares Black and One without treating Smart as included all week", () => {
+    const input = { service: "combo", visits: 2, days: "seg-sab" } as const;
+    expect(estimatePlan(byId("smart-corte-barba"), input)).toBeNull();
+    const result = simulate(plans, input);
+    expect(result.best?.totalCents).toBe(11790);
+    expect(result.best?.extraCents).toBe(0);
+    expect(result.estimates.every(e => !e.plan.simulator.offDayExtra)).toBe(true);
+    expect(estimatePlan(byId("clube-one"), { service: "corte", visits: 2, days: "seg-sab" })?.totalCents).toBe(4190);
+  });
+});

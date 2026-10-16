@@ -7,6 +7,6 @@ export const serviceOptions: { value: SimChoice; label: string }[] = [
 ];
 export const frequencyOptions: SimFrequency[] = [2, 3, 4];
 export const dayOptions: { value: SimDays; label: string; short: string }[] = [
+  { value: "seg-sab", label: "Segunda a sábado", short: "seg–sáb" },
   { value: "seg-qua", label: "Segunda a quarta", short: "seg–qua" },
-  { value: "qui-sab", label: "Quinta a sábado", short: "qui–sáb" },
 ];

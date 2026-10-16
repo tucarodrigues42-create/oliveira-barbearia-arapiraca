@@ -112,6 +112,9 @@ export function PlanSimulator({
             onChange={(days) => onChange({ ...input, days })}
             track="simulator-day"
           />
+          {input.days === "seg-sab" && (
+            <p className="note">Black: serviços incluídos de segunda a sábado. O Clube One também atende nesses dias, com 1 corte incluído e adicionais pagos. Para comparar Smart com os serviços incluídos, selecione Segunda a quarta.</p>
+          )}
         </div>
 
         <div className="simulator-result">

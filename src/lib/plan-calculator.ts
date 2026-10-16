@@ -1,7 +1,7 @@
 import type { Plan, SimService } from "@/lib/site-content";
 
 export type SimChoice = "corte" | "barba" | "combo";
-export type SimDays = "seg-qua" | "qui-sab";
+export type SimDays = "seg-qua" | "qui-sab" | "seg-sab";
 export type SimFrequency = 2 | 3 | 4;
 
 export interface SimInput {
@@ -46,6 +46,8 @@ export function covers(plan: Plan, service: SimChoice): boolean {
 export function estimatePlan(plan: Plan, input: SimInput): PlanEstimate | null {
   if (!covers(plan, input.service)) return null;
   const rules = plan.simulator;
+  // Without a split of visits by day, Smart has no exact full-week total.
+  if (input.days === "seg-sab" && rules.offDayExtra) return null;
   const services = needed(input.service);
   const baseCents = toCents(plan.price);
   let extraCents = 0;
