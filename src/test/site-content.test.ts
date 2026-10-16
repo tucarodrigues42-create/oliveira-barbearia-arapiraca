@@ -11,7 +11,8 @@ describe("Clube OLVR content", () => {
 
   it('never presents an "Ilimitado" plan without its monthly allowance', () => {
     for (const plan of plans.filter((p) => /ilimitad/i.test(p.name))) {
-      expect(plan.allowance).toMatch(/100 utilizações/);
+      // Aceita variações de redação da franquia, desde que exponha os 100 usos mensais.
+      expect(plan.allowance).toMatch(/100\s*(utilizações|usos)/i);
     }
   });
 
