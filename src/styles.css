@@ -248,3 +248,13 @@ h1 span { color: var(--primary); font-style: italic; }
 
 .opening-hours { display: flex; gap: 12px; align-items: flex-start; color: var(--foreground); line-height: 1.6; }
 .opening-hours strong { font-weight: 600; }
+
+.quotes-lead { margin-top: 56px; font-family: var(--font-display); font-style: italic; font-size: 30px; line-height: 1.2; color: var(--primary); }
+.review-quotes { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.review-quotes li { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 26px; }
+.review-quotes figure { margin: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 22px; }
+.review-quotes blockquote { margin: 0; font-family: var(--font-display); font-size: 21px; line-height: 1.35; color: var(--foreground); overflow-wrap: break-word; }
+.review-quotes figcaption { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--muted-foreground); }
+.quotes-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 24px; }
+.quotes-footer > span { font-size: 11px; color: var(--muted-foreground); max-width: 420px; }
+@media (max-width: 900px) { .review-quotes { grid-template-columns: 1fr; } .quotes-lead { font-size: 26px; margin-top: 40px; } .review-quotes blockquote { font-size: 19px; } }
