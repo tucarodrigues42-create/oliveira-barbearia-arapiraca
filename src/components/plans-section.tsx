@@ -1,22 +1,10 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { Check, ChevronDown } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import { estimatePlan, formatCents, type SimInput } from "@/lib/plan-calculator";
 import { formatPrice, siteContent as content, type Plan } from "@/lib/site-content";
-import { dayOptions } from "@/lib/simulator-options";
 import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
 
-function PlanCard({
-  plan,
-  input,
-  bookingWindow,
-}: {
-  plan: Plan;
-  input: SimInput;
-  bookingWindow: string;
-}) {
-  const estimate = estimatePlan(plan, input);
-  const dayShort = dayOptions.find((d) => d.value === input.days)?.short;
+function PlanCard({ plan, bookingWindow }: { plan: Plan; bookingWindow: string }) {
   return (
     <li className="plan-card" data-highlight={plan.highlight ? "" : undefined}>
       {plan.highlight && plan.highlightLabel && (
@@ -28,12 +16,6 @@ function PlanCard({
         <span>/mês</span>
       </p>
       <p className="plan-days">Incluído: {plan.includedDays.toLowerCase()}</p>
-      {estimate && (
-        <p className="plan-equivalent">
-          ≈ {formatCents(estimate.perVisitCents)} por visita no seu regime ({input.visits} visitas,{" "}
-          {dayShort})
-        </p>
-      )}
       {plan.benefit && <p className="plan-benefit">{plan.benefit}</p>}
       <details className="plan-more">
         <summary>
@@ -79,7 +61,7 @@ function PlanCard({
   );
 }
 
-export function PlansSection({ action, input }: { action: ReactNode; input: SimInput }) {
+export function PlansSection({ action }: { action: ReactNode }) {
   const sub = content.subscription;
   const [family, setFamily] = useState<string>(sub.families[0]?.id ?? "black");
   return (
@@ -134,12 +116,7 @@ export function PlansSection({ action, input }: { action: ReactNode; input: SimI
               </div>
               <ul className="plan-cards">
                 {f.plans.map((plan) => (
-                  <PlanCard
-                    key={plan.id}
-                    plan={plan}
-                    input={input}
-                    bookingWindow={f.bookingWindow}
-                  />
+                  <PlanCard key={plan.id} plan={plan} bookingWindow={f.bookingWindow} />
                 ))}
               </ul>
             </TabsPrimitive.Content>

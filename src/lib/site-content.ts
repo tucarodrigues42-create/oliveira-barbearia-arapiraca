@@ -89,7 +89,7 @@ const planFamilies: PlanFamily[] = [
         includes: ["Corte", "Pezinho"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a sábado",
-        benefit: "Corte e pezinho sempre em dia, sem pensar em agenda, de segunda a sábado.",
+        benefit: "Corte e pezinho sempre em dia, mediante agendamento, de segunda a sábado.",
       },
       {
         id: "black-barba",
@@ -252,7 +252,7 @@ export const siteContent = {
     description: "Clube de assinatura da Oliveira Barbearia",
     title: "Seu estilo não tira folga.",
     text: "Três famílias de planos: Black para usar a semana toda, Smart para quem prefere o início da semana e One para um corte por mês.",
-    action: "Assinar pelo Cash Barber",
+    action: "Conhecer os planos no Cash Barber",
     families: planFamilies,
     conditions: [
       "Mensalidade cobrada no cartão de crédito, com vigência indeterminada.",
@@ -289,15 +289,18 @@ export const siteContent = {
     quotesNote:
       "Trechos de avaliações do Google fornecidos pela barbearia, não verificados automaticamente.",
   },
-  simulator: {
-    title: "Qual plano compensa para você?",
-    text: "Escolha o serviço, quantas vezes vem por mês e em que dias. O cálculo compara o avulso com todos os planos que cobrem esse serviço.",
-    disclaimer:
-      "Estimativa com os preços fornecidos pela barbearia, para o mesmo serviço, frequência e dias escolhidos. Não inclui produtos, serviços extras nem descontos cumulativos. Os valores finais são os do Cash Barber.",
-    action: "Ver opções no Cash Barber",
+  blackSelector: {
+    extras: "10% de desconto em serviços extras e produtos",
+    title: "Seu visual em dia. Escolha seu Black.",
+    text: "Cabelo, barba ou cuidado completo: toque na opção que combina com você e conheça os serviços incluídos de segunda a sábado.",
+    choices: [
+      { planId: "black-corte", label: "Meu cabelo" },
+      { planId: "black-barba", label: "Minha barba" },
+      { planId: "black-corte-barba", label: "Visual completo" },
+    ],
   },
   navigation: [
-    { id: "simulador", label: "Simulador" },
+    { id: "seu-black", label: "Seu Black" },
     { id: "servicos", label: "Serviços" },
     { id: "planos", label: "Clube OLVR" },
     { id: "avaliacoes", label: "Avaliações" },

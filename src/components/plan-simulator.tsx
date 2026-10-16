@@ -1,215 +1,143 @@
-import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Check, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { formatCents, simulate, type SimInput } from "@/lib/plan-calculator";
-import { siteContent as content } from "@/lib/site-content";
+import { formatPrice, siteContent as content } from "@/lib/site-content";
 
-import { serviceOptions, frequencyOptions, dayOptions } from "@/lib/simulator-options";
-
-const allPlans = content.subscription.families.flatMap((f) => f.plans);
-
-function Choice<T extends string | number>({
-  legend,
-  name,
-  options,
-  value,
-  onChange,
-  track,
-}: {
-  legend: string;
-  name: string;
-  options: { value: T; label: string }[];
-  value: T;
-  onChange: (value: T) => void;
-  track: string;
-}) {
-  return (
-    <fieldset className="sim-field">
-      <legend>{legend}</legend>
-      <div className="sim-options">
-        {options.map((o) => {
-          const id = `${name}-${o.value}`;
-          return (
-            <span key={id}>
-              <input
-                type="radio"
-                id={id}
-                name={name}
-                value={String(o.value)}
-                checked={value === o.value}
-                onChange={() => onChange(o.value)}
-                data-track={track}
-                data-track-origin="simulator"
-              />
-              <label htmlFor={id}>{o.label}</label>
-            </span>
-          );
-        })}
-      </div>
-    </fieldset>
+/** Reuses the former simulator module so existing installations need no file deletion. */
+export function BlackSelector() {
+  const family = content.subscription.families.find((item) => item.id === "black");
+  const [selectedId, setSelectedId] = useState("black-corte");
+  const selected = family?.plans.find((plan) => plan.id === selectedId);
+  if (!family || !selected) return null;
+  const whatsapp = new URL(content.links.whatsapp);
+  whatsapp.searchParams.set(
+    "text",
+    `Olá! Gostaria de saber mais sobre o ${selected.label}, de ${formatPrice(selected.price)} por mês.`,
   );
-}
-
-export function PlanSimulator({
-  input,
-  onChange,
-}: {
-  input: SimInput;
-  onChange: (input: SimInput) => void;
-}) {
-  const result = simulate(allPlans, input);
-  const { best, differenceCents, singleCents } = result;
-  const dayShort = dayOptions.find((d) => d.value === input.days)?.short ?? "";
-  const regime = `${serviceOptions.find((s) => s.value === input.service)?.label}, ${input.visits} visitas por mês, ${dayShort}`;
-
-  let headline = "";
-  let detail = "";
-  if (best) {
-    if (differenceCents > 0) {
-      headline = `Menor custo estimado: ${best.plan.label}`;
-      detail = `Estimativa de ${formatCents(differenceCents)} a menos por mês que o avulso.`;
-    } else if (differenceCents < 0) {
-      headline = "Para este regime, o avulso sai mais barato";
-      detail = `O avulso custa ${formatCents(differenceCents)} menos que o plano mais barato (${best.plan.label}).`;
-    } else {
-      headline = `Empate entre avulso e ${best.plan.label}`;
-      detail = "O custo mensal estimado é o mesmo.";
-    }
-  }
 
   return (
     <section
-      id="simulador"
-      className="section simulator-section"
+      id="seu-black"
+      className="section black-selector"
+      aria-labelledby="black-selector-title"
       tabIndex={-1}
-      aria-labelledby="simulator-title"
     >
-      <div className="page-container simulator-layout">
-        <div className="simulator-form">
-          <p className="eyebrow">01 / Simulador</p>
-          <h2 id="simulator-title">{content.simulator.title}</h2>
-          <p className="lead">{content.simulator.text}</p>
-          <Choice
-            legend="Serviço"
-            name="sim-service"
-            options={serviceOptions}
-            value={input.service}
-            onChange={(service) => onChange({ ...input, service })}
-            track="simulator-service"
-          />
-          <Choice
-            legend="Visitas por mês"
-            name="sim-visits"
-            options={frequencyOptions.map((n) => ({ value: n, label: `${n} visitas` }))}
-            value={input.visits}
-            onChange={(visits) => onChange({ ...input, visits })}
-            track="simulator-frequency"
-          />
-          <Choice
-            legend="Dias em que você costuma vir"
-            name="sim-days"
-            options={dayOptions}
-            value={input.days}
-            onChange={(days) => onChange({ ...input, days })}
-            track="simulator-day"
-          />
-          {input.days === "seg-sab" && (
-            <p className="note">Black: serviços incluídos de segunda a sábado. O Clube One também atende nesses dias, com 1 corte incluído e adicionais pagos. Para comparar Smart com os serviços incluídos, selecione Segunda a quarta.</p>
-          )}
-        </div>
-
-        <div className="simulator-result">
-          <div aria-live="polite" aria-atomic="true" className="sim-summary">
-            <p className="eyebrow">Resultado · {regime}</p>
-            <p className="sim-headline">{headline}</p>
-            <p>{detail}</p>
-            {best && (
-              <dl className="sim-figures">
-                <div>
-                  <dt>Total mensal do plano</dt>
-                  <dd>{formatCents(best.totalCents)}</dd>
-                </div>
-                <div>
-                  <dt>Mensalidade</dt>
-                  <dd>{formatCents(best.baseCents)}</dd>
-                </div>
-                <div>
-                  <dt>Adicionais no mês</dt>
-                  <dd>{formatCents(best.extraCents)}</dd>
-                </div>
-                <div>
-                  <dt>Custo por visita</dt>
-                  <dd>{formatCents(best.perVisitCents)}</dd>
-                </div>
-                <div>
-                  <dt>Avulso no mês</dt>
-                  <dd>{formatCents(singleCents)}</dd>
-                </div>
-              </dl>
-            )}
+      <span id="simulador" className="legacy-anchor" aria-hidden="true" />
+      <div className="page-container">
+        <p className="eyebrow">Clube OLVR / Encontre seu Black</p>
+        <h2 id="black-selector-title">{content.blackSelector.title}</h2>
+        <p className="lead">{content.blackSelector.text}</p>
+        <fieldset className="black-choices">
+          <legend>O que você quer manter em dia?</legend>
+          <div className="black-choice-grid">
+            {content.blackSelector.choices.map((choice) => {
+              const plan = family.plans.find((item) => item.id === choice.planId);
+              if (!plan) return null;
+              return (
+                <label
+                  key={choice.planId}
+                  className="black-choice"
+                  data-selected={selectedId === plan.id ? "true" : undefined}
+                >
+                  <input
+                    type="radio"
+                    name="black-care"
+                    value={plan.id}
+                    checked={selectedId === plan.id}
+                    onChange={() => setSelectedId(plan.id)}
+                    aria-controls="black-result"
+                    data-track="black-choice"
+                    data-track-origin={plan.id}
+                  />
+                  <span>
+                    <strong>{choice.label}</strong>
+                    <span>{formatPrice(plan.price)} / mês</span>
+                  </span>
+                  <Check aria-hidden="true" className="black-choice-check" />
+                </label>
+              );
+            })}
           </div>
-
-          <details className="plan-more sim-comparison">
-            <summary>Comparar todas as opções</summary>
-            <div className="sim-table-scroll">
-              <table className="sim-table">
-                <caption>Comparação completa para este regime</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Opção</th>
-                    <th scope="col">Total/mês</th>
-                    <th scope="col">Por visita</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.estimates.map((e) => (
-                    <tr key={e.plan.id} data-best={e === best ? "" : undefined}>
-                      <th scope="row">
-                        {e.plan.label}
-                        {e.extraCents > 0 && (
-                          <span>
-                            {formatCents(e.baseCents)} + {formatCents(e.extraCents)} adicionais
-                          </span>
-                        )}
-                      </th>
-                      <td>{formatCents(e.totalCents)}</td>
-                      <td>{formatCents(e.perVisitCents)}</td>
-                    </tr>
-                  ))}
-                  <tr>
-                    <th scope="row">Avulso</th>
-                    <td>{formatCents(singleCents)}</td>
-                    <td>{formatCents(singleCents / input.visits)}</td>
-                  </tr>
-                </tbody>
-              </table>
+        </fieldset>
+        <div id="black-result" className="black-result" key={selected.id}>
+          <div className="black-result-copy">
+            <div aria-live="polite" aria-atomic="true">
+              <p className="eyebrow">Seu cuidado escolhido</p>
+              <h3>{selected.label}</h3>
+              <p className="black-inclusions">{selected.includes.join(" + ")} incluídos.</p>
+              <p className="plan-price">
+                {formatPrice(selected.price)}
+                <span>/mês</span>
+              </p>
             </div>
-          </details>
-          <p className="note">{content.simulator.disclaimer}</p>
-          <div className="sim-actions">
+            <p>{family.days} · Mediante agendamento.</p>
+            <p className="note">{selected.allowance}</p>
+          </div>
+          <div className="black-result-actions">
+            <details className="plan-more black-benefits">
+              <summary>
+                Veja todos os benefícios <span aria-hidden="true">+</span>
+              </summary>
+              <ul>
+                {selected.includes.map((service) => (
+                  <li key={service}>
+                    <Check aria-hidden="true" />
+                    {service} incluído
+                  </li>
+                ))}
+                <li>
+                  <Check aria-hidden="true" />
+                  {family.bookingWindow}
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  {content.blackSelector.extras}
+                </li>
+              </ul>
+            </details>
+            <details className="plan-more black-terms">
+              <summary>
+                Pagamento, cancelamento e regras <span aria-hidden="true">+</span>
+              </summary>
+              <ul>
+                {content.subscription.conditions.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p className="note">{content.subscription.conditionsNote}</p>
+            </details>
             <Button asChild variant="editorial">
               <a
                 href={content.links.booking}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-track="booking"
-                data-track-origin="simulator"
+                data-track-origin={`black-selector-${selected.id}`}
               >
-                {content.simulator.action}
+                Conhecer o {selected.label}
                 <ArrowUpRight aria-hidden="true" />
               </a>
             </Button>
-            <a
-              className="text-link"
-              href={content.links.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-track="whatsapp"
-              data-track-origin="simulator"
-            >
-              {content.whatsappCta.title} Fale pelo WhatsApp
-            </a>
+            <p className="note">
+              Abre o Cash Barber. Selecione o {selected.label} para consultar e contratar.
+            </p>
+            <Button asChild variant="editorialOutline">
+              <a
+                href={whatsapp.toString()}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="whatsapp"
+                data-track-origin={`black-selector-${selected.id}`}
+              >
+                <MessageCircle aria-hidden="true" />
+                Tirar dúvidas sobre este Black
+              </a>
+            </Button>
           </div>
         </div>
+        <a href="#planos" className="text-link black-other-plans">
+          Conhecer também Smart e Clube One <ArrowUpRight aria-hidden="true" />
+        </a>
       </div>
     </section>
   );

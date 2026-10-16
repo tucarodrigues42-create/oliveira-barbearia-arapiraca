@@ -264,27 +264,6 @@ svg { flex-shrink: 0; }
 }
 
 /* Simulador e abas de planos */
-.simulator-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--space-5); }
-.sim-field { margin: var(--space-3) 0 0; padding: 0; border: 0; }
-.sim-field legend { font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-1); }
-.sim-options { display: flex; flex-wrap: wrap; gap: 8px; }
-.sim-options input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.sim-options label { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-2); border: 1px solid var(--border); border-radius: var(--radius); font-size: var(--text-sm); cursor: pointer; }
-.sim-options input:checked + label { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
-.sim-options input:focus-visible + label { outline: 2px solid var(--primary); outline-offset: 3px; }
-.simulator-result { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-4); background: var(--secondary); border: 1px solid var(--border); border-radius: var(--radius); }
-.sim-headline { font-family: var(--font-display); font-size: 30px; line-height: 1.15; color: var(--primary); margin-bottom: 6px; }
-.sim-figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: var(--space-2); font-size: var(--text-sm); }
-.sim-figures dt { color: var(--muted-foreground); }
-.sim-figures dd { font-size: var(--text-lg); font-weight: 600; }
-.sim-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
-.sim-table caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
-.sim-table th, .sim-table td { padding: 10px 6px; border-top: 1px solid var(--border); text-align: left; font-weight: 400; vertical-align: top; }
-.sim-table td { text-align: right; white-space: nowrap; }
-.sim-table thead th { color: var(--muted-foreground); }
-.sim-table th span { display: block; font-size: var(--text-xs); color: var(--muted-foreground); }
-.sim-table tr[data-best] th, .sim-table tr[data-best] td { color: var(--primary); font-weight: 600; }
-.sim-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px var(--space-3); }
 .plan-tabs { margin-top: var(--space-5); }
 .plan-tablist { display: flex; gap: 8px; border-bottom: 1px solid var(--border); }
 .plan-tab { min-height: 48px; padding: 0 var(--space-3); background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted-foreground); font: 600 var(--text-base) var(--font-body); cursor: pointer; }
@@ -306,11 +285,8 @@ svg { flex-shrink: 0; }
 .plan-more[open] summary svg { transform: rotate(180deg); }
 .plan-more dl { display: grid; gap: 8px; font-size: var(--text-sm); padding-bottom: 8px; }
 .plan-more dt { color: var(--muted-foreground); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; }
-@media (max-width: 959px) { .simulator-layout { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 639px) { .simulator-result { padding: var(--space-3) 16px; } .plan-tab { flex: 1; padding: 0 8px; } }
+@media (max-width: 639px) { .plan-tab { flex: 1; padding: 0 8px; } }
 
-.sim-table-scroll { overflow-x: auto; }
-.sim-result, .sim-controls { min-width: 0; }
 
 /* Progressive scroll reveal: content remains visible without animation support. */
 @keyframes oliveira-section-enter {
@@ -333,3 +309,36 @@ svg { flex-shrink: 0; }
 @media (prefers-reduced-motion: reduce) {
   main .section > .page-container { animation: none; transform: none; opacity: 1; }
 }
+
+/* Black selector: native radios keep touch and keyboard interactions consistent. */
+.legacy-anchor { display: block; scroll-margin-top: 100px; }
+.black-selector .lead { max-width: 680px; }
+.black-choices { border: 0; margin: 28px 0; padding: 0; min-width: 0; }
+.black-choices legend { font-weight: 600; margin-bottom: 12px; }
+.black-choice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.black-choice { position: relative; display: flex; align-items: center; gap: 12px; padding: 18px; min-height: 90px; border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: background-color .18s, border-color .18s; }
+.black-choice input { accent-color: var(--primary); width: 18px; height: 18px; flex-shrink: 0; }
+.black-choice > span { display: grid; gap: 4px; }
+.black-choice > span > span { font-size: var(--text-sm); }
+.black-choice[data-selected] { background: var(--secondary); border-color: var(--primary); }
+.black-choice:focus-within { outline: 2px solid var(--primary); outline-offset: 4px; }
+.black-choice-check { margin-left: auto; width: 18px; flex-shrink: 0; visibility: hidden; }
+.black-choice[data-selected] .black-choice-check { visibility: visible; color: var(--primary); }
+.black-result { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--space-5); padding: 28px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.black-result h3 { font-family: var(--font-display); font-size: clamp(30px,4vw,48px); line-height: 1.15; margin: 8px 0 16px; }
+.black-inclusions { margin-bottom: 20px; }
+.black-result .plan-price { margin-bottom: 12px; }
+.black-result-copy > .note { margin-top: 12px; }
+.black-result-actions { display: grid; align-content: start; gap: 12px; min-width: 0; }
+.black-result-actions > a { white-space: normal; height: auto; min-height: 48px; padding-block: 12px; text-align: center; }
+.black-result-actions details { border-bottom: 1px solid var(--border); }
+.black-result-actions details ul { display: grid; gap: 10px; padding: 12px 0 20px; font-size: var(--text-sm); }
+.black-benefits li { display: flex; align-items: center; gap: 8px; }
+.black-benefits li svg { width: 16px; flex-shrink: 0; color: var(--primary); }
+.black-other-plans { margin-top: 20px; display: inline-flex; min-height: 44px; align-items: center; gap: 8px; }
+@media (max-width: 759px) {
+ .black-choice-grid, .black-result { grid-template-columns: minmax(0,1fr); }
+ .black-choice { min-height: 76px; padding: 14px; }
+ .black-result { gap: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .black-choice { transition: none; } }

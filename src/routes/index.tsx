@@ -14,8 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PlansSection } from "@/components/plans-section";
-import { PlanSimulator } from "@/components/plan-simulator";
-import type { SimInput } from "@/lib/plan-calculator";
+import { BlackSelector } from "@/components/plan-simulator";
 import { formatPrice, siteContent as content, type TrackTarget } from "@/lib/site-content";
 import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
@@ -92,7 +91,6 @@ const ratingText = content.reviews.rating.toFixed(1).replace(".", ",");
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [sim, setSim] = useState<SimInput>({ service: "corte", visits: 2, days: "seg-qua" });
   const menuButton = useRef<HTMLButtonElement>(null);
   const mobileNav = useRef<HTMLElement>(null);
 
@@ -190,8 +188,8 @@ function Index() {
               <p className="lead">{content.hero.text}</p>
               <div className="hero-actions">
                 <Button asChild variant="editorial">
-                  <a href="#simulador" data-track="plans" data-track-origin="hero-simulator">
-                    Simular meu plano ideal
+                  <a href="#seu-black" data-track="plans" data-track-origin="hero-black-selector">
+                    Encontrar meu Black
                     <ArrowDown aria-hidden="true" />
                   </a>
                 </Button>
@@ -235,6 +233,8 @@ function Index() {
             </div>
           </div>
         </section>
+
+        <BlackSelector />
 
         <section
           id="servicos"
@@ -282,10 +282,7 @@ function Index() {
           </div>
         </section>
 
-        <PlanSimulator input={sim} onChange={setSim} />
-
         <PlansSection
-          input={sim}
           action={
             <ExternalLink href={content.links.booking} track="booking" origin="plans">
               {content.subscription.action}
