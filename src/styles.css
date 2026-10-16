@@ -316,36 +316,40 @@ svg { flex-shrink: 0; }
 .black-choices { border: 0; margin: 28px 0; padding: 0; min-width: 0; }
 .black-choices legend { font-weight: 600; margin-bottom: 12px; }
 .black-choice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.black-choice { position: relative; display: flex; align-items: center; gap: 12px; padding: 18px; min-height: 90px; border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: background-color .18s, border-color .18s; }
-.black-choice input { accent-color: var(--primary); width: 18px; height: 18px; flex-shrink: 0; }
+.black-choice { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 18px; min-height: 58px; border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: background-color .18s, border-color .18s; }
+.black-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .black-choice > span { display: grid; gap: 4px; }
-.black-choice > span > span { font-size: var(--text-sm); }
-.black-choice[data-selected] { background: var(--secondary); border-color: var(--primary); }
+.black-choice[data-selected] { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
 .black-choice:focus-within { outline: 2px solid var(--primary); outline-offset: 4px; }
-.black-choice-check { margin-left: auto; width: 18px; flex-shrink: 0; visibility: hidden; }
-.black-choice[data-selected] .black-choice-check { visibility: visible; color: var(--primary); }
-.black-result { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--space-5); padding: 28px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.black-result { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--space-5); padding: 32px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--secondary); }
 .black-result h3 { font-family: var(--font-display); font-size: clamp(30px,4vw,48px); line-height: 1.15; margin: 8px 0 16px; }
 .black-inclusions { margin-bottom: 20px; }
 .black-result .plan-price { margin-bottom: 12px; }
 .black-result-copy > .note { margin-top: 12px; }
 .black-result-actions { display: grid; align-content: start; gap: 12px; min-width: 0; }
 .black-result-actions > a { white-space: normal; height: auto; min-height: 48px; padding-block: 12px; text-align: center; }
-.black-result-actions details { border-bottom: 1px solid var(--border); }
-.black-result-actions details ul { display: grid; gap: 10px; padding: 12px 0 20px; font-size: var(--text-sm); }
+.black-result-details details { border-bottom: 1px solid var(--border); }
+.black-result-details details ul { display: grid; gap: 10px; padding: 12px 0 20px; font-size: var(--text-sm); }
 .black-benefits li { display: flex; align-items: center; gap: 8px; }
 .black-benefits li svg { width: 16px; flex-shrink: 0; color: var(--primary); }
 .black-other-plans { margin-top: 20px; display: inline-flex; min-height: 44px; align-items: center; gap: 8px; }
 @media (max-width: 759px) {
- .black-choice-grid, .black-result { grid-template-columns: minmax(0,1fr); }
- .black-choice { min-height: 76px; padding: 14px; }
+ .black-result { grid-template-columns: minmax(0,1fr); padding: 22px 16px; }
+ .black-choice-grid { gap: 6px; }
+ .black-choice { min-height: 52px; padding: 12px 3px; font-size: 11px; text-align: center; }
  .black-result { gap: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { .black-choice { transition: none; } }
 
 .black-unlimited { font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: var(--primary); line-height: 1.2; margin: 12px 0 8px; }
-.black-comparison { margin-top: 28px; padding: 20px; background: var(--secondary); border-left: 2px solid var(--primary); }
+.black-comparison { margin-top: 0; padding: 20px; background: var(--background); border-top: 3px solid var(--primary); border-radius: var(--radius); }
 .black-comparison dl { display: grid; gap: 12px; margin: 16px 0; }
 .black-comparison dl > div { display: flex; justify-content: space-between; gap: 16px; font-size: var(--text-sm); }
 .black-comparison dd { font-weight: 600; white-space: nowrap; }
 .black-saving { color: var(--primary); font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+
+.black-result-actions { margin-top: 24px; }
+.black-result-details { min-width: 0; }
+.black-result-details details ul { list-style: none; }
+.black-comparison h4 { font-size: 18px; line-height: 1.4; }
+.black-comparison dl > div { padding-block: 10px; border-bottom: 1px solid var(--border); }

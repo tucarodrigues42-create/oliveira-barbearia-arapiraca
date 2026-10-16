@@ -60,9 +60,7 @@ export function BlackSelector() {
                   />
                   <span>
                     <strong>{choice.label}</strong>
-                    <span>{formatPrice(plan.price)} / mês</span>
                   </span>
-                  <Check aria-hidden="true" className="black-choice-check" />
                 </label>
               );
             })}
@@ -71,9 +69,8 @@ export function BlackSelector() {
         <div id="black-result" className="black-result">
           <div className="black-result-copy">
             <div aria-live="polite" aria-atomic="true">
-              <p className="eyebrow">Seu cuidado escolhido</p>
-              <h3>{selected.label}</h3>
-              <p className="black-unlimited">{choice?.headline}</p>
+              <p className="eyebrow">{selected.label}</p>
+              <h3 className="black-unlimited">{choice?.headline}</h3>
               <p className="note">{selected.allowance} · Mediante agendamento.</p>
               <p className="black-inclusions">{choice?.benefit}</p>
               <p className="plan-price">
@@ -82,6 +79,37 @@ export function BlackSelector() {
               </p>
             </div>
             <p>{family.days} · Mediante agendamento.</p>
+            <div className="black-result-actions">
+              <Button asChild variant="editorial">
+                <a
+                  href={content.links.booking}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="booking"
+                  data-track-origin={`black-selector-${selected.id}`}
+                >
+                  Conhecer o {selected.label}
+                  <ArrowUpRight aria-hidden="true" />
+                </a>
+              </Button>
+              <p className="note">
+                Abre o Cash Barber. Selecione o {selected.label} para consultar e contratar.
+              </p>
+              <Button asChild variant="editorialOutline">
+                <a
+                  href={whatsapp.toString()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="whatsapp"
+                  data-track-origin={`black-selector-${selected.id}`}
+                >
+                  <MessageCircle aria-hidden="true" />
+                  Tirar dúvidas sobre este Black
+                </a>
+              </Button>
+            </div>
+          </div>
+          <div className="black-result-details">
             {Boolean(hasPrices) && choice && (
               <div
                 className="black-comparison"
@@ -116,8 +144,6 @@ export function BlackSelector() {
                 </p>
               </div>
             )}
-          </div>
-          <div className="black-result-actions">
             <details className="plan-more black-benefits" key={selected.id}>
               <summary>
                 Veja o que você ganha <span aria-hidden="true">+</span>
@@ -150,33 +176,6 @@ export function BlackSelector() {
               </ul>
               <p className="note">{content.subscription.conditionsNote}</p>
             </details>
-            <Button asChild variant="editorial">
-              <a
-                href={content.links.booking}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-track="booking"
-                data-track-origin={`black-selector-${selected.id}`}
-              >
-                Conhecer o {selected.label}
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-            </Button>
-            <p className="note">
-              Abre o Cash Barber. Selecione o {selected.label} para consultar e contratar.
-            </p>
-            <Button asChild variant="editorialOutline">
-              <a
-                href={whatsapp.toString()}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-track="whatsapp"
-                data-track-origin={`black-selector-${selected.id}`}
-              >
-                <MessageCircle aria-hidden="true" />
-                Tirar dúvidas sobre este Black
-              </a>
-            </Button>
           </div>
         </div>
         <a href="#planos" className="text-link black-other-plans">

@@ -11,10 +11,8 @@ describe("Black selector", () => {
       ["CORTE + BARBA", "Black Corte e Barba", "117,90"],
       ["CORTE", "Black Corte", "67,90"],
     ] as const) {
-      fireEvent.click(
-        screen.getByRole("radio", { name: new RegExp(`^${choice.replace("+", "\\+")} R`) }),
-      );
-      expect(screen.getByRole("heading", { name: plan })).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("radio", { name: choice }));
+      expect(screen.getByText(plan, { selector: "p.eyebrow" })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: `Conhecer o ${plan}` })).toHaveAttribute(
         "href",
         "https://cashbarber.com.br/oliveirabsara",
