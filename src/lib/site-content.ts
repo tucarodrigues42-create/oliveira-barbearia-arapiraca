@@ -30,6 +30,12 @@ export const siteContent = {
     source: 'Dados do perfil Google fornecidos',
     profileUrl: 'https://maps.app.goo.gl/x1bCGX52mGnLAja78',
     independentlyVerified: false,
+    quotes: [
+      { author: 'Deatrax Logane', text: 'Ambiente organizado, profissionais atenciosos e corte sempre do jeito que pedi.' },
+      { author: 'Ruy Falcão', text: 'Um dos melhores atendimentos da cidade, todos muito preparados e competentes' },
+      { author: 'Salez xita', text: 'Um lugar aconchegante, atencioso aos detalhes irei voltar outras vezes.' },
+    ],
+    quotesNote: 'Trechos de avaliações do Google fornecidos pela barbearia, não verificados automaticamente.',
   },
   navigation: [
     { id: 'sobre', label: 'A barbearia' },
