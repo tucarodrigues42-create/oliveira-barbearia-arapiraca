@@ -1,39 +1,70 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { ArrowDown, ArrowUpRight, ChevronDown, Clock, Instagram, MapPin, Menu, MessageCircle, Star, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { PlansSection } from '@/components/plans-section';
-import { formatPrice, siteContent as content, type TrackTarget } from '@/lib/site-content';
-import logo from '@/assets/oliveira-logo-oficial.png.asset.json';
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  ChevronDown,
+  Clock,
+  Instagram,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Star,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PlansSection } from "@/components/plans-section";
+import { formatPrice, siteContent as content, type TrackTarget } from "@/lib/site-content";
+import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
-const title = 'Oliveira Barbearia | Corte, barba e Clube OLVR em Arapiraca–AL';
+const title = "Oliveira Barbearia | Corte, barba e Clube OLVR em Arapiraca–AL";
 const description =
-  'Corte e barba na Santa Esmeralda, Arapiraca–AL. Atendimento avulso ou planos do Clube OLVR a partir de R$ 26,90/mês. Segunda a sábado, 9h às 20h. Agende pelo Cash Barber.';
+  "Corte e barba na Santa Esmeralda, Arapiraca–AL. Atendimento avulso ou planos do Clube OLVR a partir de R$ 26,90/mês. Segunda a sábado, 9h às 20h. Agende pelo Cash Barber.";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title },
-      { name: 'description', content: description },
-      { property: 'og:title', content: title },
-      { property: 'og:description', content: description },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:locale', content: 'pt_BR' },
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: title },
-      { name: 'twitter:description', content: description },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "pt_BR" },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
     ],
   }),
   component: Index,
 });
 
-type Variant = 'editorial' | 'editorialOutline' | 'editorialLink';
+type Variant = "editorial" | "editorialOutline" | "editorialLink";
 
 /** Link externo seguro. data-track/data-track-origin preparam mensuração futura (nenhuma ferramenta instalada). */
-function ExternalLink({ href, children, track, origin, variant = 'editorial', className = '' }: { href: string; children: ReactNode; track: TrackTarget; origin: string; variant?: Variant; className?: string }) {
+function ExternalLink({
+  href,
+  children,
+  track,
+  origin,
+  variant = "editorial",
+  className = "",
+}: {
+  href: string;
+  children: ReactNode;
+  track: TrackTarget;
+  origin: string;
+  variant?: Variant;
+  className?: string;
+}) {
   return (
     <Button asChild variant={variant} className={className}>
-      <a href={href} target="_blank" rel="noopener noreferrer" data-track={track} data-track-origin={origin}>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-track={track}
+        data-track-origin={origin}
+      >
         {children}
         <ArrowUpRight aria-hidden="true" />
       </a>
@@ -41,11 +72,21 @@ function ExternalLink({ href, children, track, origin, variant = 'editorial', cl
   );
 }
 
-function Logo({ className = '', lazy = false }: { className?: string; lazy?: boolean }) {
-  return <img className={`brand-logo ${className}`} src={logo.url} width={1314} height={451} alt="Oliveira Barbearia" loading={lazy ? 'lazy' : 'eager'} decoding="async" />;
+function Logo({ className = "", lazy = false }: { className?: string; lazy?: boolean }) {
+  return (
+    <img
+      className={`brand-logo ${className}`}
+      src={logo.url}
+      width={1314}
+      height={451}
+      alt="Oliveira Barbearia"
+      loading={lazy ? "lazy" : "eager"}
+      decoding="async"
+    />
+  );
 }
 
-const ratingText = content.reviews.rating.toFixed(1).replace('.', ',');
+const ratingText = content.reviews.rating.toFixed(1).replace(".", ",");
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -54,22 +95,22 @@ function Index() {
 
   useEffect(() => {
     if (!menuOpen) return;
-    mobileNav.current?.querySelector<HTMLAnchorElement>('a')?.focus();
+    mobileNav.current?.querySelector<HTMLAnchorElement>("a")?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setMenuOpen(false);
         menuButton.current?.focus();
       }
     };
-    const desktop = window.matchMedia('(min-width: 960px)');
+    const desktop = window.matchMedia("(min-width: 960px)");
     const onResize = () => {
       if (desktop.matches) setMenuOpen(false);
     };
-    document.addEventListener('keydown', onKeyDown);
-    desktop.addEventListener('change', onResize);
+    document.addEventListener("keydown", onKeyDown);
+    desktop.addEventListener("change", onResize);
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
-      desktop.removeEventListener('change', onResize);
+      document.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", onResize);
     };
   }, [menuOpen]);
 
@@ -89,21 +130,40 @@ function Index() {
             <Logo />
           </a>
           <nav className="desktop-nav" aria-label="Navegação principal">
-            {content.navigation.map(item => (
+            {content.navigation.map((item) => (
               <a key={item.id} href={`#${item.id}`}>
                 {item.label}
               </a>
             ))}
           </nav>
-          <ExternalLink className="header-booking" href={content.links.booking} track="booking" origin="header">
+          <ExternalLink
+            className="header-booking"
+            href={content.links.booking}
+            track="booking"
+            origin="header"
+          >
             Agendar horário
           </ExternalLink>
-          <Button ref={menuButton} variant="menu" size="icon" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>
+          <Button
+            ref={menuButton}
+            variant="menu"
+            size="icon"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             {menuOpen ? <X /> : <Menu />}
           </Button>
         </div>
-        <nav ref={mobileNav} id="mobile-navigation" className="mobile-nav" aria-label="Navegação móvel" hidden={!menuOpen}>
-          {content.navigation.map(item => (
+        <nav
+          ref={mobileNav}
+          id="mobile-navigation"
+          className="mobile-nav"
+          aria-label="Navegação móvel"
+          hidden={!menuOpen}
+        >
+          {content.navigation.map((item) => (
             <a key={item.id} href={`#${item.id}`} onClick={() => selectSection(item.id)}>
               {item.label}
               <ArrowDown aria-hidden="true" />
@@ -139,14 +199,26 @@ function Index() {
                 </Button>
               </div>
               <div className="hero-trust">
-                <a href="#avaliacoes" className="hero-rating" data-track="reviews" data-track-origin="hero">
+                <a
+                  href="#avaliacoes"
+                  className="hero-rating"
+                  data-track="reviews"
+                  data-track-origin="hero"
+                >
                   <Star aria-hidden="true" />
                   <span>
                     <strong>{ratingText}/5</strong> · {content.reviews.count} avaliações no Google
                   </span>
                 </a>
                 <span className="note">Dados fornecidos em {content.reviews.date}</span>
-                <a className="text-link" href={content.links.whatsapp} target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-track-origin="hero">
+                <a
+                  className="text-link"
+                  href={content.links.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="whatsapp"
+                  data-track-origin="hero"
+                >
                   Dúvidas? Fale pelo WhatsApp
                 </a>
               </div>
@@ -158,7 +230,12 @@ function Index() {
           </div>
         </section>
 
-        <section id="servicos" className="section services-section" tabIndex={-1} aria-labelledby="services-title">
+        <section
+          id="servicos"
+          className="section services-section"
+          tabIndex={-1}
+          aria-labelledby="services-title"
+        >
           <div className="page-container two-column">
             <div>
               <p className="eyebrow">01 / Atendimento avulso</p>
@@ -166,14 +243,19 @@ function Index() {
                 Serviços e <em>valores.</em>
               </h2>
               <p className="lead">{content.about.text}</p>
-              <ExternalLink variant="editorialLink" href={content.links.instagram} track="instagram" origin="services">
+              <ExternalLink
+                variant="editorialLink"
+                href={content.links.instagram}
+                track="instagram"
+                origin="services"
+              >
                 <Instagram aria-hidden="true" />
                 Veja os trabalhos no Instagram
               </ExternalLink>
             </div>
             <div>
               <ul className="price-list">
-                {content.services.map(s => (
+                {content.services.map((s) => (
                   <li key={s.name}>
                     <span>{s.name}</span>
                     <span className="price-dots" aria-hidden="true" />
@@ -182,7 +264,12 @@ function Index() {
                 ))}
               </ul>
               <p className="note">{content.servicesNote}</p>
-              <ExternalLink className="section-action" href={content.links.booking} track="booking" origin="services">
+              <ExternalLink
+                className="section-action"
+                href={content.links.booking}
+                track="booking"
+                origin="services"
+              >
                 Agendar meu horário
               </ExternalLink>
             </div>
@@ -216,7 +303,12 @@ function Index() {
           </div>
         </section>
 
-        <section id="avaliacoes" className="section reviews-section" tabIndex={-1} aria-labelledby="reviews-title">
+        <section
+          id="avaliacoes"
+          className="section reviews-section"
+          tabIndex={-1}
+          aria-labelledby="reviews-title"
+        >
           <div className="page-container">
             <div className="reviews-layout">
               <div>
@@ -239,7 +331,7 @@ function Index() {
               </div>
             </div>
             <ul className="review-quotes">
-              {content.reviews.quotes.map(q => (
+              {content.reviews.quotes.map((q) => (
                 <li key={q.author}>
                   <figure>
                     <blockquote>
@@ -254,17 +346,28 @@ function Index() {
               ))}
             </ul>
             <div className="quotes-footer">
-              <ExternalLink variant="editorialOutline" href={content.reviews.profileUrl} track="reviews" origin="reviews">
+              <ExternalLink
+                variant="editorialOutline"
+                href={content.reviews.profileUrl}
+                track="reviews"
+                origin="reviews"
+              >
                 Ver avaliações no Google
               </ExternalLink>
               <p className="note">
-                {content.reviews.quotesNote} {content.reviews.source} em {content.reviews.date} · Atualização manual.
+                {content.reviews.quotesNote} {content.reviews.source} em {content.reviews.date} ·
+                Atualização manual.
               </p>
             </div>
           </div>
         </section>
 
-        <section id="contato" className="section contact-section" tabIndex={-1} aria-labelledby="contact-title">
+        <section
+          id="contato"
+          className="section contact-section"
+          tabIndex={-1}
+          aria-labelledby="contact-title"
+        >
           <div className="page-container two-column">
             <div>
               <p className="eyebrow">05 / Venha até a Oliveira</p>
@@ -289,12 +392,23 @@ function Index() {
                   {content.openingHours.days}, das {content.openingHours.hours}
                 </span>
               </p>
-              <ExternalLink variant="editorialLink" href={content.links.maps} track="maps" origin="contact">
+              <ExternalLink
+                variant="editorialLink"
+                href={content.links.maps}
+                track="maps"
+                origin="contact"
+              >
                 Como chegar
               </ExternalLink>
             </div>
             <div className="contact-links">
-              <a href={content.links.whatsapp} target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-track-origin="contact">
+              <a
+                href={content.links.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="whatsapp"
+                data-track-origin="contact"
+              >
                 <MessageCircle aria-hidden="true" />
                 <span>
                   <span className="eyebrow">Fale com a equipe</span>
@@ -303,7 +417,13 @@ function Index() {
                 </span>
                 <ArrowUpRight aria-hidden="true" />
               </a>
-              <a href={content.links.instagram} target="_blank" rel="noopener noreferrer" data-track="instagram" data-track-origin="contact">
+              <a
+                href={content.links.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="instagram"
+                data-track-origin="contact"
+              >
                 <Instagram aria-hidden="true" />
                 <span>
                   <span className="eyebrow">Acompanhe a Oliveira</span>
@@ -325,7 +445,7 @@ function Index() {
               </h2>
             </div>
             <div className="faq-list">
-              {content.faq.map(item => (
+              {content.faq.map((item) => (
                 <details key={item.question}>
                   <summary>
                     {item.question}
@@ -334,7 +454,14 @@ function Index() {
                   <p>{item.answer}</p>
                 </details>
               ))}
-              <a className="text-link" href={content.links.whatsapp} target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-track-origin="faq">
+              <a
+                className="text-link"
+                href={content.links.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="whatsapp"
+                data-track-origin="faq"
+              >
                 Outra dúvida? Fale pelo WhatsApp
               </a>
             </div>
@@ -344,7 +471,11 @@ function Index() {
 
       <footer className="site-footer">
         <div className="page-container footer-top">
-          <a href="#inicio" className="footer-logo" aria-label="Oliveira Barbearia — voltar ao início">
+          <a
+            href="#inicio"
+            className="footer-logo"
+            aria-label="Oliveira Barbearia — voltar ao início"
+          >
             <Logo lazy />
           </a>
           <p>
@@ -352,7 +483,12 @@ function Index() {
             <br />
             <span>Sempre em dia.</span>
           </p>
-          <ExternalLink className="footer-booking" href={content.links.booking} track="booking" origin="footer">
+          <ExternalLink
+            className="footer-booking"
+            href={content.links.booking}
+            track="booking"
+            origin="footer"
+          >
             Agendar meu horário
           </ExternalLink>
         </div>
@@ -371,7 +507,15 @@ function Index() {
           Agendar meu horário
         </ExternalLink>
         <Button asChild variant="editorialOutline" size="icon" className="quick-whatsapp">
-          <a href={content.links.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Dúvidas pelo WhatsApp" title="Dúvidas pelo WhatsApp" data-track="whatsapp" data-track-origin="sticky-bar">
+          <a
+            href={content.links.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Dúvidas pelo WhatsApp"
+            title="Dúvidas pelo WhatsApp"
+            data-track="whatsapp"
+            data-track-origin="sticky-bar"
+          >
             <MessageCircle aria-hidden="true" />
           </a>
         </Button>

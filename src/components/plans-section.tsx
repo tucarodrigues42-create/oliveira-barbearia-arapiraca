@@ -1,7 +1,7 @@
-import { Check } from 'lucide-react';
-import type { ReactNode } from 'react';
-import { formatPrice, siteContent as content, type PlanFamily } from '@/lib/site-content';
-import clubLogo from '@/assets/clube-olvr-branco.png.asset.json';
+import { Check } from "lucide-react";
+import type { ReactNode } from "react";
+import { formatPrice, siteContent as content, type PlanFamily } from "@/lib/site-content";
+import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
 
 function Family({ family }: { family: PlanFamily }) {
   const headingId = `familia-${family.id}`;
@@ -16,7 +16,7 @@ function Family({ family }: { family: PlanFamily }) {
         </ul>
       </header>
       <ul className="plan-rows">
-        {family.plans.map(plan => (
+        {family.plans.map((plan) => (
           <li key={plan.id} className="plan-row">
             <div className="plan-name">
               <h4>{plan.name}</h4>
@@ -28,7 +28,7 @@ function Family({ family }: { family: PlanFamily }) {
             <dl className="plan-details">
               <div>
                 <dt>Inclui</dt>
-                <dd>{plan.includes.join(', ')}</dd>
+                <dd>{plan.includes.join(", ")}</dd>
               </div>
               {plan.allowance && (
                 <div>
@@ -45,8 +45,11 @@ function Family({ family }: { family: PlanFamily }) {
                   <dt>{plan.extras.days}</dt>
                   <dd>
                     {plan.extras.charges
-                      .map(c => `${c.service} ${formatPrice(c.price)}${c.note ? ` (${c.note})` : ''}`)
-                      .join(' · ')}
+                      .map(
+                        (c) =>
+                          `${c.service} ${formatPrice(c.price)}${c.note ? ` (${c.note})` : ""}`,
+                      )
+                      .join(" · ")}
                   </dd>
                 </div>
               )}
@@ -61,7 +64,12 @@ function Family({ family }: { family: PlanFamily }) {
 export function PlansSection({ action }: { action: ReactNode }) {
   const sub = content.subscription;
   return (
-    <section id="planos" className="section plans-section" tabIndex={-1} aria-labelledby="plans-title">
+    <section
+      id="planos"
+      className="section plans-section"
+      tabIndex={-1}
+      aria-labelledby="plans-title"
+    >
       <div className="page-container">
         <div className="plans-intro">
           <div>
@@ -81,7 +89,7 @@ export function PlansSection({ action }: { action: ReactNode }) {
           />
         </div>
         <div className="plan-families">
-          {sub.families.map(family => (
+          {sub.families.map((family) => (
             <Family key={family.id} family={family} />
           ))}
         </div>
@@ -89,7 +97,7 @@ export function PlansSection({ action }: { action: ReactNode }) {
           <div>
             <h3>Condições para todos os planos</h3>
             <ul>
-              {sub.conditions.map(item => (
+              {sub.conditions.map((item) => (
                 <li key={item}>
                   <Check aria-hidden="true" />
                   {item}
