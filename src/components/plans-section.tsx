@@ -1,68 +1,87 @@
-import { Check } from "lucide-react";
-import type { ReactNode } from "react";
-import { formatPrice, siteContent as content, type PlanFamily } from "@/lib/site-content";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { Check, ChevronDown } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { estimatePlan, formatCents, type SimInput } from "@/lib/plan-calculator";
+import { formatPrice, siteContent as content, type Plan } from "@/lib/site-content";
+import { dayOptions } from "@/components/plan-simulator";
 import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
 
-function Family({ family }: { family: PlanFamily }) {
-  const headingId = `familia-${family.id}`;
+function PlanCard({
+  plan,
+  input,
+  bookingWindow,
+}: {
+  plan: Plan;
+  input: SimInput;
+  bookingWindow: string;
+}) {
+  const estimate = estimatePlan(plan, input);
+  const dayShort = dayOptions.find((d) => d.value === input.days)?.short;
   return (
-    <section className="plan-family" aria-labelledby={headingId}>
-      <header className="plan-family-head">
-        <h3 id={headingId}>{family.name}</h3>
-        <p>{family.summary}</p>
-        <ul className="plan-family-meta">
-          <li>{family.days}</li>
-          <li>{family.bookingWindow}</li>
-        </ul>
-      </header>
-      <ul className="plan-rows">
-        {family.plans.map((plan) => (
-          <li key={plan.id} className="plan-row">
-            <div className="plan-name">
-              <h4>{plan.name}</h4>
-              <p className="plan-price">
-                {formatPrice(plan.price)}
-                <span>/mês</span>
-              </p>
+    <li className="plan-card" data-highlight={plan.highlight ? "" : undefined}>
+      {plan.highlight && plan.highlightLabel && (
+        <span className="plan-badge">{plan.highlightLabel}</span>
+      )}
+      <h4>{plan.label}</h4>
+      <p className="plan-price">
+        {formatPrice(plan.price)}
+        <span>/mês</span>
+      </p>
+      <p className="plan-days">Incluído: {plan.includedDays.toLowerCase()}</p>
+      {estimate && (
+        <p className="plan-equivalent">
+          ≈ {formatCents(estimate.perVisitCents)} por visita no seu regime ({input.visits} visitas,{" "}
+          {dayShort})
+        </p>
+      )}
+      {plan.benefit && <p className="plan-benefit">{plan.benefit}</p>}
+      <details className="plan-more">
+        <summary>
+          Ver inclusões e limites
+          <ChevronDown aria-hidden="true" />
+        </summary>
+        <dl>
+          <div>
+            <dt>Nome no Cash Barber</dt>
+            <dd>{plan.name}</dd>
+          </div>
+          <div>
+            <dt>Inclui</dt>
+            <dd>{plan.includes.join(", ")}</dd>
+          </div>
+          {plan.allowance && (
+            <div>
+              <dt>Franquia</dt>
+              <dd>{plan.allowance}</dd>
             </div>
-            <dl className="plan-details">
-              <div>
-                <dt>Inclui</dt>
-                <dd>{plan.includes.join(", ")}</dd>
-              </div>
-              {plan.allowance && (
-                <div>
-                  <dt>Franquia</dt>
-                  <dd>{plan.allowance}</dd>
-                </div>
-              )}
-              <div>
-                <dt>Dias incluídos</dt>
-                <dd>{plan.includedDays}</dd>
-              </div>
-              {plan.extras && (
-                <div>
-                  <dt>{plan.extras.days}</dt>
-                  <dd>
-                    {plan.extras.charges
-                      .map(
-                        (c) =>
-                          `${c.service} ${formatPrice(c.price)}${c.note ? ` (${c.note})` : ""}`,
-                      )
-                      .join(" · ")}
-                  </dd>
-                </div>
-              )}
-            </dl>
-          </li>
-        ))}
-      </ul>
-    </section>
+          )}
+          <div>
+            <dt>Dias incluídos</dt>
+            <dd>{plan.includedDays}</dd>
+          </div>
+          {plan.extras && (
+            <div>
+              <dt>{plan.extras.days}</dt>
+              <dd>
+                {plan.extras.charges
+                  .map((c) => `${c.service} ${formatPrice(c.price)}${c.note ? ` (${c.note})` : ""}`)
+                  .join(" · ")}
+              </dd>
+            </div>
+          )}
+          <div>
+            <dt>Antecedência</dt>
+            <dd>{bookingWindow}</dd>
+          </div>
+        </dl>
+      </details>
+    </li>
   );
 }
 
-export function PlansSection({ action }: { action: ReactNode }) {
+export function PlansSection({ action, input }: { action: ReactNode; input: SimInput }) {
   const sub = content.subscription;
+  const [family, setFamily] = useState<string>(sub.families[0].id);
   return (
     <section
       id="planos"
@@ -88,14 +107,51 @@ export function PlansSection({ action }: { action: ReactNode }) {
             alt="Marca oficial do Clube OLVR, clube de assinatura da Oliveira Barbearia"
           />
         </div>
-        <div className="plan-families">
-          {sub.families.map((family) => (
-            <Family key={family.id} family={family} />
+
+        <TabsPrimitive.Root value={family} onValueChange={setFamily} className="plan-tabs">
+          <TabsPrimitive.List className="plan-tablist" aria-label="Famílias de planos">
+            {sub.families.map((f) => (
+              <TabsPrimitive.Trigger
+                key={f.id}
+                value={f.id}
+                className="plan-tab"
+                data-track="plans-family"
+                data-track-origin={`tab-${f.id}`}
+              >
+                {f.name}
+              </TabsPrimitive.Trigger>
+            ))}
+          </TabsPrimitive.List>
+          {sub.families.map((f) => (
+            <TabsPrimitive.Content key={f.id} value={f.id} className="plan-panel">
+              <div className="plan-panel-head">
+                <h3>{f.name}</h3>
+                <p>{f.valueHighlight ?? f.summary}</p>
+                <ul className="plan-family-meta">
+                  <li>{f.days}</li>
+                  <li>{f.bookingWindow}</li>
+                </ul>
+              </div>
+              <ul className="plan-cards">
+                {f.plans.map((plan) => (
+                  <PlanCard
+                    key={plan.id}
+                    plan={plan}
+                    input={input}
+                    bookingWindow={f.bookingWindow}
+                  />
+                ))}
+              </ul>
+            </TabsPrimitive.Content>
           ))}
-        </div>
+        </TabsPrimitive.Root>
+
         <div className="plan-conditions">
-          <div>
-            <h3>Condições para todos os planos</h3>
+          <details className="plan-more">
+            <summary>
+              Condições de todos os planos
+              <ChevronDown aria-hidden="true" />
+            </summary>
             <ul>
               {sub.conditions.map((item) => (
                 <li key={item}>
@@ -105,7 +161,7 @@ export function PlansSection({ action }: { action: ReactNode }) {
               ))}
             </ul>
             <p className="note">{sub.conditionsNote}</p>
-          </div>
+          </details>
           <div className="plan-conditions-action">{action}</div>
         </div>
       </div>

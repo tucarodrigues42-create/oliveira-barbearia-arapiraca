@@ -261,3 +261,49 @@ svg { flex-shrink: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* Simulador e abas de planos */
+.simulator-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--space-5); }
+.sim-field { margin: var(--space-3) 0 0; padding: 0; border: 0; }
+.sim-field legend { font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-1); }
+.sim-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.sim-options input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.sim-options label { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-2); border: 1px solid var(--border); border-radius: var(--radius); font-size: var(--text-sm); cursor: pointer; }
+.sim-options input:checked + label { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.sim-options input:focus-visible + label { outline: 2px solid var(--primary); outline-offset: 3px; }
+.simulator-result { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-4); background: var(--secondary); border: 1px solid var(--border); border-radius: var(--radius); }
+.sim-headline { font-family: var(--font-display); font-size: 30px; line-height: 1.15; color: var(--primary); margin-bottom: 6px; }
+.sim-figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: var(--space-2); font-size: var(--text-sm); }
+.sim-figures dt { color: var(--muted-foreground); }
+.sim-figures dd { font-size: var(--text-lg); font-weight: 600; }
+.sim-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.sim-table caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
+.sim-table th, .sim-table td { padding: 10px 6px; border-top: 1px solid var(--border); text-align: left; font-weight: 400; vertical-align: top; }
+.sim-table td { text-align: right; white-space: nowrap; }
+.sim-table thead th { color: var(--muted-foreground); }
+.sim-table th span { display: block; font-size: var(--text-xs); color: var(--muted-foreground); }
+.sim-table tr[data-best] th, .sim-table tr[data-best] td { color: var(--primary); font-weight: 600; }
+.sim-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px var(--space-3); }
+.plan-tabs { margin-top: var(--space-5); }
+.plan-tablist { display: flex; gap: 8px; border-bottom: 1px solid var(--border); }
+.plan-tab { min-height: 48px; padding: 0 var(--space-3); background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted-foreground); font: 600 var(--text-base) var(--font-body); cursor: pointer; }
+.plan-tab[data-state="active"] { color: var(--foreground); border-bottom-color: var(--primary); }
+.plan-panel { padding-top: var(--space-4); }
+.plan-panel-head h3 { font-size: 40px; color: var(--primary); }
+.plan-panel-head > p { margin-top: 6px; color: var(--muted-foreground); }
+.plan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-2); margin-top: var(--space-3); }
+.plan-card { position: relative; display: grid; gap: 8px; align-content: start; padding: var(--space-3); background: var(--background); border: 1px solid var(--border); border-radius: var(--radius); }
+.plan-card[data-highlight] { border-color: var(--primary); }
+.plan-badge { justify-self: start; padding: 2px 10px; font-size: var(--text-xs); font-weight: 600; background: var(--primary); color: var(--primary-foreground); border-radius: var(--radius); }
+.plan-card h4 { font-family: var(--font-body); font-size: var(--text-lg); font-weight: 600; }
+.plan-days, .plan-equivalent, .plan-benefit { font-size: var(--text-sm); }
+.plan-equivalent { color: var(--primary); }
+.plan-benefit { color: var(--muted-foreground); }
+.plan-more summary { display: flex; justify-content: space-between; align-items: center; min-height: 44px; cursor: pointer; list-style: none; font-size: var(--text-sm); font-weight: 600; }
+.plan-more summary::-webkit-details-marker { display: none; }
+.plan-more summary svg { width: 18px; height: 18px; color: var(--primary); }
+.plan-more[open] summary svg { transform: rotate(180deg); }
+.plan-more dl { display: grid; gap: 8px; font-size: var(--text-sm); padding-bottom: 8px; }
+.plan-more dt { color: var(--muted-foreground); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; }
+@media (max-width: 959px) { .simulator-layout { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 639px) { .simulator-result { padding: var(--space-3) 16px; } .plan-tab { flex: 1; padding: 0 8px; } }

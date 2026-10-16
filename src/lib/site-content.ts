@@ -18,9 +18,26 @@ export interface ExtraCharge {
   note?: string;
 }
 
+export type SimService = "corte" | "barba";
+
+/** Regras usadas pelo simulador; derivadas apenas dos dados confirmados de cada plano. */
+export interface PlanSimulatorRules {
+  covers: SimService[];
+  /** Valor por serviço e visita de quinta a sábado (planos Smart), além da mensalidade. */
+  offDayExtra?: Partial<Record<SimService, number>>;
+  /** Visitas incluídas por mês (Clube One); ausente = franquia de 100 usos. */
+  includedVisits?: number;
+  /** Valor de cada visita além das incluídas. */
+  additionalVisit?: number;
+}
+
 export interface Plan {
   id: string;
+  /** Nome exibido no cartão (sem "Ilimitado"); o nome contratual fica nos detalhes. */
+  label: string;
+  /** Nome contratual, exibido em "Ver inclusões e limites". */
   name: string;
+  simulator: PlanSimulatorRules;
   price: number;
   includes: string[];
   /** Franquia exibida junto ao plano sempre que houver serviços incluídos. */
@@ -65,6 +82,8 @@ const planFamilies: PlanFamily[] = [
     plans: [
       {
         id: "black-corte",
+        label: "Black Corte",
+        simulator: { covers: ["corte"] },
         name: "Black Corte Ilimitado",
         price: 67.9,
         includes: ["Corte", "Pezinho"],
@@ -74,6 +93,8 @@ const planFamilies: PlanFamily[] = [
       },
       {
         id: "black-barba",
+        label: "Black Barba",
+        simulator: { covers: ["barba"] },
         name: "Black Barba Ilimitada",
         price: 67.9,
         includes: ["Barba", "Barba Express"],
@@ -83,6 +104,8 @@ const planFamilies: PlanFamily[] = [
       },
       {
         id: "black-corte-barba",
+        label: "Black Corte e Barba",
+        simulator: { covers: ["corte", "barba"] },
         name: "Black Corte e Barba",
         price: 117.9,
         includes: ["Corte", "Barba", "Pezinho", "Barba Express"],
@@ -105,6 +128,8 @@ const planFamilies: PlanFamily[] = [
     plans: [
       {
         id: "smart-corte",
+        label: "Smart Corte",
+        simulator: { covers: ["corte"], offDayExtra: { corte: 15 } },
         name: "Smart Corte Ilimitado",
         price: 57.9,
         includes: ["Corte", "Pezinho"],
@@ -119,6 +144,8 @@ const planFamilies: PlanFamily[] = [
       },
       {
         id: "smart-corte-barba",
+        label: "Smart Corte e Barba",
+        simulator: { covers: ["corte", "barba"], offDayExtra: { corte: 15, barba: 15 } },
         name: "Smart Corte e Barba",
         price: 107.9,
         includes: ["Corte", "Barba", "Barba Express"],
@@ -137,6 +164,8 @@ const planFamilies: PlanFamily[] = [
       },
       {
         id: "smart-barba",
+        label: "Smart Barba",
+        simulator: { covers: ["barba"], offDayExtra: { barba: 15 } },
         name: "Smart Barba Limitado",
         price: 57.9,
         includes: ["Barba", "Barba Express"],
@@ -164,6 +193,8 @@ const planFamilies: PlanFamily[] = [
     plans: [
       {
         id: "clube-one",
+        label: "Clube One",
+        simulator: { covers: ["corte"], includedVisits: 1, additionalVisit: 15 },
         name: "Clube One",
         price: 26.9,
         includes: ["1 corte por mês"],
@@ -188,6 +219,8 @@ export const siteContent = {
     tagline: "Você em sua melhor versão.",
     text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
     ratingBadge: "5,0 ★ · 315 avaliações no Google",
+    slogan: "Você em sua melhor versão.",
+    kicker: "Corte e barba · Santa Esmeralda, Arapiraca",
     cta: {
       primary: { label: "Agendar meu horário", target: "booking" as TrackTarget },
       secondary: { label: "Comparar planos", anchor: "planos" },
@@ -256,7 +289,15 @@ export const siteContent = {
     quotesNote:
       "Trechos de avaliações do Google fornecidos pela barbearia, não verificados automaticamente.",
   },
+  simulator: {
+    title: "Qual plano compensa para você?",
+    text: "Escolha o serviço, quantas vezes vem por mês e em que dias. O cálculo compara o avulso com todos os planos que cobrem esse serviço.",
+    disclaimer:
+      "Estimativa com os preços fornecidos pela barbearia, para o mesmo serviço, frequência e dias escolhidos. Não inclui produtos, serviços extras nem descontos cumulativos. Os valores finais são os do Cash Barber.",
+    action: "Ver opções no Cash Barber",
+  },
   navigation: [
+    { id: "simulador", label: "Simulador" },
     { id: "servicos", label: "Serviços" },
     { id: "planos", label: "Clube OLVR" },
     { id: "avaliacoes", label: "Avaliações" },
