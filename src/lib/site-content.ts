@@ -27,6 +27,11 @@ export interface Plan {
   allowance?: string;
   includedDays: string;
   extras?: { days: string; charges: ExtraCharge[] };
+  /** Frase curta de benefício direto, derivada apenas dos serviços incluídos — sem alegações não comprovadas. */
+  benefit?: string;
+  /** Verdadeiro apenas para o plano mais completo em serviços incluídos (não é uma alegação de popularidade/vendas). */
+  highlight?: boolean;
+  highlightLabel?: string;
 }
 
 export interface PlanFamily {
@@ -35,10 +40,12 @@ export interface PlanFamily {
   summary: string;
   days: string;
   bookingWindow: string;
+  /** Frase curta explicando para quem a família faz mais sentido. */
+  valueHighlight?: string;
   plans: Plan[];
 }
 
-const ALLOWANCE = "100 utilizações mensais de cada serviço incluído";
+const ALLOWANCE = "Até 100 usos por mês de cada serviço incluído";
 
 const services: Service[] = [
   { name: "Corte", price: 30 },
@@ -54,6 +61,7 @@ const planFamilies: PlanFamily[] = [
     summary: "Uso incluído em todos os dias de funcionamento.",
     days: "Segunda a sábado",
     bookingWindow: "Agendamento com até 30 dias de antecedência",
+    valueHighlight: "Para quem corta e faz a barba sem contar os dias da semana.",
     plans: [
       {
         id: "black-corte",
@@ -62,6 +70,7 @@ const planFamilies: PlanFamily[] = [
         includes: ["Corte", "Pezinho"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a sábado",
+        benefit: "Corte e pezinho sempre em dia, sem pensar em agenda, de segunda a sábado.",
       },
       {
         id: "black-barba",
@@ -70,6 +79,7 @@ const planFamilies: PlanFamily[] = [
         includes: ["Barba", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a sábado",
+        benefit: "Barba sempre alinhada, com Barba Express incluído, de segunda a sábado.",
       },
       {
         id: "black-corte-barba",
@@ -78,6 +88,9 @@ const planFamilies: PlanFamily[] = [
         includes: ["Corte", "Barba", "Pezinho", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a sábado",
+        benefit: "Corte, barba, pezinho e Barba Express em um único plano, todos os dias de funcionamento.",
+        highlight: true,
+        highlightLabel: "Plano completo",
       },
     ],
   },
@@ -87,6 +100,7 @@ const planFamilies: PlanFamily[] = [
     summary: "Uso incluído de segunda a quarta; de quinta a sábado, valores reduzidos.",
     days: "Incluído de segunda a quarta",
     bookingWindow: "Agendamento com até 7 dias de antecedência",
+    valueHighlight: "Para quem concentra o cuidado no início da semana e economiza no resto.",
     plans: [
       {
         id: "smart-corte",
@@ -95,6 +109,7 @@ const planFamilies: PlanFamily[] = [
         includes: ["Corte", "Pezinho"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
+        benefit: "Corte e pezinho incluídos de segunda a quarta; de quinta a sábado, corte com 50% de desconto.",
         extras: {
           days: "Quinta a sábado",
           charges: [{ service: "Corte", price: 15, note: "50% de R$ 30" }],
@@ -107,6 +122,7 @@ const planFamilies: PlanFamily[] = [
         includes: ["Corte", "Barba", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
+        benefit: "Corte, barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, com desconto por atendimento.",
         extras: {
           days: "Quinta a sábado",
           charges: [
@@ -123,6 +139,7 @@ const planFamilies: PlanFamily[] = [
         includes: ["Barba", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
+        benefit: "Barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, com desconto por atendimento.",
         extras: {
           days: "Quinta a sábado",
           charges: [
@@ -139,6 +156,7 @@ const planFamilies: PlanFamily[] = [
     summary: "Um corte por mês, com adicionais a valor reduzido.",
     days: "Segunda a sábado",
     bookingWindow: "Agendamento com até 30 dias de antecedência",
+    valueHighlight: "Para manter o corte em dia gastando pouco por mês.",
     plans: [
       {
         id: "clube-one",
@@ -146,6 +164,7 @@ const planFamilies: PlanFamily[] = [
         price: 26.9,
         includes: ["1 corte por mês"],
         includedDays: "Segunda a sábado",
+        benefit: "1 corte incluído por mês, com cortes extras por R$ 15 cada.",
         extras: {
           days: "Cortes adicionais",
           charges: [{ service: "Corte adicional", price: 15, note: "cada" }],
@@ -162,7 +181,13 @@ export const siteContent = {
     eyebrow: "Santa Esmeralda · Arapiraca–AL",
     title: "Corte e barba em Arapiraca.",
     titleAccent: "Cuidado que cabe na sua rotina.",
+    tagline: "Você em sua melhor versão.",
     text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
+    ratingBadge: "5,0 ★ · 315 avaliações no Google",
+    cta: {
+      primary: { label: "Agendar meu horário", target: "booking" as TrackTarget },
+      secondary: { label: "Comparar planos", anchor: "planos" },
+    },
   },
   links: {
     booking: "https://cashbarber.com.br/oliveirabsara",
@@ -244,6 +269,12 @@ export const siteContent = {
       text: "Siga as orientações e confira a confirmação do seu agendamento.",
     },
   ],
+  whatsappCta: {
+    title: "Ficou com dúvida sobre qual plano escolher?",
+    text: "Fala com a gente no WhatsApp antes de assinar — a gente te ajuda a decidir entre Black, Smart e One.",
+    buttonLabel: "Chamar no WhatsApp",
+    target: "whatsapp" as TrackTarget,
+  },
   faq: [
     {
       question: "Qual a diferença entre Black e Smart?",
