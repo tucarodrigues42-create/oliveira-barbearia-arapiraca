@@ -3,7 +3,7 @@ import { Check, ChevronDown } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { estimatePlan, formatCents, type SimInput } from "@/lib/plan-calculator";
 import { formatPrice, siteContent as content, type Plan } from "@/lib/site-content";
-import { dayOptions } from "@/components/plan-simulator";
+import { dayOptions } from "@/lib/simulator-options";
 import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
 
 function PlanCard({
@@ -81,7 +81,7 @@ function PlanCard({
 
 export function PlansSection({ action, input }: { action: ReactNode; input: SimInput }) {
   const sub = content.subscription;
-  const [family, setFamily] = useState<string>(sub.families[0].id);
+  const [family, setFamily] = useState<string>(sub.families[0]?.id ?? "black");
   return (
     <section
       id="planos"

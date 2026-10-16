@@ -307,3 +307,6 @@ svg { flex-shrink: 0; }
 .plan-more dt { color: var(--muted-foreground); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; }
 @media (max-width: 959px) { .simulator-layout { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 639px) { .simulator-result { padding: var(--space-3) 16px; } .plan-tab { flex: 1; padding: 0 8px; } }
+
+.sim-table-scroll { overflow-x: auto; }
+.sim-result, .sim-controls { min-width: 0; }

@@ -1,27 +1,11 @@
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  formatCents,
-  simulate,
-  type SimChoice,
-  type SimDays,
-  type SimFrequency,
-  type SimInput,
-} from "@/lib/plan-calculator";
+import { formatCents, simulate, type SimInput } from "@/lib/plan-calculator";
 import { siteContent as content } from "@/lib/site-content";
 
-const allPlans = content.subscription.families.flatMap((f) => f.plans);
+import { serviceOptions, frequencyOptions, dayOptions } from "@/lib/simulator-options";
 
-export const serviceOptions: { value: SimChoice; label: string }[] = [
-  { value: "corte", label: "Corte" },
-  { value: "barba", label: "Barba" },
-  { value: "combo", label: "Corte e barba" },
-];
-export const frequencyOptions: SimFrequency[] = [2, 3, 4];
-export const dayOptions: { value: SimDays; label: string; short: string }[] = [
-  { value: "seg-qua", label: "Segunda a quarta", short: "seg–qua" },
-  { value: "qui-sab", label: "Quinta a sábado", short: "qui–sáb" },
-];
+const allPlans = content.subscription.families.flatMap((f) => f.plans);
 
 function Choice<T extends string | number>({
   legend,
@@ -161,37 +145,42 @@ export function PlanSimulator({
             )}
           </div>
 
-          <table className="sim-table">
-            <caption>Comparação completa para este regime</caption>
-            <thead>
-              <tr>
-                <th scope="col">Opção</th>
-                <th scope="col">Total/mês</th>
-                <th scope="col">Por visita</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.estimates.map((e) => (
-                <tr key={e.plan.id} data-best={e === best ? "" : undefined}>
-                  <th scope="row">
-                    {e.plan.label}
-                    {e.extraCents > 0 && (
-                      <span>
-                        {formatCents(e.baseCents)} + {formatCents(e.extraCents)} adicionais
-                      </span>
-                    )}
-                  </th>
-                  <td>{formatCents(e.totalCents)}</td>
-                  <td>{formatCents(e.perVisitCents)}</td>
-                </tr>
-              ))}
-              <tr>
-                <th scope="row">Avulso</th>
-                <td>{formatCents(singleCents)}</td>
-                <td>{formatCents(singleCents / input.visits)}</td>
-              </tr>
-            </tbody>
-          </table>
+          <details className="plan-more sim-comparison">
+            <summary>Comparar todas as opções</summary>
+            <div className="sim-table-scroll">
+              <table className="sim-table">
+                <caption>Comparação completa para este regime</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Opção</th>
+                    <th scope="col">Total/mês</th>
+                    <th scope="col">Por visita</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.estimates.map((e) => (
+                    <tr key={e.plan.id} data-best={e === best ? "" : undefined}>
+                      <th scope="row">
+                        {e.plan.label}
+                        {e.extraCents > 0 && (
+                          <span>
+                            {formatCents(e.baseCents)} + {formatCents(e.extraCents)} adicionais
+                          </span>
+                        )}
+                      </th>
+                      <td>{formatCents(e.totalCents)}</td>
+                      <td>{formatCents(e.perVisitCents)}</td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <th scope="row">Avulso</th>
+                    <td>{formatCents(singleCents)}</td>
+                    <td>{formatCents(singleCents / input.visits)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
           <p className="note">{content.simulator.disclaimer}</p>
           <div className="sim-actions">
             <Button asChild variant="editorial">
