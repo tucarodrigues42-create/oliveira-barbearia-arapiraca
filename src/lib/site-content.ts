@@ -88,7 +88,8 @@ const planFamilies: PlanFamily[] = [
         includes: ["Corte", "Barba", "Pezinho", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a sábado",
-        benefit: "Corte, barba, pezinho e Barba Express em um único plano, todos os dias de funcionamento.",
+        benefit:
+          "Corte, barba, pezinho e Barba Express em um único plano, todos os dias de funcionamento.",
         highlight: true,
         highlightLabel: "Plano completo",
       },
@@ -109,7 +110,8 @@ const planFamilies: PlanFamily[] = [
         includes: ["Corte", "Pezinho"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
-        benefit: "Corte e pezinho incluídos de segunda a quarta; de quinta a sábado, corte com 50% de desconto.",
+        benefit:
+          "Corte e pezinho incluídos de segunda a quarta; de quinta a sábado, corte com 50% de desconto.",
         extras: {
           days: "Quinta a sábado",
           charges: [{ service: "Corte", price: 15, note: "50% de R$ 30" }],
@@ -122,7 +124,8 @@ const planFamilies: PlanFamily[] = [
         includes: ["Corte", "Barba", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
-        benefit: "Corte, barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, com desconto por atendimento.",
+        benefit:
+          "Corte, barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, com desconto por atendimento.",
         extras: {
           days: "Quinta a sábado",
           charges: [
@@ -139,7 +142,8 @@ const planFamilies: PlanFamily[] = [
         includes: ["Barba", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
-        benefit: "Barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, com desconto por atendimento.",
+        benefit:
+          "Barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, com desconto por atendimento.",
         extras: {
           days: "Quinta a sábado",
           charges: [
