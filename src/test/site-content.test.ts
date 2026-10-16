@@ -16,6 +16,16 @@ describe("Clube OLVR content", () => {
     }
   });
 
+  it("keeps visible labels free of 'ilimitado' and simulator rules consistent with extras", () => {
+    for (const plan of plans) {
+      expect(plan.label).not.toMatch(/ilimitad/i);
+      for (const [service, price] of Object.entries(plan.simulator.offDayExtra ?? {})) {
+        const charge = plan.extras?.charges.find((c) => c.service.toLowerCase() === service);
+        expect(charge?.price).toBe(price);
+      }
+    }
+  });
+
   it("keeps Pezinho out of Smart Corte e Barba", () => {
     expect(plans.find((p) => p.id === "smart-corte-barba")?.includes).not.toContain("Pezinho");
   });
