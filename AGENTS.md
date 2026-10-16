@@ -12,6 +12,6 @@
 ## Site architecture
 - Keep institutional copy, contact URLs, navigation and manually sourced reviews in `src/lib/site-content.ts` so factual updates have a single source.
 - Use a single scrolling index with semantic anchor sections because this site's navigation explicitly requires in-page anchors; do not add a backend or booking implementation.
-- Preserve the original logo through its asset pointer and derive the favicon by proportional padding, never cropping or recreating the artwork.
+- Preserve the original horizontal logo through its asset pointer for header, hero and footer; derive favicon/apple-touch/small icons only from the owner-supplied framed O monogram (empty margins trimmed, full artwork kept), never from the horizontal logo.
 - Define the editorial visual system in `src/styles.css` and use Button variants for commands and external calls to action to keep styling consistent.
 - Keep the owner-supplied club mark as a separate full-aspect asset from the principal brand so club updates cannot replace header/footer identity.

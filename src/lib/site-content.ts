@@ -11,6 +11,7 @@ export const siteContent = {
     phone: 'tel:+5582981820974',
   },
   phone: '(82) 98182-0974',
+  openingHours: { days: 'Segunda a sábado', hours: '9h às 20h', schema: 'Mo-Sa 09:00-20:00' },
   instagramHandle: '@oliveirabsarapiraca',
   address: { street: 'Rua Justino Sebastião da Silva, 75', neighborhood: 'Santa Esmeralda', city: 'Arapiraca–AL', postalCode: '57312-070' },
   about: { title: 'O cuidado faz parte do estilo.', text: 'Na Oliveira, o cuidado com o visual tem lugar na sua rotina. Conheça a barbearia, acompanhe os trabalhos e escolha seu próximo horário.' },
