@@ -6,7 +6,15 @@ import { formatPrice, siteContent as content, type Plan } from "@/lib/site-conte
 import { dayOptions } from "@/components/plan-simulator";
 import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
 
-function PlanCard({ plan, input, bookingWindow }: { plan: Plan; input: SimInput; bookingWindow: string }) {
+function PlanCard({
+  plan,
+  input,
+  bookingWindow,
+}: {
+  plan: Plan;
+  input: SimInput;
+  bookingWindow: string;
+}) {
   const estimate = estimatePlan(plan, input);
   const dayShort = dayOptions.find((d) => d.value === input.days)?.short;
   return (
@@ -22,8 +30,8 @@ function PlanCard({ plan, input, bookingWindow }: { plan: Plan; input: SimInput;
       <p className="plan-days">Incluído: {plan.includedDays.toLowerCase()}</p>
       {estimate && (
         <p className="plan-equivalent">
-          ≈ {formatCents(estimate.perVisitCents)} por visita no seu regime ({input.visits}{" "}
-          visitas, {dayShort})
+          ≈ {formatCents(estimate.perVisitCents)} por visita no seu regime ({input.visits} visitas,{" "}
+          {dayShort})
         </p>
       )}
       {plan.benefit && <p className="plan-benefit">{plan.benefit}</p>}
@@ -75,7 +83,12 @@ export function PlansSection({ action, input }: { action: ReactNode; input: SimI
   const sub = content.subscription;
   const [family, setFamily] = useState<string>(sub.families[0].id);
   return (
-    <section id="planos" className="section plans-section" tabIndex={-1} aria-labelledby="plans-title">
+    <section
+      id="planos"
+      className="section plans-section"
+      tabIndex={-1}
+      aria-labelledby="plans-title"
+    >
       <div className="page-container">
         <div className="plans-intro">
           <div>
@@ -121,7 +134,12 @@ export function PlansSection({ action, input }: { action: ReactNode; input: SimI
               </div>
               <ul className="plan-cards">
                 {f.plans.map((plan) => (
-                  <PlanCard key={plan.id} plan={plan} input={input} bookingWindow={f.bookingWindow} />
+                  <PlanCard
+                    key={plan.id}
+                    plan={plan}
+                    input={input}
+                    bookingWindow={f.bookingWindow}
+                  />
                 ))}
               </ul>
             </TabsPrimitive.Content>
