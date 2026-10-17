@@ -33,7 +33,7 @@ export function BlackSelector() {
     >
       <span id="simulador" className="legacy-anchor" aria-hidden="true" />
       <div className="page-container">
-        <p className="eyebrow">Clube OLVR / Encontre seu Black</p>
+        <p className="eyebrow">Clube OLVR / Encontre meu plano</p>
         <h2 id="black-selector-title">{content.blackSelector.title}</h2>
         <p className="lead">{content.blackSelector.text}</p>
         <fieldset className="black-choices">
@@ -71,8 +71,6 @@ export function BlackSelector() {
             <div aria-live="polite" aria-atomic="true">
               <p className="eyebrow">{selected.label}</p>
               <h3 className="black-unlimited">{choice?.headline}</h3>
-              <p className="note">{selected.allowance} · Mediante agendamento.</p>
-              <p className="black-inclusions">{choice?.benefit}</p>
               <p className="plan-price">
                 {formatPrice(selected.price)}
                 <span>/mês</span>
@@ -169,6 +167,7 @@ export function BlackSelector() {
               <summary>
                 Pagamento, cancelamento e regras <span aria-hidden="true">+</span>
               </summary>
+              <p className="note">{selected.allowance} · Mediante agendamento.</p>
               <ul>
                 {content.subscription.conditions.map((item) => (
                   <li key={item}>{item}</li>

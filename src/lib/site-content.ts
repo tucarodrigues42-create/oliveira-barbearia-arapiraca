@@ -291,7 +291,7 @@ export const siteContent = {
   },
   blackSelector: {
     extras: "10% de desconto em serviços extras e produtos",
-    title: "Cabelo, barba ou os dois. Seu Black é ILIMITADO.",
+    title: "Cabelo, barba ou os dois.",
     text: "Escolha seu Black e mantenha o visual em dia por uma mensalidade fixa.",
     choices: [
       {
@@ -324,7 +324,7 @@ export const siteContent = {
     ],
   },
   navigation: [
-    { id: "seu-black", label: "Seu Black" },
+    { id: "seu-black", label: "Encontre meu plano" },
     { id: "servicos", label: "Serviços" },
     { id: "planos", label: "Clube OLVR" },
     { id: "avaliacoes", label: "Avaliações" },

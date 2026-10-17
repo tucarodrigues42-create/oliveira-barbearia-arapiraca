@@ -189,7 +189,7 @@ function Index() {
               <div className="hero-actions">
                 <Button asChild variant="editorial">
                   <a href="#seu-black" data-track="plans" data-track-origin="hero-black-selector">
-                    Encontrar meu Black
+                    Encontre meu plano
                     <ArrowDown aria-hidden="true" />
                   </a>
                 </Button>
