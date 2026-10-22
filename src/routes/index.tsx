@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { PlansSection } from "@/components/plans-section";
 import { BlackSelector } from "@/components/plan-simulator";
 import { formatPrice, siteContent as content, type TrackTarget } from "@/lib/site-content";
+import { ClipperStage } from "@/components/clipper-stage";
 import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
 const title = "Oliveira Barbearia | Corte, barba e Clube OLVR em Arapiraca–AL";
@@ -184,7 +185,11 @@ function Index() {
                 <span className="location-dot" aria-hidden="true" />
                 {content.hero.kicker}
               </p>
-              <h1 id="hero-title">{content.hero.slogan}</h1>
+              <h1 id="hero-title">
+                Você em sua
+                <br />
+                <em>melhor versão.</em>
+              </h1>
               <p className="lead">{content.hero.text}</p>
               <div className="hero-actions">
                 <Button asChild variant="editorial">
@@ -213,8 +218,9 @@ function Index() {
                   <span>
                     <strong>{ratingText}/5</strong> · {content.reviews.count} avaliações no Google
                   </span>
+                  <span className="note">Histórico fornecido em {content.reviews.date}</span>
                 </a>
-                <span className="note">Dados fornecidos em {content.reviews.date}</span>
+
                 <a
                   className="text-link"
                   href={content.links.whatsapp}
@@ -227,13 +233,19 @@ function Index() {
                 </a>
               </div>
             </div>
-            <div className="hero-brand" aria-hidden="true">
-              <Logo />
-              <span>Barbearia por assinatura · AL</span>
-            </div>
+            <ClipperStage />
           </div>
         </section>
 
+        <div className="location-strip">
+          <div className="page-container">
+            <span>ARAPIRACA, ALAGOAS</span>
+            <span>SEGUNDA A SÁBADO · 9H ÀS 20H</span>
+            <a href={content.links.maps} target="_blank" rel="noopener noreferrer">
+              Santa Esmeralda <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
         <BlackSelector />
 
         <section
@@ -334,6 +346,10 @@ function Index() {
                   <span className="rating-total">/ 5</span>
                 </p>
                 <p className="rating-count">{content.reviews.count} avaliações no Google</p>
+                <p className="note">
+                  Registro fornecido pela barbearia em {content.reviews.date}. Consulte os números
+                  atuais no Google.
+                </p>
               </div>
             </div>
             <ul className="review-quotes">
@@ -499,7 +515,7 @@ function Index() {
           </ExternalLink>
         </div>
         <div className="page-container footer-bottom">
-          <span>© {new Date().getUTCFullYear()} Oliveira Barbearia</span>
+          <span>© {new Date().getUTCFullYear()} Oliveira Barbearia · CNPJ 59.631.144/0001-99</span>
           <span>
             {content.openingHours.days}, {content.openingHours.hours}
           </span>

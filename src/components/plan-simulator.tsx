@@ -33,7 +33,7 @@ export function BlackSelector() {
     >
       <span id="simulador" className="legacy-anchor" aria-hidden="true" />
       <div className="page-container">
-        <p className="eyebrow">Clube OLVR / Encontre meu plano</p>
+        <p className="eyebrow">01 / Uma assinatura. Seu cuidado em dia.</p>
         <h2 id="black-selector-title">{content.blackSelector.title}</h2>
         <p className="lead">{content.blackSelector.text}</p>
         <fieldset className="black-choices">
@@ -137,8 +137,8 @@ export function BlackSelector() {
                     : "Compare os serviços e benefícios do plano"}
                 </p>
                 <p className="note">
-                  Comparação para quem faz {choice.comparisonLabel.toLowerCase()} no mês.{" "}
-                  {choice.benefit} Economia condicionada a essa frequência de uso.
+                  Comparação para quem faz {choice.comparisonLabel.toLowerCase()} no mês. Economia
+                  condicionada a essa frequência de uso.
                 </p>
               </div>
             )}

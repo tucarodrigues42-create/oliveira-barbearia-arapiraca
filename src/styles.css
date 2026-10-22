@@ -336,7 +336,7 @@ svg { flex-shrink: 0; }
 @media (max-width: 759px) {
  .black-result { grid-template-columns: minmax(0,1fr); padding: 22px 16px; }
  .black-choice-grid { gap: 6px; }
- .black-choice { min-height: 52px; padding: 12px 3px; font-size: 11px; text-align: center; }
+ .black-choice { min-height: 52px; padding: 12px 3px; font-size: 12px; text-align: center; }
  .black-result { gap: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { .black-choice { transition: none; } }
@@ -353,3 +353,117 @@ svg { flex-shrink: 0; }
 .black-result-details details ul { list-style: none; }
 .black-comparison h4 { font-size: 18px; line-height: 1.4; }
 .black-comparison dl > div { padding-block: 10px; border-bottom: 1px solid var(--border); }
+
+/* Oliveira / editorial edition. Shared tokens keep the whole page coherent. */
+:root { --background: #141612; --foreground: #f2f0e7; --primary: #d9c6a0; --secondary: #1d201a; --muted-foreground: #b5b9ac; --border: #363c30; --radius: 3px; }
+.page-container { width: min(1240px, calc(100% - 96px)); }
+.site-header { background: #141612f5; backdrop-filter: blur(12px); }
+.header-inner { height: 88px; }
+.logo-link { width: 148px; }
+.desktop-nav { gap: 25px; font-size: 12px; }
+.header-booking { font-size: 12px; }
+.hero { overflow: hidden; }
+.hero-inner { grid-template-columns: 1.05fr 1fr; gap: 16px; min-height: 660px; padding-block: 52px; }
+.hero-copy { position: relative; z-index: 2; }
+.hero h1 { font-size: clamp(56px, 6.4vw, 94px); line-height: 1; letter-spacing: -2px; }
+.hero h1 em { color: var(--primary); font-weight: 400; }
+.hero-eyebrow { font-size: 12px; letter-spacing: .16em; margin-bottom: 28px; }
+.hero .lead { max-width: 390px; font-size: 16px; margin-top: 26px; }
+.hero-actions { margin-top: 32px; }
+.hero-trust { border: 0; margin-top: 30px; display: grid; gap: 0; }
+.hero-trust .text-link { color: var(--muted-foreground); font-size: 12px; }
+.hero-rating { font-size: 12px; }
+.clipper-stage { position: relative; min-width: 0; height: 550px; perspective: 1000px; isolation: isolate; }
+.stage-word { position: absolute; font-family: var(--font-body); font-weight: 700; font-size: clamp(100px,15vw,208px); letter-spacing: -.08em; color: #24291f; top: 40%; left: 50%; transform: translate(-50%,-50%); z-index: -2; }
+.stage-orbit { position: absolute; inset: 3% 7%; border: 1px solid #414937; border-radius: 50%; transform: rotate(-22deg); z-index: -1; }
+.clipper-image { display: block; position: relative; width: 100%; height: 100%; object-fit: contain; transform: rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotate(-8deg); transition: transform .28s ease-out; filter: drop-shadow(18px 22px 22px #0008); }
+.stage-caption { position: absolute; bottom: 1%; right: 0; font-size: 12px; letter-spacing: .13em; text-transform: uppercase; color: var(--muted-foreground); }
+.stage-index { position: absolute; top: 12%; right: -8px; writing-mode: vertical-rl; font-size: 12px; letter-spacing: .22em; color: var(--muted-foreground); }
+.location-strip { border-block: 1px solid var(--border); }
+.location-strip .page-container { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 66px; color: var(--muted-foreground); font-size: 12px; letter-spacing: .12em; }
+.location-strip a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; }
+.section { padding-block: 96px; }
+.section .eyebrow { letter-spacing: .14em; font-size: 12px; }
+.black-selector { border-top: 0; }
+.black-selector h2 { font-size: clamp(40px,4.5vw,64px); }
+.black-selector .lead { margin-top: 16px; font-size: 16px; }
+.black-choices { margin-top: 38px; }
+.black-choices legend { font-size: 12px; color: var(--muted-foreground); font-weight: 400; }
+.black-choice { min-height: 56px; border-radius: 2px; background: transparent; font-size: 12px; letter-spacing: .08em; }
+.black-result { gap: 64px; padding: 40px; border-radius: 3px; }
+.black-result .eyebrow { margin-bottom: 16px; }
+.black-result h3.black-unlimited { font-size: 48px; font-weight: 400; color: var(--foreground); margin-block: 0 24px; }
+.black-result .plan-price { font-size: 48px; margin: 12px 0 24px; }
+.black-result-copy > p { color: var(--muted-foreground); font-size: 13px; }
+.black-result-actions { max-width: 420px; }
+.black-comparison { border: 1px solid var(--border); border-top: 2px solid var(--primary); padding: 24px; }
+.black-comparison h4 { font-family: var(--font-body); font-size: 16px; font-weight: 500; }
+.black-comparison dl { margin-block: 18px; }
+.black-saving { font-size: 21px; font-weight: 500; }
+.black-result-details summary { font-size: 13px; }
+.black-other-plans { font-size: 12px; margin-top: 24px; }
+.services-section { background: var(--foreground); color: var(--background); --muted-foreground: #555d4e; --primary: #4b593b; --border: #c6cabc; --primary-foreground: #fff; }
+.services-section .lead { max-width: 370px; }
+.services-section .price-list li { padding-block: 21px; }
+.services-section .price-list strong { font-weight: 400; }
+.services-section .price-dots { border: 0; }
+.plans-section { background: var(--background); }
+.plans-intro { gap: 64px; }
+.club-logo { width: 240px; max-width: 100%; }
+.plan-cards { gap: 0; border-block: 1px solid var(--border); }
+.plan-card { background: transparent; border: 0; border-right: 1px solid var(--border); border-radius: 0; padding: 28px; }
+.plan-card:last-child { border-right: 0; }
+.plan-card[data-highlight] { background: var(--secondary); }
+.plan-card .plan-price { font-size: 40px; }
+.plan-card h4 { font-size: 18px; }
+.plan-panel-head { padding-block: 26px; }
+.plan-panel-head h3 { font-size: 38px; }
+.steps { gap: 36px; }
+.steps li { background: transparent; border: 0; border-top: 1px solid var(--border); padding: 24px 0; }
+.steps h3 { font-size: 30px; }
+.step-number { font-family: var(--font-body); font-size: 12px; }
+.review-quotes { gap: 32px; }
+.review-quotes li { background: transparent; border: 0; border-top: 1px solid var(--border); padding: 24px 0; }
+.review-quotes blockquote { font-size: 27px; }
+.review-quotes figcaption { font-size: 12px; }
+.rating-block .note { max-width: 270px; margin: 14px auto 0; }
+.rating > span:first-child { font-size: 84px; }
+.contact-links > a { border-radius: 0; background: transparent; border-inline: 0; }
+.site-footer { background: #0d100c; }
+.footer-bottom { font-size: 12px; }
+@media (max-width: 1100px) { .desktop-nav { gap: 14px; } .header-inner { gap: 20px; } .hero-inner { min-height: 590px; } .clipper-stage { height: 470px; } .black-result { gap: 32px; } }
+@media (max-width: 759px) {
+ .page-container { width: calc(100% - 40px); }
+ .header-inner { height: 72px; }
+ .logo-link { width: 126px; }
+ .hero-inner { display: flex; flex-direction: column; align-items: stretch; padding: 40px 0 28px; gap: 8px; }
+ .hero h1 { font-size: clamp(49px,11vw,72px); letter-spacing: -1.2px; }
+ .hero .lead { max-width: 360px; font-size: 15px; }
+ .hero-eyebrow { font-size: 12px; margin-bottom: 22px; }
+ .hero-actions { gap: 10px; margin-top: 24px; }
+ .hero-actions > a { min-width: 0; flex: 1; font-size: 12px; padding-inline: 12px; }
+ .hero-trust { margin-top: 16px; }
+ .clipper-stage { height: 310px; max-width: 420px; width: 100%; margin: 10px auto 0; }
+ .stage-word { font-size: 130px; }
+ .stage-caption { font-size: 12px; }
+ .stage-index { font-size: 12px; right: 0; }
+ .location-strip .page-container { flex-wrap: wrap; justify-content: flex-start; gap: 0 20px; padding-block: 12px; font-size: 12px; }
+ .location-strip a { min-height: 32px; }
+ .section { padding-block: 60px; }
+ .section .eyebrow { font-size: 12px; }
+ .black-result { padding: 24px 18px; gap: 30px; }
+ .black-result h3.black-unlimited { font-size: 36px; }
+ .black-choice { font-size: 12px; min-height: 54px; letter-spacing: .03em; }
+ .black-comparison { padding: 18px; }
+ .black-comparison dl > div { font-size: 12px; }
+ .black-saving { font-size: 20px; }
+ .plan-card { border-right: 0; border-bottom: 1px solid var(--border); padding: 24px 0; }
+ .plan-card[data-highlight] { padding-inline: 18px; }
+ .plan-card:last-child { border-bottom: 0; }
+ .club-logo { width: 180px; }
+ .steps { gap: 16px; }
+ .review-quotes { gap: 18px; }
+ .review-quotes blockquote { font-size: 25px; }
+}
+@media (prefers-reduced-motion: reduce) { .clipper-image { transform: rotate(-8deg); transition: none; } }
+
