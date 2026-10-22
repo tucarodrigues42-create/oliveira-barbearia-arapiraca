@@ -15,11 +15,11 @@ function PlanCard({ plan, bookingWindow }: { plan: Plan; bookingWindow: string }
         {formatPrice(plan.price)}
         <span>/mês</span>
       </p>
-      <p className="plan-days">Incluído: {plan.includedDays.toLowerCase()}</p>
+      <p className="plan-days">Atendimento: {plan.includedDays.toLowerCase()}</p>
       {plan.benefit && <p className="plan-benefit">{plan.benefit}</p>}
       <details className="plan-more">
         <summary>
-          Ver inclusões e limites
+          Serviços e regras
           <ChevronDown aria-hidden="true" />
         </summary>
         <dl>
