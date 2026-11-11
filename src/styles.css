@@ -495,3 +495,5 @@ svg { flex-shrink: 0; }
   :focus-visible { scroll-margin-bottom: 140px; }
 }
 h1 em, h2 em { font-style: normal; color: var(--primary); }
+.service-card { background: transparent; color: inherit; }
+@media (max-width: 639px) { .hero-actions { flex-direction: column; align-items: stretch; } }
