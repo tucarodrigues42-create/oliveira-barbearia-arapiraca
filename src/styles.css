@@ -3,8 +3,8 @@
 @import "tw-animate-css";
 
 @theme inline {
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'Instrument Serif', serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-display: 'Manrope', system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -36,8 +36,8 @@
   --accent: oklch(0.31 0.012 85);
   --border: oklch(0.336330 0.012274 120.037);
   --destructive: oklch(0.7 0.16 25);
-  --font-display: 'Instrument Serif', serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
   --text-xs: 12px; --text-sm: 14px; --text-base: 16px; --text-lg: 18px;
   --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 32px; --space-5: 48px; --space-6: 72px;
   --radius: 4px; --header-h: 80px; --tap: 48px;
@@ -52,11 +52,11 @@ section[tabindex]:focus, main:focus { outline: none; }
 ::selection { background: var(--primary); color: var(--primary-foreground); }
 p, h1, h2, h3, h4, ul, ol, dl, dd, figure, blockquote { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
-h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.08; }
-h1 { font-size: clamp(44px, 6.4vw, 80px); line-height: 1.02; }
-h1 span { display: block; color: var(--primary); font-style: italic; }
-h2 { font-size: clamp(38px, 4.6vw, 56px); }
-h2 em { font-style: italic; color: var(--primary); }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; }
+h1 { font-size: clamp(40px, 6vw, 72px); line-height: 1.02; }
+h1 span { display: block; color: var(--primary); }
+h2 { font-size: clamp(32px, 4.2vw, 52px); }
+h2 em { color: var(--primary); }
 svg { flex-shrink: 0; }
 .page-container { width: min(1160px, calc(100% - 2 * var(--space-5))); margin-inline: auto; }
 .eyebrow { display: block; font-size: var(--text-xs); font-weight: 600; letter-spacing: .08em; line-height: 1.5; text-transform: uppercase; color: var(--muted-foreground); }
@@ -114,7 +114,7 @@ svg { flex-shrink: 0; }
 /* Clube OLVR */
 .plans-section { background: var(--secondary); }
 .plans-intro { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--space-5); align-items: center; }
-.club-tagline { margin-top: 12px; font-family: var(--font-display); font-style: italic; font-size: 28px; line-height: 1.2; color: var(--primary); }
+.club-tagline { margin-top: 12px; font-family: var(--font-display); font-size: 28px; line-height: 1.2; color: var(--primary); }
 /* The supplied white mark has a black raster background. Screen blends only
    that black into the dark section, preserving the original white artwork. */
 .club-logo { display: block; width: 100%; max-width: 320px; height: auto; justify-self: end; background: transparent; border: 0; border-radius: 0; mix-blend-mode: screen; }
@@ -467,3 +467,33 @@ svg { flex-shrink: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .clipper-image { transform: rotate(-8deg); transition: none; } }
 
+
+/* App-style additions: service cards, map, final CTA, bottom nav */
+.service-cards { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+.service-card { display: grid; gap: 12px; padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius); background: var(--secondary); transition: border-color .18s, transform .18s; }
+.service-card:hover, .service-card:focus-within { border-color: var(--primary); }
+.service-card h3 { font-size: var(--text-lg); }
+.service-card strong { font-size: 28px; font-weight: 800; color: var(--primary); }
+.service-card a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: var(--text-sm); font-weight: 600; text-decoration: underline; text-underline-offset: 5px; }
+.map-frame { display: block; width: 100%; aspect-ratio: 4 / 3; border: 1px solid var(--border); border-radius: var(--radius); filter: grayscale(1) invert(.9) contrast(.9); }
+.copy-address { margin-top: 8px; }
+.final-cta { text-align: center; }
+.final-cta h2 { max-width: 760px; margin-inline: auto; }
+.final-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--space-4); }
+.bottom-nav { display: none; }
+.whatsapp-fab { display: none; }
+@media (max-width: 639px) {
+  .service-cards { grid-template-columns: minmax(0,1fr); }
+  .final-cta-actions > a { flex: 1 1 100%; justify-content: space-between; }
+  .site-footer { padding-bottom: calc(64px + env(safe-area-inset-bottom) + 16px); }
+  .bottom-nav { position: fixed; z-index: 25; inset: auto 0 0 0; display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); background: var(--background); border-top: 1px solid var(--border); }
+  .bottom-nav a { display: grid; justify-items: center; gap: 2px; min-height: 56px; padding-top: 8px; font-size: 12px; font-weight: 600; color: var(--muted-foreground); }
+  .bottom-nav a svg { width: 20px; height: 20px; }
+  .bottom-nav a[aria-current="true"] { color: var(--foreground); }
+  .bottom-nav a.bottom-book { color: var(--primary); }
+  .whatsapp-fab { position: fixed; z-index: 26; right: 16px; bottom: calc(76px + env(safe-area-inset-bottom)); display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: var(--primary); color: var(--primary-foreground); box-shadow: 0 8px 24px -8px oklch(0 0 0 / .6); }
+  :focus-visible { scroll-margin-bottom: 140px; }
+}
+h1 em, h2 em { font-style: normal; color: var(--primary); }
+.service-card { background: transparent; color: inherit; }
+@media (max-width: 639px) { .hero-actions { flex-direction: column; align-items: stretch; } }

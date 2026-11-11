@@ -6,7 +6,12 @@ import {
   ChevronDown,
   Clock,
   Instagram,
+  Copy,
+  Home,
   MapPin,
+  Scissors,
+  Crown,
+  CalendarCheck,
   Menu,
   MessageCircle,
   Star,
@@ -85,6 +90,76 @@ function Logo({ className = "", lazy = false }: { className?: string; lazy?: boo
       loading={lazy ? "lazy" : "eager"}
       decoding="async"
     />
+  );
+}
+
+const fullAddress = `${content.address.street}, ${content.address.neighborhood}, ${content.address.city}, ${content.address.postalCode}`;
+
+function CopyAddress() {
+  const [copied, setCopied] = useState(false);
+  return (
+    <Button
+      type="button"
+      variant="editorialLink"
+      className="copy-address"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(fullAddress);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2500);
+        } catch {
+          setCopied(false);
+        }
+      }}
+    >
+      <Copy aria-hidden="true" />
+      <span aria-live="polite">{copied ? "Endereço copiado" : "Copiar endereço"}</span>
+    </Button>
+  );
+}
+
+const bottomItems = [
+  { id: "inicio", label: "Início", Icon: Home },
+  { id: "servicos", label: "Serviços", Icon: Scissors },
+  { id: "planos", label: "Clube", Icon: Crown },
+  { id: "contato", label: "Local", Icon: MapPin },
+] as const;
+
+function BottomNav() {
+  const [active, setActive] = useState("inicio");
+  useEffect(() => {
+    const els = bottomItems
+      .map((i) => document.getElementById(i.id))
+      .filter((e): e is HTMLElement => !!e);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((e) => io.observe(e));
+    return () => io.disconnect();
+  }, []);
+  return (
+    <nav className="bottom-nav" aria-label="Atalhos">
+      {bottomItems.map(({ id, label, Icon }) => (
+        <a key={id} href={`#${id}`} aria-current={active === id ? "true" : undefined}>
+          <Icon aria-hidden="true" />
+          {label}
+        </a>
+      ))}
+      <a
+        className="bottom-book"
+        href={content.links.booking}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-track="booking"
+        data-track-origin="bottom-nav"
+      >
+        <CalendarCheck aria-hidden="true" />
+        Agendar
+      </a>
+    </nav>
   );
 }
 
@@ -190,22 +265,18 @@ function Index() {
                 <br />
                 <em>melhor versão.</em>
               </h1>
-              <p className="lead">{content.hero.text}</p>
+              <p className="lead">{content.hero.subheadline}</p>
+              <p className="note hero-hours">{content.hero.text}</p>
               <div className="hero-actions">
-                <Button asChild variant="editorial">
-                  <a href="#seu-black" data-track="plans" data-track-origin="hero-black-selector">
-                    Encontre meu plano
+                <ExternalLink href={content.links.booking} track="booking" origin="hero">
+                  Agendar horário
+                </ExternalLink>
+                <Button asChild variant="editorialOutline">
+                  <a href="#planos" data-track="plans" data-track-origin="hero">
+                    Conhecer o Clube OLVR
                     <ArrowDown aria-hidden="true" />
                   </a>
                 </Button>
-                <ExternalLink
-                  variant="editorialOutline"
-                  href={content.links.booking}
-                  track="booking"
-                  origin="hero"
-                >
-                  Agendar meu horário
-                </ExternalLink>
               </div>
               <div className="hero-trust">
                 <a
@@ -272,24 +343,25 @@ function Index() {
               </ExternalLink>
             </div>
             <div>
-              <ul className="price-list">
+              <ul className="service-cards">
                 {content.services.map((s) => (
-                  <li key={s.name}>
-                    <span>{s.name}</span>
-                    <span className="price-dots" aria-hidden="true" />
+                  <li key={s.name} className="service-card">
+                    <h3>{s.name}</h3>
                     <strong>{formatPrice(s.price)}</strong>
+                    <a
+                      href={content.links.booking}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-track="booking"
+                      data-track-origin={`service-${s.name}`}
+                      aria-label={`Agendar ${s.name} no Cash Barber`}
+                    >
+                      Agendar <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
                   </li>
                 ))}
               </ul>
               <p className="note">{content.servicesNote}</p>
-              <ExternalLink
-                className="section-action"
-                href={content.links.booking}
-                track="booking"
-                origin="services"
-              >
-                Agendar meu horário
-              </ExternalLink>
             </div>
           </div>
         </section>
@@ -420,10 +492,20 @@ function Index() {
                 track="maps"
                 origin="contact"
               >
-                Como chegar
+                Abrir rota no Google Maps
               </ExternalLink>
+              <CopyAddress />
             </div>
             <div className="contact-links">
+              <iframe
+                className="map-frame"
+                title="Mapa da Oliveira Barbearia na Santa Esmeralda, Arapiraca"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`}
+                width={600}
+                height={450}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
               <a
                 href={content.links.whatsapp}
                 target="_blank"
@@ -489,6 +571,22 @@ function Index() {
             </div>
           </div>
         </section>
+        <section className="section final-cta" aria-labelledby="final-title">
+          <div className="page-container">
+            <h2 id="final-title">{content.finalCta.title}</h2>
+            <div className="final-cta-actions">
+              <ExternalLink href={content.links.booking} track="booking" origin="final-cta">
+                {content.finalCta.primary}
+              </ExternalLink>
+              <Button asChild variant="editorialOutline">
+                <a href="#planos" data-track="plans" data-track-origin="final-cta">
+                  {content.finalCta.secondary}
+                  <ArrowDown aria-hidden="true" />
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="site-footer">
@@ -524,24 +622,18 @@ function Index() {
           </a>
         </div>
       </footer>
-      <div className="mobile-booking">
-        <ExternalLink href={content.links.booking} track="booking" origin="sticky-bar">
-          Agendar meu horário
-        </ExternalLink>
-        <Button asChild variant="editorialOutline" size="icon" className="quick-whatsapp">
-          <a
-            href={content.links.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Dúvidas pelo WhatsApp"
-            title="Dúvidas pelo WhatsApp"
-            data-track="whatsapp"
-            data-track-origin="sticky-bar"
-          >
-            <MessageCircle aria-hidden="true" />
-          </a>
-        </Button>
-      </div>
+      <a
+        className="whatsapp-fab"
+        href={`${content.links.whatsapp}?text=${encodeURIComponent("Olá! Vim pelo site da Oliveira Barbearia e tenho uma dúvida.")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Falar no WhatsApp"
+        data-track="whatsapp"
+        data-track-origin="fab"
+      >
+        <MessageCircle aria-hidden="true" />
+      </a>
+      <BottomNav />
     </>
   );
 }

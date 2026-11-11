@@ -218,7 +218,8 @@ export const siteContent = {
     titleAccent: "Cuidado que cabe na sua rotina.",
     tagline: "Você em sua melhor versão.",
     text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
-    ratingBadge: "5,0 ★ · 315 avaliações no Google",
+    ratingBadge: "5,0 ★ · 347 avaliações no Google",
+    subheadline: "Mais do que um corte. Uma experiência de cuidado, precisão e estilo.",
     slogan: "Você em sua melhor versão.",
     kicker: "Corte e barba · Santa Esmeralda, Arapiraca",
     cta: {
@@ -267,8 +268,8 @@ export const siteContent = {
   },
   reviews: {
     rating: 5.0,
-    count: 315,
-    date: "13/10/2026",
+    count: 347,
+    date: "11/11/2026",
     source: "Dados do perfil Google fornecidos",
     profileUrl: "https://maps.app.goo.gl/x1bCGX52mGnLAja78",
     independentlyVerified: false,
@@ -347,7 +348,17 @@ export const siteContent = {
     buttonLabel: "Chamar no WhatsApp",
     target: "whatsapp" as TrackTarget,
   },
+  finalCta: {
+    title: "Seu próximo nível começa no cuidado com você.",
+    primary: "Agendar agora",
+    secondary: "Conhecer o Clube OLVR",
+  },
   faq: [
+    {
+      question: "Como entrar em contato?",
+      answer:
+        "Pelo WhatsApp (82) 98182-0974 ou pelo Instagram @oliveirabsarapiraca. Agendamentos e assinaturas são feitos no Cash Barber.",
+    },
     {
       question: "Qual a diferença entre Black e Smart?",
       answer:
