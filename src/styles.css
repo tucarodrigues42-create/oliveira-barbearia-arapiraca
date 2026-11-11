@@ -494,3 +494,4 @@ svg { flex-shrink: 0; }
   .whatsapp-fab { position: fixed; z-index: 26; right: 16px; bottom: calc(76px + env(safe-area-inset-bottom)); display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: var(--primary); color: var(--primary-foreground); box-shadow: 0 8px 24px -8px oklch(0 0 0 / .6); }
   :focus-visible { scroll-margin-bottom: 140px; }
 }
+h1 em, h2 em { font-style: normal; color: var(--primary); }
