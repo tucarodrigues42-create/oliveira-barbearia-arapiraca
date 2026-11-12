@@ -7,7 +7,6 @@ import {
   Clock,
   Instagram,
   Copy,
-  Home,
   MapPin,
   Scissors,
   Crown,
@@ -119,14 +118,13 @@ function CopyAddress() {
 }
 
 const bottomItems = [
-  { id: "inicio", label: "Início", Icon: Home },
   { id: "servicos", label: "Serviços", Icon: Scissors },
   { id: "planos", label: "Clube", Icon: Crown },
   { id: "contato", label: "Local", Icon: MapPin },
 ] as const;
 
 function BottomNav() {
-  const [active, setActive] = useState("inicio");
+  const [active, setActive] = useState("");
   useEffect(() => {
     const els = bottomItems
       .map((i) => document.getElementById(i.id))
@@ -266,7 +264,6 @@ function Index() {
                 <em>melhor versão.</em>
               </h1>
               <p className="lead">{content.hero.subheadline}</p>
-              <p className="note hero-hours">{content.hero.text}</p>
               <div className="hero-actions">
                 <ExternalLink href={content.links.booking} track="booking" origin="hero">
                   Agendar horário
@@ -289,7 +286,6 @@ function Index() {
                   <span>
                     <strong>{ratingText}/5</strong> · {content.reviews.count} avaliações no Google
                   </span>
-                  <span className="note">Histórico fornecido em {content.reviews.date}</span>
                 </a>
 
                 <a
@@ -327,7 +323,7 @@ function Index() {
         >
           <div className="page-container two-column">
             <div>
-              <p className="eyebrow">01 / Atendimento avulso</p>
+              <p className="eyebrow">02 / Atendimento avulso</p>
               <h2 id="services-title">
                 Serviços e <em>valores.</em>
               </h2>
@@ -376,7 +372,7 @@ function Index() {
 
         <section className="section booking-section" aria-labelledby="booking-title">
           <div className="page-container">
-            <p className="eyebrow">03 / Seu próximo horário</p>
+            <p className="eyebrow">04 / Seu próximo horário</p>
             <h2 id="booking-title">Agendar é simples.</h2>
             <ol className="steps">
               {content.steps.map((step, index) => (
@@ -402,7 +398,7 @@ function Index() {
           <div className="page-container">
             <div className="reviews-layout">
               <div>
-                <p className="eyebrow">04 / Avaliações no Google</p>
+                <p className="eyebrow">05 / Avaliações no Google</p>
                 <h2 id="reviews-title">
                   A experiência de quem <em>já veio.</em>
                 </h2>
@@ -419,8 +415,7 @@ function Index() {
                 </p>
                 <p className="rating-count">{content.reviews.count} avaliações no Google</p>
                 <p className="note">
-                  Registro fornecido pela barbearia em {content.reviews.date}. Consulte os números
-                  atuais no Google.
+                  Dados do perfil Google informados pela barbearia em {content.reviews.date}.
                 </p>
               </div>
             </div>
@@ -448,10 +443,7 @@ function Index() {
               >
                 Ver avaliações no Google
               </ExternalLink>
-              <p className="note">
-                {content.reviews.quotesNote} {content.reviews.source} em {content.reviews.date} ·
-                Atualização manual.
-              </p>
+              <p className="note">{content.reviews.quotesNote}</p>
             </div>
           </div>
         </section>
@@ -464,7 +456,7 @@ function Index() {
         >
           <div className="page-container two-column">
             <div>
-              <p className="eyebrow">05 / Venha até a Oliveira</p>
+              <p className="eyebrow">06 / Venha até a Oliveira</p>
               <h2 id="contact-title">
                 Nos vemos na <em>barbearia.</em>
               </h2>
@@ -599,9 +591,9 @@ function Index() {
             <Logo lazy />
           </a>
           <p>
-            Corte e barba em Arapiraca.
+            Você em sua
             <br />
-            <span>Sempre em dia.</span>
+            <span>melhor versão.</span>
           </p>
           <ExternalLink
             className="footer-booking"

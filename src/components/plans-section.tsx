@@ -74,7 +74,7 @@ export function PlansSection({ action }: { action: ReactNode }) {
       <div className="page-container">
         <div className="plans-intro">
           <div>
-            <p className="eyebrow">02 / {sub.description}</p>
+            <p className="eyebrow">03 / {sub.description}</p>
             <h2 id="plans-title">{sub.name}</h2>
             <p className="club-tagline">{sub.title}</p>
             <p className="lead">{sub.text}</p>
@@ -89,6 +89,15 @@ export function PlansSection({ action }: { action: ReactNode }) {
             alt="Marca oficial do Clube OLVR, clube de assinatura da Oliveira Barbearia"
           />
         </div>
+
+        <ul className="plan-guide" aria-label="Qual família de planos escolher">
+          {sub.families.map((f) => (
+            <li key={f.id}>
+              <strong>{f.name}</strong>
+              <span>{f.valueHighlight ?? f.summary}</span>
+            </li>
+          ))}
+        </ul>
 
         <TabsPrimitive.Root value={family} onValueChange={setFamily} className="plan-tabs">
           <TabsPrimitive.List className="plan-tablist" aria-label="Famílias de planos">

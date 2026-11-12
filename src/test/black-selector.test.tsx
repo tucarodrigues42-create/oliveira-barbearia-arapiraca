@@ -13,7 +13,7 @@ describe("Black selector", () => {
     ] as const) {
       fireEvent.click(screen.getByRole("radio", { name: choice }));
       expect(screen.getByText(plan, { selector: "p.eyebrow" })).toBeInTheDocument();
-      expect(screen.getByRole("link", { name: `Conhecer o ${plan}` })).toHaveAttribute(
+      expect(screen.getByRole("link", { name: `Assinar o ${plan}` })).toHaveAttribute(
         "href",
         "https://cashbarber.com.br/oliveirabsara",
       );

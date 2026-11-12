@@ -219,7 +219,7 @@ export const siteContent = {
     tagline: "Você em sua melhor versão.",
     text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
     ratingBadge: "5,0 ★ · 347 avaliações no Google",
-    subheadline: "Mais do que um corte. Uma experiência de cuidado, precisão e estilo.",
+    subheadline: "Corte e barba com horário marcado, avulso ou pelos planos do Clube OLVR.",
     slogan: "Você em sua melhor versão.",
     kicker: "Corte e barba · Santa Esmeralda, Arapiraca",
     cta: {
@@ -287,8 +287,7 @@ export const siteContent = {
         text: "Um lugar aconchegante, atencioso aos detalhes irei voltar outras vezes.",
       },
     ],
-    quotesNote:
-      "Trechos de avaliações do Google fornecidos pela barbearia, não verificados automaticamente.",
+    quotesNote: "Trechos de avaliações do Google, informados pela barbearia.",
   },
   blackSelector: {
     extras: "10% de desconto em serviços extras e produtos",
@@ -349,7 +348,7 @@ export const siteContent = {
     target: "whatsapp" as TrackTarget,
   },
   finalCta: {
-    title: "Seu próximo nível começa no cuidado com você.",
+    title: "Reserve seu horário e mantenha o visual em dia.",
     primary: "Agendar agora",
     secondary: "Conhecer o Clube OLVR",
   },

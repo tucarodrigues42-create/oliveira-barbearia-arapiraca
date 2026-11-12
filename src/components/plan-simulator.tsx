@@ -77,6 +77,10 @@ export function BlackSelector() {
               </p>
             </div>
             <p>{family.days} · Mediante agendamento.</p>
+            <p className="note">
+              {selected.allowance}. Cobrança mensal no cartão de crédito; cancele a qualquer
+              momento, sem multa.
+            </p>
             <div className="black-result-actions">
               <Button asChild variant="editorial">
                 <a
@@ -86,12 +90,12 @@ export function BlackSelector() {
                   data-track="booking"
                   data-track-origin={`black-selector-${selected.id}`}
                 >
-                  Conhecer o {selected.label}
+                  Assinar o {selected.label}
                   <ArrowUpRight aria-hidden="true" />
                 </a>
               </Button>
               <p className="note">
-                Abre o Cash Barber. Selecione o {selected.label} para consultar e contratar.
+                Abre o Cash Barber. Procure por “{selected.name}” para consultar e contratar.
               </p>
               <Button asChild variant="editorialOutline">
                 <a
@@ -167,7 +171,7 @@ export function BlackSelector() {
               <summary>
                 Pagamento, cancelamento e regras <span aria-hidden="true">+</span>
               </summary>
-              <p className="note">{selected.allowance} · Mediante agendamento.</p>
+              <p className="note">Mediante agendamento.</p>
               <ul>
                 {content.subscription.conditions.map((item) => (
                   <li key={item}>{item}</li>
