@@ -7,9 +7,9 @@ describe("Black selector", () => {
   it("updates the chosen plan, booking label and WhatsApp message together", () => {
     render(<BlackSelector />);
     for (const [choice, plan, price] of [
-      ["BARBA", "Black Barba", "67,90"],
-      ["CORTE + BARBA", "Black Corte e Barba", "117,90"],
-      ["CORTE", "Black Corte", "67,90"],
+      ["BARBA", "Black Barba", "79,90"],
+      ["CORTE + BARBA", "Black Corte e Barba", "149,90"],
+      ["CORTE", "Black Corte", "79,90"],
     ] as const) {
       fireEvent.click(screen.getByRole("radio", { name: choice }));
       expect(screen.getByText(plan, { selector: "p.eyebrow" })).toBeInTheDocument();
@@ -30,9 +30,9 @@ describe("Black selector", () => {
     render(<BlackSelector />);
     const radios = screen.getAllByRole("radio");
     for (const [index, total, saving, label] of [
-      [0, "R$ 160", "92,10", "4 cortes avulsos"],
-      [1, "R$ 160", "92,10", "4 barbas avulsas"],
-      [2, "R$ 320", "202,10", "4 cortes + 4 barbas"],
+      [0, "R$ 160", "80,10", "4 cortes avulsos"],
+      [1, "R$ 160", "80,10", "4 barbas avulsas"],
+      [2, "R$ 320", "170,10", "4 cortes + 4 barbas"],
     ] as const) {
       fireEvent.click(radios[index]!);
       expect(screen.getByText(total)).toBeInTheDocument();
@@ -55,10 +55,10 @@ describe("Black selector", () => {
   it("recalculates the comparison and the yearly saving with the visit slider", () => {
     render(<BlackSelector />);
     const slider = screen.getByRole("slider", { name: /Quantas vezes por mês/ });
-    expect(screen.getByText("Em 12 meses: R$ 1.105,20 a menos.")).toBeInTheDocument();
-    fireEvent.change(slider, { target: { value: "2" } });
-    expect(screen.getByText("Economize R$ 12,10 no mês")).toBeInTheDocument();
-    expect(screen.getByText("2 cortes avulsos")).toBeInTheDocument();
+    expect(screen.getByText("Em 12 meses: R$ 961,20 a menos.")).toBeInTheDocument();
+    fireEvent.change(slider, { target: { value: "3" } });
+    expect(screen.getByText("Economize R$ 40,10 no mês")).toBeInTheDocument();
+    expect(screen.getByText("3 cortes avulsos")).toBeInTheDocument();
     fireEvent.change(slider, { target: { value: "1" } });
     expect(
       screen.getByText("A partir de 2 visitas por mês o plano compensa"),

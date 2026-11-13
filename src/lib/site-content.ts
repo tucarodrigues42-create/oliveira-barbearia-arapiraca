@@ -85,7 +85,7 @@ const planFamilies: PlanFamily[] = [
         label: "Black Corte",
         simulator: { covers: ["corte"] },
         name: "Black Corte Ilimitado",
-        price: 67.9,
+        price: 79.9,
         includes: ["Corte", "Pezinho"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a sábado",
@@ -96,7 +96,7 @@ const planFamilies: PlanFamily[] = [
         label: "Black Barba",
         simulator: { covers: ["barba"] },
         name: "Black Barba Ilimitada",
-        price: 67.9,
+        price: 79.9,
         includes: ["Barba", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a sábado",
@@ -107,7 +107,7 @@ const planFamilies: PlanFamily[] = [
         label: "Black Corte e Barba",
         simulator: { covers: ["corte", "barba"] },
         name: "Black Corte e Barba",
-        price: 117.9,
+        price: 149.9,
         includes: ["Corte", "Barba", "Pezinho", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a sábado",
@@ -129,35 +129,35 @@ const planFamilies: PlanFamily[] = [
       {
         id: "smart-corte",
         label: "Smart Corte",
-        simulator: { covers: ["corte"], offDayExtra: { corte: 15 } },
+        simulator: { covers: ["corte"], offDayExtra: { corte: 20 } },
         name: "Smart Corte Ilimitado",
-        price: 57.9,
+        price: 69.9,
         includes: ["Corte", "Pezinho"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
         benefit:
-          "Corte e pezinho incluídos de segunda a quarta; de quinta a sábado, corte a R$ 15.",
+          "Corte e pezinho incluídos de segunda a quarta; de quinta a sábado, corte com 50% de desconto (R$ 20).",
         extras: {
           days: "Quinta a sábado",
-          charges: [{ service: "Corte", price: 15 }],
+          charges: [{ service: "Corte", price: 20 }],
         },
       },
       {
         id: "smart-corte-barba",
         label: "Smart Corte e Barba",
-        simulator: { covers: ["corte", "barba"], offDayExtra: { corte: 15, barba: 15 } },
+        simulator: { covers: ["corte", "barba"], offDayExtra: { corte: 20, barba: 20 } },
         name: "Smart Corte e Barba",
-        price: 107.9,
+        price: 139.9,
         includes: ["Corte", "Barba", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
         benefit:
-          "Corte, barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, com desconto por atendimento.",
+          "Corte, barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, 50% de desconto por atendimento.",
         extras: {
           days: "Quinta a sábado",
           charges: [
-            { service: "Corte", price: 15 },
-            { service: "Barba", price: 15 },
+            { service: "Corte", price: 20 },
+            { service: "Barba", price: 20 },
             { service: "Barba Express", price: 10 },
           ],
         },
@@ -165,18 +165,18 @@ const planFamilies: PlanFamily[] = [
       {
         id: "smart-barba",
         label: "Smart Barba",
-        simulator: { covers: ["barba"], offDayExtra: { barba: 15 } },
+        simulator: { covers: ["barba"], offDayExtra: { barba: 20 } },
         name: "Smart Barba Limitado",
-        price: 57.9,
+        price: 69.9,
         includes: ["Barba", "Barba Express"],
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
         benefit:
-          "Barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, com desconto por atendimento.",
+          "Barba e Barba Express incluídos de segunda a quarta; de quinta a sábado, 50% de desconto por atendimento.",
         extras: {
           days: "Quinta a sábado",
           charges: [
-            { service: "Barba", price: 15 },
+            { service: "Barba", price: 20 },
             { service: "Barba Express", price: 10 },
           ],
         },
@@ -196,7 +196,7 @@ const planFamilies: PlanFamily[] = [
         label: "Clube One",
         simulator: { covers: ["corte"], includedVisits: 1, additionalVisit: 20 },
         name: "Clube One",
-        price: 26.9,
+        price: 35,
         includes: ["1 corte por mês"],
         includedDays: "Segunda a sábado",
         benefit: "1 corte incluído por mês, com cortes extras por R$ 20 cada.",
@@ -220,7 +220,7 @@ export const siteContent = {
     text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
     ratingBadge: "5,0 ★ · 347 avaliações no Google",
     subheadline:
-      "Assine o Black, pague uma mensalidade fixa a partir de R$ 67,90 e deixe o visual sempre em dia.",
+      "Assine o Black, pague uma mensalidade fixa a partir de R$ 79,90 e deixe o visual sempre em dia.",
     slogan: "Você em sua melhor versão.",
     kicker: "Clube OLVR · Oliveira Barbearia, Arapiraca",
     cta: {
@@ -367,12 +367,12 @@ export const siteContent = {
     {
       question: "Como funciona o Clube One?",
       answer:
-        "Por R$ 26,90 por mês você tem 1 corte incluído. Cortes adicionais custam R$ 20 cada. Vale de segunda a sábado, com agendamento até 30 dias antes.",
+        "Por R$ 35,00 por mês você tem 1 corte incluído. Cortes adicionais custam R$ 20 cada. Vale de segunda a sábado, com agendamento até 30 dias antes.",
     },
     {
       question: "O que é cobrado de quinta a sábado nos planos Smart?",
       answer:
-        "Smart Corte Ilimitado: corte a R$ 15. Smart Corte e Barba: corte R$ 15, barba R$ 15 e Barba Express R$ 10. Smart Barba Limitado: barba R$ 15 e Barba Express R$ 10.",
+        "Fora de segunda a quarta, os serviços do Smart têm 50% de desconto sobre o preço avulso. Smart Corte Ilimitado: corte a R$ 20. Smart Corte e Barba: corte R$ 20, barba R$ 20 e Barba Express R$ 10. Smart Barba Limitado: barba R$ 20 e Barba Express R$ 10.",
     },
     {
       question: "Os planos ilimitados têm limite?",

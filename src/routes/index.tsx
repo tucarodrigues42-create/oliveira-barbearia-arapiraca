@@ -24,7 +24,7 @@ import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
 const title = "Oliveira Barbearia | Corte, barba e Clube OLVR em Arapiraca–AL";
 const description =
-  "Corte e barba na Santa Esmeralda, Arapiraca–AL. Atendimento avulso ou planos Black do Clube OLVR a partir de R$ 67,90/mês. Segunda a sábado, 9h às 20h. Agende pelo Cash Barber.";
+  "Corte e barba na Santa Esmeralda, Arapiraca–AL. Atendimento avulso ou planos Black do Clube OLVR a partir de R$ 79,90/mês. Segunda a sábado, 9h às 20h. Agende pelo Cash Barber.";
 
 /** Endereço definitivo informado pelo proprietário em 13/11/2026. Se mudar, atualize também public/sitemap.xml e public/robots.txt. */
 const siteUrl = "https://oliveirabarbearia.vercel.app/";
