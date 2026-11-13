@@ -194,15 +194,15 @@ const planFamilies: PlanFamily[] = [
       {
         id: "clube-one",
         label: "Clube One",
-        simulator: { covers: ["corte"], includedVisits: 1, additionalVisit: 15 },
+        simulator: { covers: ["corte"], includedVisits: 1, additionalVisit: 20 },
         name: "Clube One",
         price: 26.9,
         includes: ["1 corte por mês"],
         includedDays: "Segunda a sábado",
-        benefit: "1 corte incluído por mês, com cortes extras por R$ 15 cada.",
+        benefit: "1 corte incluído por mês, com cortes extras por R$ 20 cada.",
         extras: {
           days: "Cortes adicionais",
-          charges: [{ service: "Corte adicional", price: 15, note: "cada" }],
+          charges: [{ service: "Corte adicional", price: 20, note: "cada" }],
         },
       },
     ],
@@ -367,7 +367,7 @@ export const siteContent = {
     {
       question: "Como funciona o Clube One?",
       answer:
-        "Por R$ 26,90 por mês você tem 1 corte incluído. Cortes adicionais custam R$ 15 cada. Vale de segunda a sábado, com agendamento até 30 dias antes.",
+        "Por R$ 26,90 por mês você tem 1 corte incluído. Cortes adicionais custam R$ 20 cada. Vale de segunda a sábado, com agendamento até 30 dias antes.",
     },
     {
       question: "O que é cobrado de quinta a sábado nos planos Smart?",

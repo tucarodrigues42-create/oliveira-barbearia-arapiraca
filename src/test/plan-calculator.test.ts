@@ -6,14 +6,14 @@ const plans = siteContent.subscription.families.flatMap((f) => f.plans);
 const byId = (id: string) => plans.find((p) => p.id === id)!;
 
 describe("plan calculator", () => {
-  it("Clube One: 1 incluído + R$ 15 por corte adicional", () => {
+  it("Clube One: 1 incluído + R$ 20 por corte adicional", () => {
     const two = estimatePlan(byId("clube-one"), { service: "corte", visits: 2, days: "qui-sab" })!;
-    expect(two.totalCents).toBe(4190);
+    expect(two.totalCents).toBe(4690);
     const r2 = simulate(plans, { service: "corte", visits: 2, days: "seg-qua" });
     expect(r2.best?.plan.id).toBe("clube-one");
-    expect(r2.differenceCents).toBe(3810);
+    expect(r2.differenceCents).toBe(3310);
     const four = estimatePlan(byId("clube-one"), { service: "corte", visits: 4, days: "seg-qua" })!;
-    expect(four.totalCents).toBe(7190);
+    expect(four.totalCents).toBe(8690);
     expect(simulate(plans, { service: "corte", visits: 4, days: "seg-qua" }).singleCents).toBe(
       16000,
     );
@@ -82,6 +82,6 @@ describe("full-week availability", () => {
     expect(result.estimates.every((e) => !e.plan.simulator.offDayExtra)).toBe(true);
     expect(
       estimatePlan(byId("clube-one"), { service: "corte", visits: 2, days: "seg-sab" })?.totalCents,
-    ).toBe(4190);
+    ).toBe(4690);
   });
 });
