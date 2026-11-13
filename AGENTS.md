@@ -17,4 +17,4 @@
 - Keep the owner-supplied club mark as a separate full-aspect asset from the principal brand so club updates cannot replace header/footer identity.
 - Plan families, prices and conditions live as typed data in `site-content.ts` and render through `src/components/plans-section.tsx`; any plan named "Ilimitado" must carry its allowance in the same block (enforced by `src/test/site-content.test.ts`).
 - Outbound CTAs carry `data-track` + `data-track-origin` attributes only; no analytics vendor is installed, so never claim collected metrics or call a booking click a completed booking.
-- Omit canonical, og:url, og:image and sitemap until a definitive domain is confirmed; never emit relative URLs for them.
+- Canonical, og:url and sitemap use the definitive address https://oliveirabarbearia.vercel.app/ (confirmed 13/11/2026); never emit relative URLs for them. Keep og:image omitted until an authorized image exists. If the address changes, update index.tsx, public/sitemap.xml and public/robots.txt together.
