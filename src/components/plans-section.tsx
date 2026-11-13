@@ -1,8 +1,69 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Minus } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { formatPrice, siteContent as content, type Plan } from "@/lib/site-content";
 import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
+
+function PlanCompare({ plans }: { plans: Plan[] }) {
+  const services = [...new Set(plans.flatMap((plan) => plan.includes))];
+  if (plans.length < 2) return null;
+  return (
+    <details className="plan-more plan-compare-box">
+      <summary>
+        Comparar os planos lado a lado
+        <ChevronDown aria-hidden="true" />
+      </summary>
+      <div className="plan-compare" role="region" aria-label="Comparação dos planos" tabIndex={0}>
+        <table>
+          <caption className="sr-only">O que cada plano inclui</caption>
+          <thead>
+            <tr>
+              <th scope="col">Inclui</th>
+              {plans.map((plan) => (
+                <th scope="col" key={plan.id}>
+                  {plan.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {services.map((service) => (
+              <tr key={service}>
+                <th scope="row">{service}</th>
+                {plans.map((plan) => (
+                  <td key={plan.id}>
+                    {plan.includes.includes(service) ? (
+                      <Check aria-label="Incluso" />
+                    ) : (
+                      <Minus className="no" aria-label="Não incluso" />
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+            <tr>
+              <th scope="row">Dias</th>
+              {plans.map((plan) => (
+                <td key={plan.id}>{plan.includedDays}</td>
+              ))}
+            </tr>
+            <tr>
+              <th scope="row">Por mês</th>
+              {plans.map((plan) => (
+                <td key={plan.id} className="price-cell">
+                  {formatPrice(plan.price)}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="swipe-hint swipe-hint-table" aria-hidden="true">
+        Deslize a tabela para ver todos <ArrowRight />
+      </p>
+    </details>
+  );
+}
 
 function PlanCard({ plan, bookingWindow }: { plan: Plan; bookingWindow: string }) {
   return (
@@ -122,6 +183,7 @@ export function PlansSection({ action }: { action: ReactNode }) {
                   <PlanCard key={plan.id} plan={plan} bookingWindow={f.bookingWindow} />
                 ))}
               </ul>
+              <PlanCompare plans={f.plans} />
             </TabsPrimitive.Content>
           ))}
         </TabsPrimitive.Root>

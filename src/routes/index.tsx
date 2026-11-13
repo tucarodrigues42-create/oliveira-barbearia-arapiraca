@@ -20,6 +20,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { PlansSection } from "@/components/plans-section";
 import { BlackSelector } from "@/components/plan-simulator";
+import { LeadForm } from "@/components/lead-form";
+import { TrustRow } from "@/components/trust-row";
 import { formatPrice, siteContent as content, type TrackTarget } from "@/lib/site-content";
 import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
@@ -355,6 +357,7 @@ function Index() {
                   </a>
                 </Button>
               </div>
+              <TrustRow className="hero-trust-row" />
               <p className="hero-single">
                 Só um horário?{" "}
                 <a
@@ -539,6 +542,8 @@ function Index() {
             </ExternalLink>
           }
         />
+
+        <LeadForm />
 
         <section className="section booking-section" aria-labelledby="booking-title">
           <div className="page-container">

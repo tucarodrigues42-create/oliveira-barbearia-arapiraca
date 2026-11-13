@@ -52,4 +52,17 @@ describe("Black selector", () => {
     );
     expect(screen.queryByText(/Menor custo/)).not.toBeInTheDocument();
   });
+  it("recalculates the comparison and the yearly saving with the visit slider", () => {
+    render(<BlackSelector />);
+    const slider = screen.getByRole("slider", { name: /Quantas vezes por mês/ });
+    expect(screen.getByText("Em 12 meses: R$ 1.105,20 a menos.")).toBeInTheDocument();
+    fireEvent.change(slider, { target: { value: "2" } });
+    expect(screen.getByText("Economize R$ 12,10 no mês")).toBeInTheDocument();
+    expect(screen.getByText("2 cortes avulsos")).toBeInTheDocument();
+    fireEvent.change(slider, { target: { value: "1" } });
+    expect(
+      screen.getByText("A partir de 2 visitas por mês o plano compensa"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/Em 12 meses/)).not.toBeInTheDocument();
+  });
 });

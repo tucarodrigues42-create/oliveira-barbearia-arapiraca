@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { ArrowUpRight, Check, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TrustRow } from "@/components/trust-row";
 import { formatPrice, siteContent as content } from "@/lib/site-content";
 
 /** Reuses the former simulator module so existing installations need no file deletion. */
 export function BlackSelector() {
   const family = content.subscription.families.find((item) => item.id === "black");
   const [selectedId, setSelectedId] = useState("black-corte");
+  const [visits, setVisits] = useState(4);
   const selected = family?.plans.find((plan) => plan.id === selectedId);
   if (!family || !selected) return null;
   const choice = content.blackSelector.choices.find((item) => item.planId === selected.id);
@@ -15,9 +17,28 @@ export function BlackSelector() {
   );
   // Hide the comparison if a confirmed service price is missing; never assume zero.
   const hasPrices = services?.length && services.every((service) => service !== undefined);
-  const totalCents =
-    services?.reduce((sum, service) => sum + Math.round((service?.price ?? 0) * 100) * 4, 0) ?? 0;
-  const savingCents = totalCents - Math.round(selected.price * 100);
+  const perVisitCents =
+    services?.reduce((sum, service) => sum + Math.round((service?.price ?? 0) * 100), 0) ?? 0;
+  const planCents = Math.round(selected.price * 100);
+  const totalCents = perVisitCents * visits;
+  const savingCents = totalCents - planCents;
+  // Menor número de visitas por mês em que o plano passa a custar menos que o avulso.
+  const breakEven = perVisitCents > 0 ? Math.floor(planCents / perVisitCents) + 1 : 0;
+  const times = visits === 1 ? "vez" : "vezes";
+  const visitsLabel =
+    selected.id === "black-barba"
+      ? `${visits} ${visits === 1 ? "barba avulsa" : "barbas avulsas"}`
+      : selected.id === "black-corte-barba"
+        ? `${visits} ${visits === 1 ? "corte" : "cortes"} + ${visits} ${visits === 1 ? "barba" : "barbas"}`
+        : `${visits} ${visits === 1 ? "corte avulso" : "cortes avulsos"}`;
+  const comparisonTitle =
+    selected.id === "black-barba"
+      ? `Faz a barba ${visits} ${times} no mês? Compare.`
+      : selected.id === "black-corte-barba"
+        ? `Faz corte + barba ${visits} ${times} no mês? Compare.`
+        : `Faz ${visits} ${visits === 1 ? "corte" : "cortes"} no mês? Compare.`;
+  const planBar = totalCents > 0 ? Math.min(100, Math.round((planCents / totalCents) * 100)) : 0;
+  const singleBar = totalCents > 0 ? Math.min(100, Math.round((totalCents / planCents) * 100)) : 0;
   const whatsapp = new URL(content.links.whatsapp);
   whatsapp.searchParams.set(
     "text",
@@ -97,6 +118,7 @@ export function BlackSelector() {
               <p className="note">
                 Abre o Cash Barber. Procure por “{selected.name}” para consultar e contratar.
               </p>
+              <TrustRow />
               <Button asChild variant="editorialOutline">
                 <a
                   href={whatsapp.toString()}
@@ -119,15 +141,37 @@ export function BlackSelector() {
                 aria-live="polite"
                 aria-atomic="true"
               >
-                <h4>{choice.comparisonTitle}</h4>
+                <h4>{comparisonTitle}</h4>
                 <p className="note">
                   {services
                     ?.map((service) => `${service!.name}: ${formatPrice(service!.price)} avulso`)
                     .join(" · ")}
                 </p>
+                <div className="visit-slider">
+                  <label htmlFor="visit-count">Quantas vezes por mês você vem?</label>
+                  <div className="visit-slider-row">
+                    <input
+                      id="visit-count"
+                      type="range"
+                      min={1}
+                      max={8}
+                      step={1}
+                      value={visits}
+                      aria-valuetext={`${visits} ${times} por mês`}
+                      onChange={(event) => setVisits(Number(event.target.value))}
+                      data-track="black-visits"
+                      data-track-origin={selected.id}
+                    />
+                    <output htmlFor="visit-count">{visits}x</output>
+                  </div>
+                </div>
+                <div className="compare-bars" aria-hidden="true">
+                  <span style={{ width: `${singleBar}%` }} data-kind="single" />
+                  <span style={{ width: `${planBar}%` }} data-kind="plan" />
+                </div>
                 <dl>
                   <div>
-                    <dt>{choice.comparisonLabel}</dt>
+                    <dt>{visitsLabel}</dt>
                     <dd>{formatPrice(totalCents / 100)}</dd>
                   </div>
                   <div>
@@ -138,11 +182,16 @@ export function BlackSelector() {
                 <p className="black-saving">
                   {savingCents > 0
                     ? `Economize ${formatPrice(savingCents / 100)} no mês`
-                    : "Compare os serviços e benefícios do plano"}
+                    : `A partir de ${breakEven} ${breakEven === 1 ? "visita" : "visitas"} por mês o plano compensa`}
                 </p>
+                {savingCents > 0 && (
+                  <p className="black-year">
+                    Em 12 meses: {formatPrice((savingCents * 12) / 100)} a menos.
+                  </p>
+                )}
                 <p className="note">
-                  Comparação para quem faz {choice.comparisonLabel.toLowerCase()} no mês. Economia
-                  condicionada a essa frequência de uso.
+                  Comparação para quem faz {visitsLabel.toLowerCase()} no mês. A economia depende
+                  dessa frequência de uso.
                 </p>
               </div>
             )}
