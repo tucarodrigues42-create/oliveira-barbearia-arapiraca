@@ -10,4 +10,4 @@ Nenhuma ferramenta de analytics está configurada. Links de ação têm `data-tr
 
 ## Pendências externas
 - Fotos reais autorizadas do espaço (nenhuma usada).
-- Domínio definitivo para canonical, og:url, imagem social e sitemap.
+- Imagem social (og:image): aguarda foto ou arte autorizada. Canonical, og:url e sitemap já usam https://oliveirabarbearia.vercel.app/.
