@@ -348,8 +348,8 @@ em { font-style: normal; }
   .header-booking { display: none; }
   .hero-actions > * { width: 100%; }
   .location-strip .page-container { justify-content: flex-start; gap: 0 24px; }
-  .service-card { grid-template-columns: minmax(0, 1fr) auto; }
-  .service-card a { grid-column: 1 / -1; }
+  .service-card { gap: 8px 16px; padding-block: 8px; }
+  .service-card strong { font-size: 1.5rem; }
   .plan-card { padding: 22px; }
   .copy-address { margin-left: 0; display: flex; }
   .section { padding-block: 48px; }
