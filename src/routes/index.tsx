@@ -20,7 +20,6 @@ import { Button } from "@/components/ui/button";
 import { PlansSection } from "@/components/plans-section";
 import { BlackSelector } from "@/components/plan-simulator";
 import { formatPrice, siteContent as content, type TrackTarget } from "@/lib/site-content";
-import { ClipperStage } from "@/components/clipper-stage";
 import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
 const title = "Oliveira Barbearia | Corte, barba e Clube OLVR em Arapiraca–AL";
@@ -118,8 +117,8 @@ function CopyAddress() {
 }
 
 const bottomItems = [
-  { id: "servicos", label: "Serviços", Icon: Scissors },
-  { id: "planos", label: "Clube", Icon: Crown },
+  { id: "seu-black", label: "Meu plano", Icon: Crown },
+  { id: "servicos", label: "Avulso", Icon: Scissors },
   { id: "contato", label: "Local", Icon: MapPin },
 ] as const;
 
@@ -155,13 +154,34 @@ function BottomNav() {
         data-track-origin="bottom-nav"
       >
         <CalendarCheck aria-hidden="true" />
-        Agendar
+        Assinar
       </a>
     </nav>
   );
 }
 
 const ratingText = content.reviews.rating.toFixed(1).replace(".", ",");
+
+/** Conta do hero: apenas preços confirmados em site-content (4 cortes avulsos x Black Corte). */
+const corteAvulso = content.services.find((service) => service.name === "Corte");
+const blackCorte = content.subscription.families
+  .find((family) => family.id === "black")
+  ?.plans.find((plan) => plan.id === "black-corte");
+const ledger =
+  corteAvulso && blackCorte
+    ? (() => {
+        const singleCents = Math.round(corteAvulso.price * 100) * 4;
+        const planCents = Math.round(blackCorte.price * 100);
+        return {
+          single: singleCents / 100,
+          plan: blackCorte.price,
+          saving: (singleCents - planCents) / 100,
+          positive: singleCents > planCents,
+          threeCuts: corteAvulso.price * 3,
+          threeCutsBeatPlan: corteAvulso.price * 3 > blackCorte.price,
+        };
+      })()
+    : null;
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -254,154 +274,94 @@ function Index() {
         <section className="hero" id="inicio" aria-labelledby="hero-title">
           <div className="page-container hero-inner">
             <div className="hero-copy">
-              <p className="eyebrow hero-eyebrow">
-                <span className="location-dot" aria-hidden="true" />
-                {content.hero.kicker}
-              </p>
-              <h1 id="hero-title">
-                Você em sua
-                <br />
-                <em>melhor versão.</em>
-              </h1>
+              <p className="hero-kicker">{content.hero.kicker}</p>
+              <h1 id="hero-title">Pare de pagar corte por corte.</h1>
               <p className="lead">{content.hero.subheadline}</p>
               <div className="hero-actions">
                 <ExternalLink href={content.links.booking} track="booking" origin="hero">
-                  Agendar horário
+                  Assinar o Clube OLVR
                 </ExternalLink>
                 <Button asChild variant="editorialOutline">
-                  <a href="#planos" data-track="plans" data-track-origin="hero">
-                    Conhecer o Clube OLVR
+                  <a href="#seu-black" data-track="plans" data-track-origin="hero">
+                    Ver quanto eu economizo
                     <ArrowDown aria-hidden="true" />
                   </a>
                 </Button>
               </div>
-              <div className="hero-trust">
+              <p className="hero-single">
+                Só um horário?{" "}
                 <a
-                  href="#avaliacoes"
-                  className="hero-rating"
-                  data-track="reviews"
-                  data-track-origin="hero"
-                >
-                  <Star aria-hidden="true" />
-                  <span>
-                    <strong>{ratingText}/5</strong> · {content.reviews.count} avaliações no Google
-                  </span>
-                </a>
-
-                <a
-                  className="text-link"
-                  href={content.links.whatsapp}
+                  href={content.links.booking}
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-track="whatsapp"
-                  data-track-origin="hero"
+                  data-track="booking"
+                  data-track-origin="hero-avulso"
                 >
-                  Dúvidas? Fale pelo WhatsApp
+                  Agende avulso
                 </a>
-              </div>
+              </p>
             </div>
-            <ClipperStage />
+            {ledger && ledger.positive && (
+              <aside
+                className="hero-ledger invert"
+                aria-label="Comparação entre cortes avulsos e o plano Black Corte"
+              >
+                <p className="ledger-title">Um mês de corte na Oliveira</p>
+                <dl className="ledger-rows">
+                  <div className="ledger-old">
+                    <dt>4 cortes avulsos</dt>
+                    <dd>{formatPrice(ledger.single)}</dd>
+                  </div>
+                  <div>
+                    <dt>{blackCorte?.label}</dt>
+                    <dd>{formatPrice(ledger.plan)}</dd>
+                  </div>
+                </dl>
+                <p className="ledger-saving">
+                  <strong>{formatPrice(ledger.saving)}</strong>
+                  <span>a menos no mês</span>
+                </p>
+                <p className="note ledger-note">
+                  Considera 4 cortes no mês a {formatPrice(corteAvulso?.price ?? 0)} cada. O plano
+                  inclui o pezinho. {blackCorte?.allowance}.
+                </p>
+              </aside>
+            )}
           </div>
         </section>
 
         <div className="location-strip">
           <div className="page-container">
-            <span>ARAPIRACA, ALAGOAS</span>
-            <span>SEGUNDA A SÁBADO · 9H ÀS 20H</span>
+            <a
+              className="proof-rating"
+              href="#avaliacoes"
+              data-track="reviews"
+              data-track-origin="proof-strip"
+            >
+              <Star aria-hidden="true" />
+              {ratingText} · {content.reviews.count} avaliações no Google
+            </a>
+            <span>
+              {content.openingHours.days}, {content.openingHours.hours}
+            </span>
             <a href={content.links.maps} target="_blank" rel="noopener noreferrer">
-              Santa Esmeralda <ArrowUpRight size={14} aria-hidden="true" />
+              Santa Esmeralda, Arapiraca <ArrowUpRight size={14} aria-hidden="true" />
             </a>
           </div>
         </div>
         <BlackSelector />
 
         <section
-          id="servicos"
-          className="section services-section"
-          tabIndex={-1}
-          aria-labelledby="services-title"
-        >
-          <div className="page-container two-column">
-            <div>
-              <p className="eyebrow">02 / Atendimento avulso</p>
-              <h2 id="services-title">
-                Serviços e <em>valores.</em>
-              </h2>
-              <p className="lead">{content.about.text}</p>
-              <ExternalLink
-                variant="editorialLink"
-                href={content.links.instagram}
-                track="instagram"
-                origin="services"
-              >
-                <Instagram aria-hidden="true" />
-                Veja os trabalhos no Instagram
-              </ExternalLink>
-            </div>
-            <div>
-              <ul className="service-cards">
-                {content.services.map((s) => (
-                  <li key={s.name} className="service-card">
-                    <h3>{s.name}</h3>
-                    <strong>{formatPrice(s.price)}</strong>
-                    <a
-                      href={content.links.booking}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-track="booking"
-                      data-track-origin={`service-${s.name}`}
-                      aria-label={`Agendar ${s.name} no Cash Barber`}
-                    >
-                      Agendar <ArrowUpRight size={16} aria-hidden="true" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <p className="note">{content.servicesNote}</p>
-            </div>
-          </div>
-        </section>
-
-        <PlansSection
-          action={
-            <ExternalLink href={content.links.booking} track="booking" origin="plans">
-              {content.subscription.action}
-            </ExternalLink>
-          }
-        />
-
-        <section className="section booking-section" aria-labelledby="booking-title">
-          <div className="page-container">
-            <p className="eyebrow">04 / Seu próximo horário</p>
-            <h2 id="booking-title">Agendar é simples.</h2>
-            <ol className="steps">
-              {content.steps.map((step, index) => (
-                <li key={step.title}>
-                  <span className="step-number">0{index + 1}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </li>
-              ))}
-            </ol>
-            <ExternalLink href={content.links.booking} track="booking" origin="steps">
-              Abrir agendamento
-            </ExternalLink>
-          </div>
-        </section>
-
-        <section
           id="avaliacoes"
-          className="section reviews-section"
+          className="section reviews-section invert"
           tabIndex={-1}
           aria-labelledby="reviews-title"
         >
           <div className="page-container">
             <div className="reviews-layout">
               <div>
-                <p className="eyebrow">05 / Avaliações no Google</p>
-                <h2 id="reviews-title">
-                  A experiência de quem <em>já veio.</em>
-                </h2>
+                <p className="eyebrow">Avaliações no Google</p>
+                <h2 id="reviews-title">Quem já veio, volta.</h2>
               </div>
               <div className="rating-block">
                 <div className="stars" aria-hidden="true">
@@ -449,6 +409,82 @@ function Index() {
         </section>
 
         <section
+          id="servicos"
+          className="section services-section"
+          tabIndex={-1}
+          aria-labelledby="services-title"
+        >
+          <div className="page-container two-column">
+            <div>
+              <p className="eyebrow">Sem assinatura</p>
+              <h2 id="services-title">Prefere pagar por visita?</h2>
+              <p className="lead">
+                {ledger?.threeCutsBeatPlan
+                  ? `Sem compromisso, no valor de cada visita. Mas na terceira vez no mês você já passa do preço do plano: 3 cortes somam ${formatPrice(ledger.threeCuts)}, contra ${formatPrice(ledger.plan)} do ${blackCorte?.label}.`
+                  : content.about.text}
+              </p>
+              <ExternalLink
+                variant="editorialLink"
+                href={content.links.instagram}
+                track="instagram"
+                origin="services"
+              >
+                <Instagram aria-hidden="true" />
+                Veja os trabalhos no Instagram
+              </ExternalLink>
+            </div>
+            <div>
+              <ul className="service-cards">
+                {content.services.map((s) => (
+                  <li key={s.name} className="service-card">
+                    <h3>{s.name}</h3>
+                    <strong>{formatPrice(s.price)}</strong>
+                    <a
+                      href={content.links.booking}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-track="booking"
+                      data-track-origin={`service-${s.name}`}
+                      aria-label={`Agendar ${s.name} no Cash Barber`}
+                    >
+                      Agendar <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p className="note">{content.servicesNote}</p>
+            </div>
+          </div>
+        </section>
+
+        <PlansSection
+          action={
+            <ExternalLink href={content.links.booking} track="booking" origin="plans">
+              {content.subscription.action}
+            </ExternalLink>
+          }
+        />
+
+        <section className="section booking-section" aria-labelledby="booking-title">
+          <div className="page-container">
+            <p className="eyebrow">Assinar ou agendar</p>
+            <h2 id="booking-title">Três passos no Cash Barber.</h2>
+            <ol className="steps">
+              {content.steps.map((step, index) => (
+                <li key={step.title}>
+                  <span className="step-number">0{index + 1}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </li>
+              ))}
+            </ol>
+            <ExternalLink href={content.links.booking} track="booking" origin="steps">
+              Abrir o Cash Barber
+            </ExternalLink>
+          </div>
+        </section>
+
+        <section
           id="contato"
           className="section contact-section"
           tabIndex={-1}
@@ -456,10 +492,8 @@ function Index() {
         >
           <div className="page-container two-column">
             <div>
-              <p className="eyebrow">06 / Venha até a Oliveira</p>
-              <h2 id="contact-title">
-                Nos vemos na <em>barbearia.</em>
-              </h2>
+              <p className="eyebrow">Venha até a Oliveira</p>
+              <h2 id="contact-title">Nos vemos na barbearia.</h2>
               <address>
                 <MapPin aria-hidden="true" />
                 <span>
@@ -536,9 +570,7 @@ function Index() {
           <div className="page-container two-column">
             <div>
               <p className="eyebrow">Antes da sua visita</p>
-              <h2 id="faq-title">
-                Dúvidas <em>frequentes.</em>
-              </h2>
+              <h2 id="faq-title">Dúvidas frequentes.</h2>
             </div>
             <div className="faq-list">
               {content.faq.map((item) => (
@@ -563,19 +595,21 @@ function Index() {
             </div>
           </div>
         </section>
-        <section className="section final-cta" aria-labelledby="final-title">
+        <section className="section final-cta invert" aria-labelledby="final-title">
           <div className="page-container">
             <h2 id="final-title">{content.finalCta.title}</h2>
             <div className="final-cta-actions">
               <ExternalLink href={content.links.booking} track="booking" origin="final-cta">
                 {content.finalCta.primary}
               </ExternalLink>
-              <Button asChild variant="editorialOutline">
-                <a href="#planos" data-track="plans" data-track-origin="final-cta">
-                  {content.finalCta.secondary}
-                  <ArrowDown aria-hidden="true" />
-                </a>
-              </Button>
+              <ExternalLink
+                variant="editorialOutline"
+                href={content.links.booking}
+                track="booking"
+                origin="final-cta-avulso"
+              >
+                {content.finalCta.secondary}
+              </ExternalLink>
             </div>
           </div>
         </section>

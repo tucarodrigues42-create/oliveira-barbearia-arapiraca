@@ -74,7 +74,7 @@ export function PlansSection({ action }: { action: ReactNode }) {
       <div className="page-container">
         <div className="plans-intro">
           <div>
-            <p className="eyebrow">03 / {sub.description}</p>
+            <p className="eyebrow">{sub.description}</p>
             <h2 id="plans-title">{sub.name}</h2>
             <p className="club-tagline">{sub.title}</p>
             <p className="lead">{sub.text}</p>

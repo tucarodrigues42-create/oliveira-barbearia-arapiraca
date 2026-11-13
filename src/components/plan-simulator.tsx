@@ -33,7 +33,7 @@ export function BlackSelector() {
     >
       <span id="simulador" className="legacy-anchor" aria-hidden="true" />
       <div className="page-container">
-        <p className="eyebrow">01 / Uma assinatura. Seu cuidado em dia.</p>
+        <p className="eyebrow">Escolha seu Black</p>
         <h2 id="black-selector-title">{content.blackSelector.title}</h2>
         <p className="lead">{content.blackSelector.text}</p>
         <fieldset className="black-choices">

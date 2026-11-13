@@ -219,9 +219,10 @@ export const siteContent = {
     tagline: "Você em sua melhor versão.",
     text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
     ratingBadge: "5,0 ★ · 347 avaliações no Google",
-    subheadline: "Corte e barba com horário marcado, avulso ou pelos planos do Clube OLVR.",
+    subheadline:
+      "Escolha um plano do Clube OLVR, pague uma mensalidade fixa a partir de R$ 26,90 e deixe o visual sempre em dia.",
     slogan: "Você em sua melhor versão.",
-    kicker: "Corte e barba · Santa Esmeralda, Arapiraca",
+    kicker: "Clube OLVR · Oliveira Barbearia, Arapiraca",
     cta: {
       primary: { label: "Agendar meu horário", target: "booking" as TrackTarget },
       secondary: { label: "Comparar planos", anchor: "planos" },
@@ -251,7 +252,7 @@ export const siteContent = {
   subscription: {
     name: "Clube OLVR",
     description: "Clube de assinatura da Oliveira Barbearia",
-    title: "Seu estilo não tira folga.",
+    title: "Uma mensalidade. O visual sempre em dia.",
     text: "Três famílias de planos: Black para usar a semana toda, Smart para quem prefere o início da semana e One para um corte por mês.",
     action: "Conhecer os planos no Cash Barber",
     families: planFamilies,
@@ -324,10 +325,10 @@ export const siteContent = {
     ],
   },
   navigation: [
-    { id: "seu-black", label: "Encontre meu plano" },
-    { id: "servicos", label: "Serviços" },
-    { id: "planos", label: "Clube OLVR" },
+    { id: "seu-black", label: "Meu plano" },
     { id: "avaliacoes", label: "Avaliações" },
+    { id: "planos", label: "Todos os planos" },
+    { id: "servicos", label: "Avulso" },
     { id: "contato", label: "Contato" },
   ],
   steps: [
@@ -348,9 +349,9 @@ export const siteContent = {
     target: "whatsapp" as TrackTarget,
   },
   finalCta: {
-    title: "Reserve seu horário e mantenha o visual em dia.",
-    primary: "Agendar agora",
-    secondary: "Conhecer o Clube OLVR",
+    title: "Quanto mais você vem, menos cada visita custa.",
+    primary: "Assinar o Clube OLVR",
+    secondary: "Agendar só um horário",
   },
   faq: [
     {
