@@ -318,6 +318,8 @@ em { font-style: normal; }
 .whatsapp-fab svg { width: 26px; height: 26px; }
 .bottom-nav { display: none; }
 
+.swipe-hint { display: none; }
+
 /* Entrada única: o quadro de economia aparece quando a página abre */
 @keyframes ledger-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
@@ -364,7 +366,24 @@ em { font-style: normal; }
   .plan-cards::-webkit-scrollbar, .review-quotes::-webkit-scrollbar { display: none; }
   .plan-cards > li { flex: 0 0 84%; scroll-snap-align: start; }
   .review-quotes > li { flex: 0 0 86%; scroll-snap-align: start; }
-  .review-quotes { margin-top: 32px; }
+  .review-quotes { margin-top: 12px; }
+  .plan-cards { margin-top: 12px; }
+  .steps { display: flex; gap: 12px; margin: 12px calc(var(--gutter) * -1) 28px; padding: 0 var(--gutter) 8px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+  .steps::-webkit-scrollbar { display: none; }
+  .steps > li { flex: 0 0 78%; scroll-snap-align: start; padding: 18px 18px 22px; background: var(--secondary); border-top: 0; border-radius: var(--radius); }
+  .swipe-hint { display: flex; align-items: center; gap: 6px; margin-top: 24px; font-size: 13px; font-weight: 600; color: var(--muted-foreground); }
+  .swipe-hint svg { width: 14px; height: 14px; }
+  .plan-panel-head + .swipe-hint { margin-top: 20px; }
+  /* Menos itens fixos: o botão flutuante sai e o WhatsApp entra na barra de baixo. */
+  .whatsapp-fab { display: none; }
+  .location-strip .proof-map { display: none; }
+  .location-strip .page-container { gap: 0 20px; padding-block: 2px; }
+  .map-frame { height: 240px; }
+  /* Entrada ao rolar: sobe e aparece; só liga quando o JS marca a página (.reveal-ready). */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-ready .reveal { opacity: 0; transform: translate3d(0, 26px, 0); transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .reveal-ready .reveal.is-in { opacity: 1; transform: none; }
+  }
   .whatsapp-fab { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); width: 52px; height: 52px; }
   .bottom-nav {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;

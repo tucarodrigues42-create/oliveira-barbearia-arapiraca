@@ -1,5 +1,5 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { Check, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { formatPrice, siteContent as content, type Plan } from "@/lib/site-content";
 import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
@@ -114,6 +114,9 @@ export function PlansSection({ action }: { action: ReactNode }) {
                   <li>{f.bookingWindow}</li>
                 </ul>
               </div>
+              <p className="swipe-hint" aria-hidden="true">
+                Deslize para ver os planos <ArrowRight />
+              </p>
               <ul className="plan-cards">
                 {f.plans.map((plan) => (
                   <PlanCard key={plan.id} plan={plan} bookingWindow={f.bookingWindow} />

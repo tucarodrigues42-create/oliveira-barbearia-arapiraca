@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowDown,
+  ArrowRight,
   ArrowUpRight,
   ChevronDown,
   Clock,
@@ -119,7 +120,6 @@ function CopyAddress() {
 const bottomItems = [
   { id: "seu-black", label: "Meu plano", Icon: Crown },
   { id: "servicos", label: "Avulso", Icon: Scissors },
-  { id: "contato", label: "Local", Icon: MapPin },
 ] as const;
 
 function BottomNav() {
@@ -145,6 +145,16 @@ function BottomNav() {
           {label}
         </a>
       ))}
+      <a
+        href={content.links.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-track="whatsapp"
+        data-track-origin="bottom-nav"
+      >
+        <MessageCircle aria-hidden="true" />
+        WhatsApp
+      </a>
       <a
         className="bottom-book"
         href={content.links.booking}
@@ -209,6 +219,35 @@ function Index() {
       desktop.removeEventListener("change", onResize);
     };
   }, [menuOpen]);
+
+  // Entrada suave ao rolar (só no celular, via CSS). Sem JS ou com "reduzir movimento", tudo aparece direto.
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const targets = document.querySelectorAll<HTMLElement>(
+      ".hero-copy, .hero-ledger, .section .page-container > *",
+    );
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+    );
+    targets.forEach((node) => {
+      node.classList.add("reveal");
+      io.observe(node);
+    });
+    document.documentElement.classList.add("reveal-ready");
+    return () => {
+      io.disconnect();
+      document.documentElement.classList.remove("reveal-ready");
+      targets.forEach((node) => node.classList.remove("reveal", "is-in"));
+    };
+  }, []);
 
   const selectSection = (id: string) => {
     setMenuOpen(false);
@@ -345,7 +384,12 @@ function Index() {
             <span>
               {content.openingHours.days}, {content.openingHours.hours}
             </span>
-            <a href={content.links.maps} target="_blank" rel="noopener noreferrer">
+            <a
+              className="proof-map"
+              href={content.links.maps}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Santa Esmeralda, Arapiraca <ArrowUpRight size={14} aria-hidden="true" />
             </a>
           </div>
@@ -380,6 +424,9 @@ function Index() {
                 </p>
               </div>
             </div>
+            <p className="swipe-hint" aria-hidden="true">
+              Deslize para ver mais <ArrowRight />
+            </p>
             <ul className="review-quotes">
               {content.reviews.quotes.map((q) => (
                 <li key={q.author}>
@@ -470,6 +517,9 @@ function Index() {
           <div className="page-container">
             <p className="eyebrow">Assinar ou agendar</p>
             <h2 id="booking-title">Três passos no Cash Barber.</h2>
+            <p className="swipe-hint" aria-hidden="true">
+              Deslize para ver mais <ArrowRight />
+            </p>
             <ol className="steps">
               {content.steps.map((step, index) => (
                 <li key={step.title}>
