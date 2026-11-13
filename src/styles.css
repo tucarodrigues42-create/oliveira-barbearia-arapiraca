@@ -49,7 +49,8 @@
   --gutter: clamp(16px, 4vw, 40px);
   color-scheme: dark;
 }
-.invert {
+/* Não usar o nome ".invert": o Tailwind já tem um utilitário com esse nome (filter: invert). */
+.is-inverted {
   --background: #fff;
   --foreground: #000;
   --primary: #000;
@@ -351,6 +352,19 @@ em { font-style: normal; }
   .service-card a { grid-column: 1 / -1; }
   .plan-card { padding: 22px; }
   .copy-address { margin-left: 0; display: flex; }
+  .section { padding-block: 48px; }
+  .hero { padding-block: 32px 40px; }
+  .black-result { margin-top: 36px; padding-top: 32px; }
+  /* Carrosséis com encaixe: a ponta do próximo cartão sugere a rolagem e a página fica bem mais curta. */
+  .plan-cards, .review-quotes {
+    display: flex; gap: 12px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter);
+    padding-bottom: 8px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none;
+  }
+  .plan-cards::-webkit-scrollbar, .review-quotes::-webkit-scrollbar { display: none; }
+  .plan-cards > li { flex: 0 0 84%; scroll-snap-align: start; }
+  .review-quotes > li { flex: 0 0 86%; scroll-snap-align: start; }
+  .review-quotes { margin-top: 32px; }
   .whatsapp-fab { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); width: 52px; height: 52px; }
   .bottom-nav {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
@@ -364,7 +378,7 @@ em { font-style: normal; }
   .bottom-nav .bottom-book { background: #fff; color: #000; font-size: 14px; font-weight: 800; }
 }
 @media (max-width: 519px) {
-  .black-choice-grid { grid-template-columns: minmax(0, 1fr); }
-  .black-choice { min-height: 56px; }
+  .black-choice { min-height: 60px; padding: 10px 8px; }
+  .black-choice strong { font-size: 13px; line-height: 1.25; }
   .plan-more dl > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
 }

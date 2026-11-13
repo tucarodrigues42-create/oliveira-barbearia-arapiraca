@@ -304,7 +304,7 @@ function Index() {
             </div>
             {ledger && ledger.positive && (
               <aside
-                className="hero-ledger invert"
+                className="hero-ledger is-inverted"
                 aria-label="Comparação entre cortes avulsos e o plano Black Corte"
               >
                 <p className="ledger-title">Um mês de corte na Oliveira</p>
@@ -354,7 +354,7 @@ function Index() {
 
         <section
           id="avaliacoes"
-          className="section reviews-section invert"
+          className="section reviews-section is-inverted"
           tabIndex={-1}
           aria-labelledby="reviews-title"
         >
@@ -596,7 +596,7 @@ function Index() {
             </div>
           </div>
         </section>
-        <section className="section final-cta invert" aria-labelledby="final-title">
+        <section className="section final-cta is-inverted" aria-labelledby="final-title">
           <div className="page-container">
             <h2 id="final-title">{content.finalCta.title}</h2>
             <div className="final-cta-actions">
