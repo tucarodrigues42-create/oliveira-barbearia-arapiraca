@@ -220,6 +220,33 @@ function Index() {
     };
   }, [menuOpen]);
 
+  // Cabeçalho do celular: esconde ao descer e volta ao subir, liberando a tela para o conteúdo.
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (!header) return;
+    if (menuOpen) {
+      header.classList.remove("is-hidden");
+      return;
+    }
+    let last = window.scrollY;
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const y = window.scrollY;
+        if (Math.abs(y - last) > 6) header.classList.toggle("is-hidden", y > 160 && y > last);
+        last = y;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      header.classList.remove("is-hidden");
+    };
+  }, [menuOpen]);
+
   // Entrada suave ao rolar (só no celular, via CSS). Sem JS ou com "reduzir movimento", tudo aparece direto.
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;

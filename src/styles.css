@@ -379,6 +379,8 @@ em { font-style: normal; }
   .location-strip .proof-map { display: none; }
   .location-strip .page-container { gap: 0 20px; padding-block: 2px; }
   .map-frame { height: 240px; }
+  @media (prefers-reduced-motion: no-preference) { .site-header { transition: transform 0.25s ease; } }
+  .site-header.is-hidden { transform: translateY(-100%); }
   /* Entrada ao rolar: sobe e aparece; só liga quando o JS marca a página (.reveal-ready). */
   @media (prefers-reduced-motion: no-preference) {
     .reveal-ready .reveal { opacity: 0; transform: translate3d(0, 26px, 0); transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1); }
