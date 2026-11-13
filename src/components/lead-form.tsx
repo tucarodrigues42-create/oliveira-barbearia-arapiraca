@@ -3,7 +3,6 @@ import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatPrice, siteContent as content } from "@/lib/site-content";
 
-const periods = ["Manhã", "Tarde", "Noite"] as const;
 const periodPhrase: Record<string, string> = {
   Manhã: "pela manhã",
   Tarde: "à tarde",
@@ -35,20 +34,17 @@ export function LeadForm() {
   const plans = content.subscription.families.find((family) => family.id === "black")?.plans ?? [];
   const [name, setName] = useState("");
   const [planId, setPlanId] = useState(plans.find((plan) => plan.highlight)?.id ?? plans[0]?.id ?? "");
-  const [period, setPeriod] = useState("");
   const plan = plans.find((item) => item.id === planId);
   if (!plan) return null;
-  const text = buildLeadMessage({ name, planLabel: plan.label, price: plan.price, period });
+  const text = buildLeadMessage({ name, planLabel: plan.label, price: plan.price, period: "" });
 
   return (
     <section id="converse" className="section lead-section" tabIndex={-1} aria-labelledby="lead-title">
       <div className="page-container two-column">
         <div>
-          <p className="eyebrow">Ficou com dúvida?</p>
           <h2 id="lead-title">Converse antes de assinar.</h2>
           <p className="lead">
-            Escolha o plano e o melhor período. Abrimos o WhatsApp com a mensagem pronta e é só
-            enviar.
+            Escolha o plano e abrimos o WhatsApp com a mensagem pronta. É só enviar.
           </p>
         </div>
         <form className="lead-form" action={content.links.whatsapp} method="get" target="_blank">
@@ -73,23 +69,6 @@ export function LeadForm() {
               ))}
             </select>
           </div>
-          <fieldset className="field period-field">
-            <legend>Melhor período para ir</legend>
-            <div className="period-grid">
-              {["", ...periods].map((item) => (
-                <label key={item || "any"} className="period-chip" data-selected={period === item ? "true" : undefined}>
-                  <input
-                    type="radio"
-                    name="period"
-                    value={item}
-                    checked={period === item}
-                    onChange={() => setPeriod(item)}
-                  />
-                  <span>{item || "Tanto faz"}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
           <input type="hidden" name="text" value={text} />
           <Button type="submit" variant="editorial" data-track="whatsapp" data-track-origin="lead-form">
             <MessageCircle aria-hidden="true" />

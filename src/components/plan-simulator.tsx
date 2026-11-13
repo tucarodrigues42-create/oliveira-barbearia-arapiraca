@@ -31,12 +31,6 @@ export function BlackSelector() {
       : selected.id === "black-corte-barba"
         ? `${visits} ${visits === 1 ? "corte" : "cortes"} + ${visits} ${visits === 1 ? "barba" : "barbas"}`
         : `${visits} ${visits === 1 ? "corte avulso" : "cortes avulsos"}`;
-  const comparisonTitle =
-    selected.id === "black-barba"
-      ? `Faz a barba ${visits} ${times} no mês? Compare.`
-      : selected.id === "black-corte-barba"
-        ? `Faz corte + barba ${visits} ${times} no mês? Compare.`
-        : `Faz ${visits} ${visits === 1 ? "corte" : "cortes"} no mês? Compare.`;
   const planBar = totalCents > 0 ? Math.min(100, Math.round((planCents / totalCents) * 100)) : 0;
   const singleBar = totalCents > 0 ? Math.min(100, Math.round((totalCents / planCents) * 100)) : 0;
   const whatsapp = new URL(content.links.whatsapp);
@@ -54,55 +48,103 @@ export function BlackSelector() {
     >
       <span id="simulador" className="legacy-anchor" aria-hidden="true" />
       <div className="page-container">
-        <p className="eyebrow">Escolha seu Black</p>
         <h2 id="black-selector-title">{content.blackSelector.title}</h2>
-        <p className="lead">{content.blackSelector.text}</p>
-        <fieldset className="black-choices">
-          <legend>O que você quer manter em dia?</legend>
-          <div className="black-choice-grid">
-            {content.blackSelector.choices.map((choice) => {
-              const plan = family.plans.find((item) => item.id === choice.planId);
-              if (!plan) return null;
-              return (
-                <label
-                  key={choice.planId}
-                  className="black-choice"
-                  data-selected={selectedId === plan.id ? "true" : undefined}
+        {/* Destino do botão "Ver quanto eu economizo": a escolha e o valor economizado aparecem juntos. */}
+        <div id="economia" className="black-panel" tabIndex={-1}>
+          <fieldset className="black-choices">
+            <legend className="sr-only">O que você quer manter em dia?</legend>
+            <div className="black-choice-grid">
+              {content.blackSelector.choices.map((choice) => {
+                const plan = family.plans.find((item) => item.id === choice.planId);
+                if (!plan) return null;
+                return (
+                  <label
+                    key={choice.planId}
+                    className="black-choice"
+                    data-selected={selectedId === plan.id ? "true" : undefined}
+                  >
+                    <input
+                      type="radio"
+                      name="black-care"
+                      value={plan.id}
+                      checked={selectedId === plan.id}
+                      onChange={() => setSelectedId(plan.id)}
+                      aria-controls="black-result"
+                      data-track="black-choice"
+                      data-track-origin={plan.id}
+                    />
+                    <span>
+                      <strong>{choice.label}</strong>
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
+          <div id="black-result" className="black-result">
+            <div className="br-saving">
+              {Boolean(hasPrices) && choice && (
+                <div
+                  className="black-comparison"
+                  aria-label="Comparação com serviços avulsos"
+                  aria-live="polite"
+                  aria-atomic="true"
                 >
-                  <input
-                    type="radio"
-                    name="black-care"
-                    value={plan.id}
-                    checked={selectedId === plan.id}
-                    onChange={() => setSelectedId(plan.id)}
-                    aria-controls="black-result"
-                    data-track="black-choice"
-                    data-track-origin={plan.id}
-                  />
-                  <span>
-                    <strong>{choice.label}</strong>
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-        </fieldset>
-        <div id="black-result" className="black-result">
-          <div className="black-result-copy">
-            <div aria-live="polite" aria-atomic="true">
+                  <p className="black-saving">
+                    {savingCents > 0
+                      ? `Economize ${formatPrice(savingCents / 100)} no mês`
+                      : `A partir de ${breakEven} ${breakEven === 1 ? "visita" : "visitas"} por mês o plano compensa`}
+                  </p>
+                  {savingCents > 0 && (
+                    <p className="black-year">
+                      Em 12 meses: {formatPrice((savingCents * 12) / 100)} a menos.
+                    </p>
+                  )}
+                  <div className="compare-bars" aria-hidden="true">
+                    <span style={{ width: `${singleBar}%` }} data-kind="single" />
+                    <span style={{ width: `${planBar}%` }} data-kind="plan" />
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>{visitsLabel}</dt>
+                      <dd>{formatPrice(totalCents / 100)}</dd>
+                    </div>
+                    <div>
+                      <dt>{selected.label} por mês</dt>
+                      <dd>{formatPrice(selected.price)}</dd>
+                    </div>
+                  </dl>
+                  <div className="visit-slider">
+                    <label htmlFor="visit-count">Quantas vezes por mês você vem?</label>
+                    <div className="visit-slider-row">
+                      <input
+                        id="visit-count"
+                        type="range"
+                        min={1}
+                        max={8}
+                        step={1}
+                        value={visits}
+                        aria-valuetext={`${visits} ${times} por mês`}
+                        onChange={(event) => setVisits(Number(event.target.value))}
+                        data-track="black-visits"
+                        data-track-origin={selected.id}
+                      />
+                      <output htmlFor="visit-count">{visits}x</output>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="br-head" aria-live="polite" aria-atomic="true">
               <p className="eyebrow">{selected.label}</p>
               <h3 className="black-unlimited">{choice?.headline}</h3>
               <p className="plan-price">
                 {formatPrice(selected.price)}
                 <span>/mês</span>
               </p>
+              <p className="note">{selected.allowance}. Segunda a sábado.</p>
             </div>
-            <p>{family.days} · Mediante agendamento.</p>
-            <p className="note">
-              {selected.allowance}. Cobrança mensal no cartão de crédito; cancele a qualquer
-              momento, sem multa.
-            </p>
-            <div className="black-result-actions">
+            <div className="br-cta">
               <Button asChild variant="editorial">
                 <a
                   href={content.links.booking}
@@ -115,11 +157,11 @@ export function BlackSelector() {
                   <ArrowUpRight aria-hidden="true" />
                 </a>
               </Button>
-              <p className="note">
-                Abre o Cash Barber. Procure por “{selected.name}” para consultar e contratar.
-              </p>
               <TrustRow />
-              <Button asChild variant="editorialOutline">
+              <p className="note">
+                Abre o Cash Barber. Procure por “{selected.name}” para contratar.
+              </p>
+              <Button asChild variant="editorialLink">
                 <a
                   href={whatsapp.toString()}
                   target="_blank"
@@ -132,102 +174,40 @@ export function BlackSelector() {
                 </a>
               </Button>
             </div>
-          </div>
-          <div className="black-result-details">
-            {Boolean(hasPrices) && choice && (
-              <div
-                className="black-comparison"
-                aria-label="Comparação com serviços avulsos"
-                aria-live="polite"
-                aria-atomic="true"
-              >
-                <h4>{comparisonTitle}</h4>
-                <p className="note">
-                  {services
-                    ?.map((service) => `${service!.name}: ${formatPrice(service!.price)} avulso`)
-                    .join(" · ")}
-                </p>
-                <div className="visit-slider">
-                  <label htmlFor="visit-count">Quantas vezes por mês você vem?</label>
-                  <div className="visit-slider-row">
-                    <input
-                      id="visit-count"
-                      type="range"
-                      min={1}
-                      max={8}
-                      step={1}
-                      value={visits}
-                      aria-valuetext={`${visits} ${times} por mês`}
-                      onChange={(event) => setVisits(Number(event.target.value))}
-                      data-track="black-visits"
-                      data-track-origin={selected.id}
-                    />
-                    <output htmlFor="visit-count">{visits}x</output>
-                  </div>
-                </div>
-                <div className="compare-bars" aria-hidden="true">
-                  <span style={{ width: `${singleBar}%` }} data-kind="single" />
-                  <span style={{ width: `${planBar}%` }} data-kind="plan" />
-                </div>
-                <dl>
-                  <div>
-                    <dt>{visitsLabel}</dt>
-                    <dd>{formatPrice(totalCents / 100)}</dd>
-                  </div>
-                  <div>
-                    <dt>{selected.label} por mês</dt>
-                    <dd>{formatPrice(selected.price)}</dd>
-                  </div>
-                </dl>
-                <p className="black-saving">
-                  {savingCents > 0
-                    ? `Economize ${formatPrice(savingCents / 100)} no mês`
-                    : `A partir de ${breakEven} ${breakEven === 1 ? "visita" : "visitas"} por mês o plano compensa`}
-                </p>
-                {savingCents > 0 && (
-                  <p className="black-year">
-                    Em 12 meses: {formatPrice((savingCents * 12) / 100)} a menos.
-                  </p>
-                )}
-                <p className="note">
-                  Comparação para quem faz {visitsLabel.toLowerCase()} no mês. A economia depende
-                  dessa frequência de uso.
-                </p>
-              </div>
-            )}
-            <details className="plan-more black-benefits" key={selected.id}>
-              <summary>
-                Veja o que você ganha <span aria-hidden="true">+</span>
-              </summary>
-              <ul>
-                {selected.includes.map((service) => (
-                  <li key={service}>
+            <div className="br-more">
+              <details className="plan-more black-benefits" key={selected.id}>
+                <summary>
+                  Veja o que você ganha <span aria-hidden="true">+</span>
+                </summary>
+                <ul>
+                  {selected.includes.map((service) => (
+                    <li key={service}>
+                      <Check aria-hidden="true" />
+                      {service} sem pagar a mais
+                    </li>
+                  ))}
+                  <li>
                     <Check aria-hidden="true" />
-                    {service} sem pagar a mais
+                    {family.bookingWindow}
                   </li>
-                ))}
-                <li>
-                  <Check aria-hidden="true" />
-                  {family.bookingWindow}
-                </li>
-                <li>
-                  <Check aria-hidden="true" />
-                  {content.blackSelector.extras}
-                </li>
-              </ul>
-            </details>
-            <details className="plan-more black-terms">
-              <summary>
-                Pagamento, cancelamento e regras <span aria-hidden="true">+</span>
-              </summary>
-              <p className="note">Mediante agendamento.</p>
-              <ul>
-                {content.subscription.conditions.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <p className="note">{content.subscription.conditionsNote}</p>
-            </details>
+                  <li>
+                    <Check aria-hidden="true" />
+                    {content.blackSelector.extras}
+                  </li>
+                </ul>
+              </details>
+              <details className="plan-more black-terms">
+                <summary>
+                  Pagamento, cancelamento e regras <span aria-hidden="true">+</span>
+                </summary>
+                <ul>
+                  {content.subscription.conditions.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <p className="note">{content.subscription.conditionsNote}</p>
+              </details>
+            </div>
           </div>
         </div>
         <a href="#planos" className="text-link black-other-plans">

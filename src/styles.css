@@ -169,7 +169,8 @@ em { font-style: normal; }
 /* Seletor Black */
 .black-selector { border-bottom: 1px solid var(--border); }
 .black-selector h2 { max-width: 16ch; }
-.black-choices { margin: 40px 0 0; padding: 0; border: 0; min-width: 0; }
+.black-panel { margin-top: 28px; scroll-margin-top: calc(var(--header-h) + 12px); }
+.black-choices { margin: 0 0 20px; padding: 0; border: 0; min-width: 0; }
 .black-choices legend { padding: 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; color: var(--muted-foreground); }
 .black-choice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .black-choice { position: relative; display: flex; align-items: center; justify-content: center; min-height: 64px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius); text-align: center; cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; }
@@ -178,7 +179,12 @@ em { font-style: normal; }
 .black-choice:has(input:focus-visible) { outline: 2px solid #fff; outline-offset: 3px; }
 .black-choice strong { font-size: 15px; font-weight: 800; letter-spacing: 0.01em; }
 .black-choice[data-selected="true"] { background: #fff; color: #000; border-color: #fff; }
-.black-result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); margin-top: 48px; padding-top: 40px; border-top: 2px solid #fff; }
+.black-result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "head saving" "cta saving" "more more"; gap: 24px clamp(32px, 6vw, 88px); }
+.br-head { grid-area: head; }
+.br-saving { grid-area: saving; }
+.br-cta { grid-area: cta; display: grid; gap: 14px; align-content: start; }
+.br-more { grid-area: more; }
+.br-head > p { margin-top: 10px; }
 .black-result-copy > p { margin-top: 12px; }
 .black-unlimited { font-size: clamp(1.4rem, 2vw + 0.6rem, 2rem); }
 .black-result .plan-price { margin-top: 12px; font-size: clamp(3.6rem, 8vw, 6.4rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; }
@@ -186,14 +192,14 @@ em { font-style: normal; }
 .black-result-actions { display: grid; gap: 12px; margin-top: 28px; justify-items: stretch; }
 .black-result-actions .note { margin-top: -4px; }
 .black-result-details { display: grid; gap: 0; align-content: start; }
-.black-comparison { margin-bottom: 24px; padding: 24px; background: var(--secondary); border-radius: var(--radius); }
+.black-comparison { padding: 24px; background: var(--secondary); border-radius: var(--radius); }
 .black-comparison h4 { font-size: 18px; }
 .black-comparison dl { margin: 16px 0 0; }
 .black-comparison dl > div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border); }
 .black-comparison dt { font-size: 15px; color: var(--muted-foreground); }
 .black-comparison dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
 .black-comparison dl > div:first-child dd { text-decoration: line-through; text-decoration-thickness: 2px; color: var(--muted-foreground); }
-.black-saving { margin: 16px 0 8px; font-size: clamp(1.5rem, 2.4vw + 0.5rem, 2.1rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.black-saving { margin: 0 0 6px; font-size: clamp(1.75rem, 6vw + 0.5rem, 2.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
 .black-other-plans { margin-top: 24px; }
 
 /* Blocos de detalhe (details) */
@@ -337,7 +343,8 @@ em { font-style: normal; }
 @media (max-width: 959px) {
   .desktop-nav { display: none; }
   .menu-button { display: inline-flex; margin-left: auto; }
-  .hero-inner, .two-column, .black-result, .reviews-layout { grid-template-columns: minmax(0, 1fr); }
+  .hero-inner, .two-column, .reviews-layout { grid-template-columns: minmax(0, 1fr); }
+  .black-result { grid-template-columns: minmax(0, 1fr); grid-template-areas: "saving" "head" "cta" "more"; }
   .plans-intro { grid-template-columns: minmax(0, 1fr); }
   .club-logo { order: -1; }
   .plan-guide, .steps, .review-quotes { grid-template-columns: minmax(0, 1fr); }
@@ -356,7 +363,6 @@ em { font-style: normal; }
   .copy-address { margin-left: 0; display: flex; }
   .section { padding-block: 48px; }
   .hero { padding-block: 32px 40px; }
-  .black-result { margin-top: 36px; padding-top: 32px; }
   /* Carrosséis com encaixe: a ponta do próximo cartão sugere a rolagem e a página fica bem mais curta. */
   .plan-cards, .review-quotes {
     display: flex; gap: 12px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter);
@@ -389,7 +395,7 @@ em { font-style: normal; }
   .whatsapp-fab { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); width: 52px; height: 52px; }
   .bottom-nav {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
-    display: grid; grid-template-columns: repeat(3, 1fr) 1.5fr;
+    display: grid; grid-template-columns: 1fr 1fr 1.6fr;
     height: calc(64px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom);
     background: #000; border-top: 1px solid var(--border);
   }
@@ -428,8 +434,6 @@ em { font-style: normal; }
 .plan-compare svg { display: inline-block; width: 18px; height: 18px; }
 .plan-compare .no { opacity: 0.4; }
 .plan-compare .price-cell { font-weight: 800; font-variant-numeric: tabular-nums; }
-.plan-compare-box { margin-top: 32px; }
-.plan-compare-box[open] { border-bottom: 1px solid var(--border); }
 .swipe-hint-table { margin: 8px 0 16px; }
 .lead-section { border-top: 1px solid var(--border); background: var(--secondary); }
 .lead-form { display: grid; gap: 20px; }
@@ -450,3 +454,12 @@ em { font-style: normal; }
 @media (max-width: 519px) {
   .period-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Todos os planos recolhidos */
+.plans-all { margin-top: 32px; }
+.plans-all > summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 56px; padding: 0 20px; border: 1px solid var(--foreground); border-radius: var(--radius); font-size: 16px; font-weight: 800; cursor: pointer; list-style: none; }
+.plans-all > summary::-webkit-details-marker { display: none; }
+.plans-all > summary svg { width: 20px; height: 20px; transition: transform 0.2s; }
+.plans-all[open] > summary svg { transform: rotate(180deg); }
+.plans-all[open] > summary { margin-bottom: 8px; }
+.plan-compare-box { margin-top: 32px; }

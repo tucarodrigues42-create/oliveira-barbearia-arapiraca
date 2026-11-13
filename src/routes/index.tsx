@@ -7,9 +7,7 @@ import {
   ChevronDown,
   Clock,
   Instagram,
-  Copy,
   MapPin,
-  Scissors,
   Crown,
   CalendarCheck,
   Menu,
@@ -21,7 +19,6 @@ import { Button } from "@/components/ui/button";
 import { PlansSection } from "@/components/plans-section";
 import { BlackSelector } from "@/components/plan-simulator";
 import { LeadForm } from "@/components/lead-form";
-import { TrustRow } from "@/components/trust-row";
 import { formatPrice, siteContent as content, type TrackTarget } from "@/lib/site-content";
 import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
@@ -96,33 +93,7 @@ function Logo({ className = "", lazy = false }: { className?: string; lazy?: boo
 
 const fullAddress = `${content.address.street}, ${content.address.neighborhood}, ${content.address.city}, ${content.address.postalCode}`;
 
-function CopyAddress() {
-  const [copied, setCopied] = useState(false);
-  return (
-    <Button
-      type="button"
-      variant="editorialLink"
-      className="copy-address"
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(fullAddress);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2500);
-        } catch {
-          setCopied(false);
-        }
-      }}
-    >
-      <Copy aria-hidden="true" />
-      <span aria-live="polite">{copied ? "Endereço copiado" : "Copiar endereço"}</span>
-    </Button>
-  );
-}
-
-const bottomItems = [
-  { id: "seu-black", label: "Meu plano", Icon: Crown },
-  { id: "servicos", label: "Avulso", Icon: Scissors },
-] as const;
+const bottomItems = [{ id: "economia", label: "Meu plano", Icon: Crown }] as const;
 
 function BottomNav() {
   const [active, setActive] = useState("");
@@ -351,25 +322,12 @@ function Index() {
                   Assinar o Black
                 </ExternalLink>
                 <Button asChild variant="editorialOutline">
-                  <a href="#seu-black" data-track="plans" data-track-origin="hero">
+                  <a href="#economia" data-track="plans" data-track-origin="hero">
                     Ver quanto eu economizo
                     <ArrowDown aria-hidden="true" />
                   </a>
                 </Button>
               </div>
-              <TrustRow className="hero-trust-row" />
-              <p className="hero-single">
-                Só um horário?{" "}
-                <a
-                  href={content.links.booking}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-track="booking"
-                  data-track-origin="hero-avulso"
-                >
-                  Agende avulso
-                </a>
-              </p>
             </div>
             {ledger && ledger.positive && (
               <aside
@@ -414,14 +372,6 @@ function Index() {
             <span>
               {content.openingHours.days}, {content.openingHours.hours}
             </span>
-            <a
-              className="proof-map"
-              href={content.links.maps}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Santa Esmeralda, Arapiraca <ArrowUpRight size={14} aria-hidden="true" />
-            </a>
           </div>
         </div>
         <BlackSelector />
@@ -435,7 +385,6 @@ function Index() {
           <div className="page-container">
             <div className="reviews-layout">
               <div>
-                <p className="eyebrow">Avaliações no Google</p>
                 <h2 id="reviews-title">Quem já veio, volta.</h2>
               </div>
               <div className="rating-block">
@@ -481,7 +430,6 @@ function Index() {
               >
                 Ver avaliações no Google
               </ExternalLink>
-              <p className="note">{content.reviews.quotesNote}</p>
             </div>
           </div>
         </section>
@@ -494,22 +442,12 @@ function Index() {
         >
           <div className="page-container two-column">
             <div>
-              <p className="eyebrow">Sem assinatura</p>
               <h2 id="services-title">Prefere pagar por visita?</h2>
               <p className="lead">
                 {ledger?.positive
-                  ? `Sem compromisso, no valor de cada visita. Mas a partir da ${ledger.breakEvenVisits}ª vez no mês você já passa do preço do plano: ${ledger.breakEvenVisits} cortes somam ${formatPrice(ledger.breakEvenTotal)}, contra ${formatPrice(ledger.plan)} do ${blackCorte?.label}.`
+                  ? `Sem compromisso. Mas na ${ledger.breakEvenVisits}ª visita do mês o ${blackCorte?.label} já sai mais barato: ${formatPrice(ledger.breakEvenTotal)} avulso contra ${formatPrice(ledger.plan)}.`
                   : content.about.text}
               </p>
-              <ExternalLink
-                variant="editorialLink"
-                href={content.links.instagram}
-                track="instagram"
-                origin="services"
-              >
-                <Instagram aria-hidden="true" />
-                Veja os trabalhos no Instagram
-              </ExternalLink>
             </div>
             <div>
               <ul className="service-cards">
@@ -545,28 +483,6 @@ function Index() {
 
         <LeadForm />
 
-        <section className="section booking-section" aria-labelledby="booking-title">
-          <div className="page-container">
-            <p className="eyebrow">Assinar ou agendar</p>
-            <h2 id="booking-title">Três passos no Cash Barber.</h2>
-            <p className="swipe-hint" aria-hidden="true">
-              Deslize para ver mais <ArrowRight />
-            </p>
-            <ol className="steps">
-              {content.steps.map((step, index) => (
-                <li key={step.title}>
-                  <span className="step-number">0{index + 1}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </li>
-              ))}
-            </ol>
-            <ExternalLink href={content.links.booking} track="booking" origin="steps">
-              Abrir o Cash Barber
-            </ExternalLink>
-          </div>
-        </section>
-
         <section
           id="contato"
           className="section contact-section"
@@ -575,7 +491,6 @@ function Index() {
         >
           <div className="page-container two-column">
             <div>
-              <p className="eyebrow">Venha até a Oliveira</p>
               <h2 id="contact-title">Nos vemos na barbearia.</h2>
               <address>
                 <MapPin aria-hidden="true" />
@@ -603,7 +518,6 @@ function Index() {
               >
                 Abrir rota no Google Maps
               </ExternalLink>
-              <CopyAddress />
             </div>
             <div className="contact-links">
               <iframe
@@ -652,7 +566,6 @@ function Index() {
         <section className="section faq-section" aria-labelledby="faq-title">
           <div className="page-container two-column">
             <div>
-              <p className="eyebrow">Antes da sua visita</p>
               <h2 id="faq-title">Dúvidas frequentes.</h2>
             </div>
             <div className="faq-list">

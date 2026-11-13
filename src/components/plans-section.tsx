@@ -1,6 +1,6 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { ArrowRight, Check, ChevronDown, Minus } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { formatPrice, siteContent as content, type Plan } from "@/lib/site-content";
 import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
 
@@ -8,11 +8,7 @@ function PlanCompare({ plans }: { plans: Plan[] }) {
   const services = [...new Set(plans.flatMap((plan) => plan.includes))];
   if (plans.length < 2) return null;
   return (
-    <details className="plan-more plan-compare-box">
-      <summary>
-        Comparar os planos lado a lado
-        <ChevronDown aria-hidden="true" />
-      </summary>
+    <div className="plan-compare-box">
       <div className="plan-compare" role="region" aria-label="Comparação dos planos" tabIndex={0}>
         <table>
           <caption className="sr-only">O que cada plano inclui</caption>
@@ -61,7 +57,7 @@ function PlanCompare({ plans }: { plans: Plan[] }) {
       <p className="swipe-hint swipe-hint-table" aria-hidden="true">
         Deslize a tabela para ver todos <ArrowRight />
       </p>
-    </details>
+    </div>
   );
 }
 
@@ -125,6 +121,24 @@ function PlanCard({ plan, bookingWindow }: { plan: Plan; bookingWindow: string }
 export function PlansSection({ action }: { action: ReactNode }) {
   const sub = content.subscription;
   const [family, setFamily] = useState<string>(sub.families[0]?.id ?? "black");
+  // Todos os planos ficam recolhidos para não poluir; abrem ao tocar ou ao chegar por um link "#planos".
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const openFromHash = () => {
+      if (window.location.hash === "#planos") setOpen(true);
+    };
+    const onClick = (event: MouseEvent) => {
+      const link = (event.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[href="#planos"]');
+      if (link) setOpen(true);
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    document.addEventListener("click", onClick);
+    return () => {
+      window.removeEventListener("hashchange", openFromHash);
+      document.removeEventListener("click", onClick);
+    };
+  }, []);
   return (
     <section
       id="planos"
@@ -135,9 +149,7 @@ export function PlansSection({ action }: { action: ReactNode }) {
       <div className="page-container">
         <div className="plans-intro">
           <div>
-            <p className="eyebrow">{sub.description}</p>
             <h2 id="plans-title">{sub.name}</h2>
-            <p className="club-tagline">{sub.title}</p>
             <p className="lead">{sub.text}</p>
           </div>
           <img
@@ -151,6 +163,15 @@ export function PlansSection({ action }: { action: ReactNode }) {
           />
         </div>
 
+        <details
+          className="plans-all"
+          open={open}
+          onToggle={(event) => setOpen(event.currentTarget.open)}
+        >
+          <summary>
+            Ver todos os planos
+            <ChevronDown aria-hidden="true" />
+          </summary>
         <TabsPrimitive.Root value={family} onValueChange={setFamily} className="plan-tabs">
           <TabsPrimitive.List className="plan-tablist" aria-label="Famílias de planos">
             {sub.families.map((f) => (
@@ -206,6 +227,7 @@ export function PlansSection({ action }: { action: ReactNode }) {
           </details>
           <div className="plan-conditions-action">{action}</div>
         </div>
+        </details>
       </div>
     </section>
   );

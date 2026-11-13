@@ -25,10 +25,9 @@ describe("Lead form", () => {
     fireEvent.change(screen.getByLabelText("Plano de interesse"), {
       target: { value: "black-barba" },
     });
-    fireEvent.click(screen.getByRole("radio", { name: "Tarde" }));
     expect(text()).toContain("Sou Rui.");
     expect(text()).toContain("Black Barba");
-    expect(text()).toContain("à tarde");
+    expect(screen.queryByRole("radio")).not.toBeInTheDocument();
     expect(screen.getByText(/Nada é salvo neste site/)).toBeInTheDocument();
   });
 });
