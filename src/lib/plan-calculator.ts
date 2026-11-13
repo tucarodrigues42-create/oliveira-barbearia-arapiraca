@@ -29,8 +29,8 @@ export interface SimResult {
   differenceCents: number;
 }
 
-/** Preço avulso por visita, em centavos (Corte R$ 30, Barba R$ 30). */
-const SINGLE_CENTS: Record<SimService, number> = { corte: 3000, barba: 3000 };
+/** Preço avulso por visita, em centavos (Corte R$ 40, Barba R$ 40). */
+const SINGLE_CENTS: Record<SimService, number> = { corte: 4000, barba: 4000 };
 
 const toCents = (value: number) => Math.round(value * 100);
 

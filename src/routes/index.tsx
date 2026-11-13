@@ -177,8 +177,9 @@ const ledger =
           plan: blackCorte.price,
           saving: (singleCents - planCents) / 100,
           positive: singleCents > planCents,
-          threeCuts: corteAvulso.price * 3,
-          threeCutsBeatPlan: corteAvulso.price * 3 > blackCorte.price,
+          // Menor número de cortes avulsos no mês que já passa do preço do plano.
+          breakEvenVisits: Math.floor(blackCorte.price / corteAvulso.price) + 1,
+          breakEvenTotal: (Math.floor(blackCorte.price / corteAvulso.price) + 1) * corteAvulso.price,
         };
       })()
     : null;
@@ -419,8 +420,8 @@ function Index() {
               <p className="eyebrow">Sem assinatura</p>
               <h2 id="services-title">Prefere pagar por visita?</h2>
               <p className="lead">
-                {ledger?.threeCutsBeatPlan
-                  ? `Sem compromisso, no valor de cada visita. Mas na terceira vez no mês você já passa do preço do plano: 3 cortes somam ${formatPrice(ledger.threeCuts)}, contra ${formatPrice(ledger.plan)} do ${blackCorte?.label}.`
+                {ledger?.positive
+                  ? `Sem compromisso, no valor de cada visita. Mas a partir da ${ledger.breakEvenVisits}ª vez no mês você já passa do preço do plano: ${ledger.breakEvenVisits} cortes somam ${formatPrice(ledger.breakEvenTotal)}, contra ${formatPrice(ledger.plan)} do ${blackCorte?.label}.`
                   : content.about.text}
               </p>
               <ExternalLink

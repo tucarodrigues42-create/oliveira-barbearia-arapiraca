@@ -30,9 +30,9 @@ describe("Black selector", () => {
     render(<BlackSelector />);
     const radios = screen.getAllByRole("radio");
     for (const [index, total, saving, label] of [
-      [0, "R$ 120", "52,10", "4 cortes avulsos"],
-      [1, "R$ 120", "52,10", "4 barbas avulsas"],
-      [2, "R$ 240", "122,10", "4 cortes + 4 barbas"],
+      [0, "R$ 160", "92,10", "4 cortes avulsos"],
+      [1, "R$ 160", "92,10", "4 barbas avulsas"],
+      [2, "R$ 320", "202,10", "4 cortes + 4 barbas"],
     ] as const) {
       fireEvent.click(radios[index]!);
       expect(screen.getByText(total)).toBeInTheDocument();

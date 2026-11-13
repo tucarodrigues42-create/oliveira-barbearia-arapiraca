@@ -65,8 +65,8 @@ export interface PlanFamily {
 const ALLOWANCE = "Até 100 usos por mês de cada serviço incluído";
 
 const services: Service[] = [
-  { name: "Corte", price: 30 },
-  { name: "Barba", price: 30 },
+  { name: "Corte", price: 40 },
+  { name: "Barba", price: 40 },
   { name: "Pezinho", price: 15 },
   { name: "Barba Express", price: 20 },
 ];
@@ -136,10 +136,10 @@ const planFamilies: PlanFamily[] = [
         allowance: ALLOWANCE,
         includedDays: "Segunda a quarta",
         benefit:
-          "Corte e pezinho incluídos de segunda a quarta; de quinta a sábado, corte com 50% de desconto.",
+          "Corte e pezinho incluídos de segunda a quarta; de quinta a sábado, corte a R$ 15.",
         extras: {
           days: "Quinta a sábado",
-          charges: [{ service: "Corte", price: 15, note: "50% de R$ 30" }],
+          charges: [{ service: "Corte", price: 15 }],
         },
       },
       {
