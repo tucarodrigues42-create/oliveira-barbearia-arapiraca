@@ -90,15 +90,6 @@ export function PlansSection({ action }: { action: ReactNode }) {
           />
         </div>
 
-        <ul className="plan-guide" aria-label="Qual família de planos escolher">
-          {sub.families.map((f) => (
-            <li key={f.id}>
-              <strong>{f.name}</strong>
-              <span>{f.valueHighlight ?? f.summary}</span>
-            </li>
-          ))}
-        </ul>
-
         <TabsPrimitive.Root value={family} onValueChange={setFamily} className="plan-tabs">
           <TabsPrimitive.List className="plan-tablist" aria-label="Famílias de planos">
             {sub.families.map((f) => (

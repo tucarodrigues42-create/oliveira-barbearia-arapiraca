@@ -24,7 +24,7 @@ import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
 const title = "Oliveira Barbearia | Corte, barba e Clube OLVR em Arapiraca–AL";
 const description =
-  "Corte e barba na Santa Esmeralda, Arapiraca–AL. Atendimento avulso ou planos do Clube OLVR a partir de R$ 26,90/mês. Segunda a sábado, 9h às 20h. Agende pelo Cash Barber.";
+  "Corte e barba na Santa Esmeralda, Arapiraca–AL. Atendimento avulso ou planos Black do Clube OLVR a partir de R$ 67,90/mês. Segunda a sábado, 9h às 20h. Agende pelo Cash Barber.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -280,7 +280,7 @@ function Index() {
               <p className="lead">{content.hero.subheadline}</p>
               <div className="hero-actions">
                 <ExternalLink href={content.links.booking} track="booking" origin="hero">
-                  Assinar o Clube OLVR
+                  Assinar o Black
                 </ExternalLink>
                 <Button asChild variant="editorialOutline">
                   <a href="#seu-black" data-track="plans" data-track-origin="hero">

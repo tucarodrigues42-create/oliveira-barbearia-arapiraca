@@ -220,7 +220,7 @@ export const siteContent = {
     text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
     ratingBadge: "5,0 ★ · 347 avaliações no Google",
     subheadline:
-      "Escolha um plano do Clube OLVR, pague uma mensalidade fixa a partir de R$ 26,90 e deixe o visual sempre em dia.",
+      "Assine o Black, pague uma mensalidade fixa a partir de R$ 67,90 e deixe o visual sempre em dia.",
     slogan: "Você em sua melhor versão.",
     kicker: "Clube OLVR · Oliveira Barbearia, Arapiraca",
     cta: {
@@ -253,7 +253,7 @@ export const siteContent = {
     name: "Clube OLVR",
     description: "Clube de assinatura da Oliveira Barbearia",
     title: "Uma mensalidade. O visual sempre em dia.",
-    text: "Três famílias de planos: Black para usar a semana toda, Smart para quem prefere o início da semana e One para um corte por mês.",
+    text: "O Black é o plano para usar a semana toda, de segunda a sábado. Se preferir outra rotina, há também o Smart e o Clube One.",
     action: "Conhecer os planos no Cash Barber",
     families: planFamilies,
     conditions: [
@@ -350,7 +350,7 @@ export const siteContent = {
   },
   finalCta: {
     title: "Quanto mais você vem, menos cada visita custa.",
-    primary: "Assinar o Clube OLVR",
+    primary: "Assinar o Black",
     secondary: "Agendar só um horário",
   },
   faq: [

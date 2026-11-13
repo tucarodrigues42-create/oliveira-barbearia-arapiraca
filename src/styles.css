@@ -236,7 +236,7 @@ em { font-style: normal; }
 .plan-guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); margin-top: 48px; }
 .plan-guide li { display: grid; gap: 6px; align-content: start; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; color: var(--muted-foreground); }
 .plan-guide strong { font-size: 18px; font-weight: 800; color: var(--foreground); }
-.plan-tabs { margin-top: 56px; }
+.plan-tabs { margin-top: 48px; }
 .plan-tablist { display: flex; gap: 4px; border-bottom: 1px solid var(--border); overflow-x: auto; }
 .plan-tab { flex: none; min-height: var(--tap); padding: 0 24px; margin-bottom: -1px; background: none; border: 0; border-bottom: 3px solid transparent; font: inherit; font-size: 16px; font-weight: 700; color: var(--muted-foreground); cursor: pointer; }
 .plan-tab:hover { color: #fff; }
