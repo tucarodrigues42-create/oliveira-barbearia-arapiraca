@@ -42,9 +42,10 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
+      { name: "google-site-verification", content: "LKIR6oUAxTfFsgO4nigKmjjv_oTEFbZeNjcO8bkRVqM" },
     ],
+    links: [{ rel: "canonical", href: siteUrl }],
   }),
-  links: [{ rel: "canonical", href: siteUrl }],
   component: Index,
 });
 
