@@ -29,6 +29,32 @@ const description =
 /** Endereço definitivo informado pelo proprietário em 13/11/2026. Se mudar, atualize também public/sitemap.xml e public/robots.txt. */
 const siteUrl = "https://oliveirabarbearia.vercel.app/";
 
+/**
+ * Dados estruturados do negócio local, só com informações já exibidas no site.
+ * Não inclui aggregateRating: a nota é informada pelo proprietário e não pode ser verificada
+ * pelo Google; marcação de avaliação própria vai contra as diretrizes de dados estruturados.
+ */
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BarberShop",
+  name: content.name,
+  url: siteUrl,
+  telephone: "+5582981820974",
+  priceRange: "R$ 40 – R$ 149,90",
+  slogan: "Você em sua melhor versão.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: content.address.street,
+    addressLocality: "Arapiraca",
+    addressRegion: "AL",
+    postalCode: content.address.postalCode,
+    addressCountry: "BR",
+  },
+  openingHours: content.openingHours.schema,
+  hasMap: content.links.maps,
+  sameAs: [content.links.instagram],
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -45,6 +71,7 @@ export const Route = createFileRoute("/")({
       { name: "google-site-verification", content: "LKIR6oUAxTfFsgO4nigKmjjv_oTEFbZeNjcO8bkRVqM" },
     ],
     links: [{ rel: "canonical", href: siteUrl }],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(localBusinessJsonLd) }],
   }),
   component: Index,
 });
