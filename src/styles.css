@@ -240,6 +240,7 @@ em { font-style: normal; }
 .plans-intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(24px, 5vw, 64px); align-items: center; }
 .club-tagline { margin-top: 18px; font-size: clamp(1.25rem, 1.6vw + 0.6rem, 1.75rem); font-weight: 700; letter-spacing: -0.02em; }
 .club-logo { width: clamp(160px, 22vw, 280px); height: auto; }
+.club-door { display: block; width: clamp(260px, 34vw, 440px); height: auto; aspect-ratio: 640 / 350; object-fit: cover; border: 1px solid var(--border); border-radius: var(--radius); }
 .plan-guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); margin-top: 48px; }
 .plan-guide li { display: grid; gap: 6px; align-content: start; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; color: var(--muted-foreground); }
 .plan-guide strong { font-size: 18px; font-weight: 800; color: var(--foreground); }
@@ -308,6 +309,20 @@ em { font-style: normal; }
 .faq-list details p { padding: 0 0 20px; max-width: 60ch; color: var(--muted-foreground); }
 .faq-list .text-link { margin-top: 20px; }
 
+/* Fotos do espaço */
+.space-section { border-top: 1px solid var(--border); }
+.space-head { max-width: 640px; }
+.space-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); margin: clamp(28px, 4vw, 48px) 0 0; padding: 0; list-style: none; }
+.space-gallery figure { margin: 0; overflow: hidden; aspect-ratio: 4 / 5; background: var(--secondary); border-radius: var(--radius); }
+.space-gallery img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.facade { margin: 32px 0 0; max-width: 420px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--secondary); border-radius: var(--radius); }
+.facade img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 64%; }
+
+/* Fechamento: a cadeira, bem escura, atrás do convite final */
+.final-cta--photo { position: relative; overflow: hidden; isolation: isolate; background: #000; }
+.final-cta-photo { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; opacity: 0.42; }
+.final-cta--photo::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.78) 45%, rgba(0, 0, 0, 0.35) 100%); }
+
 /* Fechamento (bloco invertido) */
 .final-cta h2 { max-width: 15ch; font-size: clamp(2.5rem, 6.2vw + 0.4rem, 6rem); line-height: 0.98; letter-spacing: -0.04em; }
 .final-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
@@ -347,6 +362,7 @@ em { font-style: normal; }
   .black-result { grid-template-columns: minmax(0, 1fr); grid-template-areas: "saving" "head" "cta" "more"; }
   .plans-intro { grid-template-columns: minmax(0, 1fr); }
   .club-logo { order: -1; }
+  .club-door { order: -1; width: 100%; }
   .plan-guide, .steps, .review-quotes { grid-template-columns: minmax(0, 1fr); }
   .plan-conditions { grid-template-columns: minmax(0, 1fr); }
 }
@@ -371,6 +387,10 @@ em { font-style: normal; }
   }
   .plan-cards::-webkit-scrollbar, .review-quotes::-webkit-scrollbar { display: none; }
   .plan-cards > li { flex: 0 0 84%; scroll-snap-align: start; }
+  .space-gallery { display: flex; gap: 12px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); padding-bottom: 8px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+  .space-gallery::-webkit-scrollbar { display: none; }
+  .space-gallery > li { flex: 0 0 78%; scroll-snap-align: start; }
+  .space-head + .swipe-hint { margin-top: 20px; }
   .review-quotes > li { flex: 0 0 86%; scroll-snap-align: start; }
   .review-quotes { margin-top: 12px; }
   .plan-cards { margin-top: 12px; }

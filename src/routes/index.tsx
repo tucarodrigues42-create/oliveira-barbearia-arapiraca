@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { PlansSection } from "@/components/plans-section";
 import { BlackSelector } from "@/components/plan-simulator";
+import { SpaceGallery } from "@/components/space-gallery";
 import { LeadForm } from "@/components/lead-form";
 import { formatPrice, siteContent as content, type TrackTarget } from "@/lib/site-content";
 import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
@@ -28,6 +29,9 @@ const description =
 
 /** Endereço definitivo informado pelo proprietário em 13/11/2026. Se mudar, atualize também public/sitemap.xml e public/robots.txt. */
 const siteUrl = "https://oliveirabarbearia.vercel.app/";
+const shareImage = `${siteUrl}fotos/og-salao.jpg`;
+const shareImageAlt =
+  "Salão da Oliveira Barbearia com duas cadeiras de barbeiro pretas diante de espelhos grandes.";
 
 /**
  * Dados estruturados do negócio local, só com informações já exibidas no site.
@@ -42,6 +46,7 @@ const localBusinessJsonLd = {
   telephone: "+5582981820974",
   priceRange: "R$ 40 – R$ 149,90",
   slogan: "Você em sua melhor versão.",
+  image: [shareImage, `${siteUrl}fotos/fachada-900.webp`],
   address: {
     "@type": "PostalAddress",
     streetAddress: content.address.street,
@@ -65,7 +70,12 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: siteUrl },
       { property: "og:locale", content: "pt_BR" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: shareImage },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: shareImageAlt },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: shareImage },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "google-site-verification", content: "LKIR6oUAxTfFsgO4nigKmjjv_oTEFbZeNjcO8bkRVqM" },
@@ -506,6 +516,8 @@ function Index() {
           </div>
         </section>
 
+        <SpaceGallery />
+
         <PlansSection
           action={
             <ExternalLink href={content.links.booking} track="booking" origin="plans">
@@ -551,6 +563,18 @@ function Index() {
               >
                 Abrir rota no Google Maps
               </ExternalLink>
+              <figure className="facade">
+                <img
+                  src="/fotos/fachada-900.webp"
+                  srcSet="/fotos/fachada-600.webp 600w, /fotos/fachada-900.webp 900w"
+                  sizes="(max-width: 759px) 92vw, 420px"
+                  width={900}
+                  height={1600}
+                  loading="lazy"
+                  decoding="async"
+                  alt="Fachada da Oliveira Barbearia: letreiro Barbearia Oliveira, porta de vidro com corte e barba a R$ 40 e a marca do Clube OLVR."
+                />
+              </figure>
             </div>
             <div className="contact-links">
               <iframe
@@ -624,7 +648,18 @@ function Index() {
             </div>
           </div>
         </section>
-        <section className="section final-cta is-inverted" aria-labelledby="final-title">
+        <section className="section final-cta final-cta--photo" aria-labelledby="final-title">
+          <img
+            className="final-cta-photo"
+            src="/fotos/cadeira-900.webp"
+            srcSet="/fotos/cadeira-600.webp 600w, /fotos/cadeira-900.webp 900w"
+            sizes="100vw"
+            width={900}
+            height={1600}
+            loading="lazy"
+            decoding="async"
+            alt=""
+          />
           <div className="page-container">
             <h2 id="final-title">{content.finalCta.title}</h2>
             <div className="final-cta-actions">

@@ -2,7 +2,6 @@ import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { ArrowRight, Check, ChevronDown, Minus } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { formatPrice, siteContent as content, type Plan } from "@/lib/site-content";
-import clubLogo from "@/assets/clube-olvr-branco.png.asset.json";
 
 function PlanCompare({ plans }: { plans: Plan[] }) {
   const services = [...new Set(plans.flatMap((plan) => plan.includes))];
@@ -153,13 +152,15 @@ export function PlansSection({ action }: { action: ReactNode }) {
             <p className="lead">{sub.text}</p>
           </div>
           <img
-            className="club-logo"
-            src={clubLogo.url}
-            width={1660}
-            height={844}
+            className="club-door"
+            src="/fotos/porta-clube-900.webp"
+            srcSet="/fotos/porta-clube-600.webp 600w, /fotos/porta-clube-900.webp 900w"
+            sizes="(max-width: 959px) 92vw, 440px"
+            width={900}
+            height={492}
             loading="lazy"
             decoding="async"
-            alt="Marca oficial do Clube OLVR, clube de assinatura da Oliveira Barbearia"
+            alt="Porta de vidro da barbearia com a marca Clube OLVR e a frase Corte ilimitado por um preço único."
           />
         </div>
 
