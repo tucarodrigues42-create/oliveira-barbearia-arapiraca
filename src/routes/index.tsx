@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { PlansSection } from "@/components/plans-section";
 import { BlackSelector } from "@/components/plan-simulator";
 import { SpaceGallery } from "@/components/space-gallery";
+import { BarbersSection } from "@/components/barbers-section";
 import { LeadForm } from "@/components/lead-form";
 import { formatPrice, siteContent as content, type TrackTarget } from "@/lib/site-content";
 import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
@@ -517,6 +518,8 @@ function Index() {
         </section>
 
         <SpaceGallery />
+
+        <BarbersSection bookingHref={content.links.booking} />
 
         <PlansSection
           action={
