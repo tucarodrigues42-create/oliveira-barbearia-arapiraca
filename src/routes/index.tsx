@@ -362,7 +362,7 @@ function Index() {
               <p className="lead">{content.hero.subheadline}</p>
               <div className="hero-actions">
                 <ExternalLink href={content.links.booking} track="booking" origin="hero">
-                  Assinar o Black
+                  Assinar o plano
                 </ExternalLink>
                 <Button asChild variant="editorialOutline">
                   <a href="#economia" data-track="plans" data-track-origin="hero">

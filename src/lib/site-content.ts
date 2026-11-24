@@ -350,7 +350,7 @@ export const siteContent = {
   },
   finalCta: {
     title: "Quanto mais você vem, menos cada visita custa.",
-    primary: "Assinar o Black",
+    primary: "Assinar o plano",
     secondary: "Agendar só um horário",
   },
   faq: [
