@@ -35,3 +35,17 @@ describe("Clube OLVR content", () => {
     expect(formatPrice(30)).toBe("R$ 30");
   });
 });
+
+describe("Fotos do espaço", () => {
+  it("has a descriptive alt and both WebP sizes in public/fotos for every photo", async () => {
+    const { existsSync } = await import("node:fs");
+    const { resolve } = await import("node:path");
+    expect(siteContent.space.photos.length).toBeGreaterThan(0);
+    for (const photo of siteContent.space.photos) {
+      expect(photo.alt.length).toBeGreaterThan(20);
+      for (const width of [600, 1200]) {
+        expect(existsSync(resolve(process.cwd(), `public/fotos/${photo.file}-${width}.webp`))).toBe(true);
+      }
+    }
+  });
+});

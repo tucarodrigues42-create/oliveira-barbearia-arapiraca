@@ -10,15 +10,24 @@ import { siteContent } from "@/lib/site-content";
 export const UMAMI_SCRIPT_SRC = "https://cloud.umami.is/script.js";
 
 export type AnalyticsEventName =
-  "agendar" | "assinar" | "whatsapp" | "instagram" | "maps" | "phone";
+  | "agendar"
+  | "agendar-cash-barber"
+  | "assinar"
+  | "ver-black"
+  | "whatsapp"
+  | "instagram"
+  | "maps"
+  | "phone";
 
 export interface AnalyticsEvent {
   name: AnalyticsEventName;
   data: { origem: string };
 }
 
-/** Origens de "booking" que saem da seção de planos contam como intenção de assinar. */
-const SUBSCRIBE_ORIGINS = /^(plans|black-selector)/;
+/** Botões "Assinar" dos planos (`plan-<id>`) contam como intenção de assinar. */
+const SUBSCRIBE_ORIGINS = /^(plan-|plans|black-selector)/;
+/** O link dentro da janela "Agendar horário" é a saída real para o Cash Barber. */
+const BOOKING_EXIT_ORIGIN = "booking-dialog";
 
 const PASSTHROUGH: ReadonlySet<string> = new Set(["whatsapp", "instagram", "maps", "phone"]);
 
@@ -34,8 +43,11 @@ export function resolveTrackEvent(
   if (!track) return null;
   const origem = origin?.trim() || "desconhecida";
   if (track === "booking") {
-    return { name: SUBSCRIBE_ORIGINS.test(origem) ? "assinar" : "agendar", data: { origem } };
+    if (SUBSCRIBE_ORIGINS.test(origem)) return { name: "assinar", data: { origem } };
+    if (origem === BOOKING_EXIT_ORIGIN) return { name: "agendar-cash-barber", data: { origem } };
+    return { name: "agendar", data: { origem } };
   }
+  if (track === "plans") return { name: "ver-black", data: { origem } };
   if (PASSTHROUGH.has(track)) return { name: track as AnalyticsEventName, data: { origem } };
   return null;
 }
