@@ -25,7 +25,7 @@ import logo from "@/assets/oliveira-logo-oficial.png.asset.json";
 
 const title = "Oliveira Barbearia | Corte, barba e Clube OLVR em Arapiraca–AL";
 const description =
-  "Corte e barba na Santa Esmeralda, Arapiraca–AL. Atendimento avulso ou planos Black do Clube OLVR a partir de R$ 79,90/mês. Segunda a sábado, 9h às 20h. Agende pelo Cash Barber.";
+  "Corte e barba em Arapiraca–AL. Atendimento avulso ou planos Black do Clube OLVR a partir de R$ 79,90/mês. Segunda a sábado, 9h às 20h. Agende pelo Cash Barber.";
 
 /** Endereço definitivo informado pelo proprietário em 13/11/2026. Se mudar, atualize também public/sitemap.xml e public/robots.txt. */
 const siteUrl = "https://oliveirabarbearia.vercel.app/";
@@ -552,7 +552,7 @@ function Index() {
             <p className="kicker hero-kicker">{content.hero.eyebrow}</p>
             <Logo className="hero-logo" />
             <h1 id="hero-title">
-              Barbearia <em>por assinatura</em> na Santa Esmeralda, Arapiraca.
+              Barbearia <em>por assinatura</em> em Arapiraca.
             </h1>
             <div className="hero-actions">
               {bookingButton("hero", "Agendar horário", "btn btn-lg")}
@@ -772,7 +772,7 @@ function Index() {
               id="equipe-title"
               kicker="Equipe"
               title="Quem vai te atender."
-              text="Os barbeiros da Oliveira, na Santa Esmeralda."
+              text="Os barbeiros da Oliveira, em Arapiraca."
             />
             <ul className="team-grid" data-reveal>
               {content.team.map((member) => (
@@ -797,11 +797,7 @@ function Index() {
         {/* Onde estamos */}
         <section id="local" className="section section-light" aria-labelledby="local-title">
           <div className="container">
-            <SectionHead
-              id="local-title"
-              kicker="Onde estamos"
-              title="Santa Esmeralda, Arapiraca."
-            />
+            <SectionHead id="local-title" kicker="Onde estamos" title="Em Arapiraca." />
             <div className="local-grid" data-reveal>
               <div className="local-info">
                 <div className="info-block">

@@ -220,11 +220,11 @@ export const siteContent = {
   name: "Oliveira Barbearia",
   city: "Arapiraca · Alagoas",
   hero: {
-    eyebrow: "Santa Esmeralda · Arapiraca–AL",
+    eyebrow: "Arapiraca · Alagoas",
     title: "Corte e barba em Arapiraca.",
     titleAccent: "Cuidado que cabe na sua rotina.",
     tagline: "Você em sua melhor versão.",
-    text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
+    text: "Atendimento avulso ou pelos planos do Clube OLVR, em Arapiraca. Segunda a sábado, das 9h às 20h.",
     ratingBadge: "5,0 ★ · 347 avaliações no Google",
     subheadline:
       "Assine o Black, pague uma mensalidade fixa a partir de R$ 79,90 e deixe o visual sempre em dia.",
@@ -260,7 +260,7 @@ export const siteContent = {
    */
   space: {
     title: "Conheça o espaço.",
-    text: "Fotos reais da Oliveira, na Santa Esmeralda. É aqui que você vai ser atendido.",
+    text: "Fotos reais da Oliveira, em Arapiraca. É aqui que você vai ser atendido.",
     photos: [
       {
         file: "fachada",
