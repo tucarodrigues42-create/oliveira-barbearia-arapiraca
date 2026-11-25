@@ -262,10 +262,22 @@ export const siteContent = {
     title: "Conheça o espaço.",
     text: "Fotos reais da Oliveira, na Santa Esmeralda. É aqui que você vai ser atendido.",
     photos: [
-      { file: "fachada", alt: "Fachada da Barbearia Oliveira com o letreiro “Você em sua melhor versão” e a porta de vidro com a marca OLVR" },
-      { file: "salao", alt: "Salão com cadeiras de barbeiro pretas, espelhos grandes e luzes hexagonais no teto" },
-      { file: "ambiente", alt: "Cliente sentado em uma das cadeiras, ao lado da bancada com lavatório sob o teto de luzes hexagonais" },
-      { file: "cadeira", alt: "Cadeira de barbeiro em couro preto diante do espelho, com prateleiras de produtos ao fundo" },
+      {
+        file: "fachada",
+        alt: "Fachada da Barbearia Oliveira com o letreiro “Você em sua melhor versão” e a porta de vidro com a marca OLVR",
+      },
+      {
+        file: "salao",
+        alt: "Salão com cadeiras de barbeiro pretas, espelhos grandes e luzes hexagonais no teto",
+      },
+      {
+        file: "ambiente",
+        alt: "Cliente sentado em uma das cadeiras, ao lado da bancada com lavatório sob o teto de luzes hexagonais",
+      },
+      {
+        file: "cadeira",
+        alt: "Cadeira de barbeiro em couro preto diante do espelho, com prateleiras de produtos ao fundo",
+      },
     ] satisfies SpacePhoto[],
   },
   services,
@@ -346,11 +358,17 @@ export const siteContent = {
     ],
   },
   navigation: [
-    { id: "seu-black", label: "Meu plano" },
-    { id: "avaliacoes", label: "Avaliações" },
-    { id: "planos", label: "Todos os planos" },
-    { id: "servicos", label: "Avulso" },
-    { id: "contato", label: "Contato" },
+    { id: "servicos", label: "Serviços" },
+    { id: "assinatura", label: "Clube OLVR" },
+    { id: "galeria", label: "Galeria" },
+    { id: "equipe", label: "Equipe" },
+    { id: "local", label: "Onde estamos" },
+  ],
+  /** Equipe da barbearia (nomes da branch "quem-corta"). Fotos só com autorização de cada profissional. */
+  team: [
+    { name: "João Paulo", role: "Fundador e barbeiro" },
+    { name: "Jackson Delano", role: "Barbeiro" },
+    { name: "Arthur Vinícius", role: "Barbeiro" },
   ],
   steps: [
     { title: "Acesse a agenda", text: "Abra o agendamento online da Oliveira no Cash Barber." },
