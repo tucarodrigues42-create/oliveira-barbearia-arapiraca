@@ -18,6 +18,13 @@ export interface ExtraCharge {
   note?: string;
 }
 
+/** Foto real da barbearia em public/fotos, gerada em 600px e 1200px de largura (WebP, sem metadados). */
+export interface SpacePhoto {
+  /** Nome-base do arquivo: /fotos/{file}-600.webp e /fotos/{file}-1200.webp. */
+  file: string;
+  alt: string;
+}
+
 export type SimService = "corte" | "barba";
 
 /** Regras usadas pelo simulador; derivadas apenas dos dados confirmados de cada plano. */
@@ -213,11 +220,11 @@ export const siteContent = {
   name: "Oliveira Barbearia",
   city: "Arapiraca · Alagoas",
   hero: {
-    eyebrow: "Santa Esmeralda · Arapiraca–AL",
+    eyebrow: "Arapiraca · Alagoas",
     title: "Corte e barba em Arapiraca.",
     titleAccent: "Cuidado que cabe na sua rotina.",
     tagline: "Você em sua melhor versão.",
-    text: "Atendimento avulso ou pelos planos do Clube OLVR, na Santa Esmeralda. Segunda a sábado, das 9h às 20h.",
+    text: "Atendimento avulso ou pelos planos do Clube OLVR, em Arapiraca. Segunda a sábado, das 9h às 20h.",
     ratingBadge: "5,0 ★ · 347 avaliações no Google",
     subheadline:
       "Assine o Black, pague uma mensalidade fixa a partir de R$ 79,90 e deixe o visual sempre em dia.",
@@ -246,6 +253,32 @@ export const siteContent = {
   },
   about: {
     text: "Na Oliveira, o cuidado com o visual tem lugar na sua rotina. Conheça a barbearia, acompanhe os trabalhos e escolha seu próximo horário.",
+  },
+  /**
+   * Fotos enviadas e autorizadas pelo proprietário em 25/11/2026, incluindo a do cliente
+   * na cadeira (uso da imagem autorizado). Originais 2268×4032 (retrato).
+   */
+  space: {
+    title: "Conheça o espaço.",
+    text: "Fotos reais da Oliveira, em Arapiraca. É aqui que você vai ser atendido.",
+    photos: [
+      {
+        file: "fachada",
+        alt: "Fachada da Barbearia Oliveira com o letreiro “Você em sua melhor versão” e a porta de vidro com a marca OLVR",
+      },
+      {
+        file: "salao",
+        alt: "Salão com cadeiras de barbeiro pretas, espelhos grandes e luzes hexagonais no teto",
+      },
+      {
+        file: "ambiente",
+        alt: "Cliente sentado em uma das cadeiras, ao lado da bancada com lavatório sob o teto de luzes hexagonais",
+      },
+      {
+        file: "cadeira",
+        alt: "Cadeira de barbeiro em couro preto diante do espelho, com prateleiras de produtos ao fundo",
+      },
+    ] satisfies SpacePhoto[],
   },
   services,
   servicesNote: "Valores avulsos informados pela barbearia. Confirme no Cash Barber ao agendar.",
@@ -325,11 +358,16 @@ export const siteContent = {
     ],
   },
   navigation: [
-    { id: "seu-black", label: "Meu plano" },
-    { id: "avaliacoes", label: "Avaliações" },
-    { id: "planos", label: "Todos os planos" },
-    { id: "servicos", label: "Avulso" },
-    { id: "contato", label: "Contato" },
+    { id: "assinatura", label: "Plano Black" },
+    { id: "galeria", label: "Galeria" },
+    { id: "equipe", label: "Equipe" },
+    { id: "local", label: "Onde estamos" },
+  ],
+  /** Equipe da barbearia (nomes da branch "quem-corta"). Fotos só com autorização de cada profissional. */
+  team: [
+    { name: "João Paulo", role: "Fundador e barbeiro" },
+    { name: "Jackson Delano", role: "Barbeiro" },
+    { name: "Arthur Vinícius", role: "Barbeiro" },
   ],
   steps: [
     { title: "Acesse a agenda", text: "Abra o agendamento online da Oliveira no Cash Barber." },
