@@ -4,10 +4,12 @@ import {
   ArrowRight,
   ArrowUpRight,
   CalendarCheck,
+  Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   Clock,
+  Crown,
   Instagram,
   MapPin,
   Menu,
@@ -97,32 +99,23 @@ export const Route = createFileRoute("/")({
 
 const ratingText = content.reviews.rating.toFixed(1).replace(".", ",");
 const allPlans = content.subscription.families.flatMap((family) => family.plans);
-const lowestPlanPrice = Math.min(...allPlans.map((plan) => plan.price));
+const blackFromPrice = Math.min(
+  ...allPlans.filter((plan) => plan.id.startsWith("black")).map((plan) => plan.price),
+);
 const fullAddress = `${content.address.street}, ${content.address.neighborhood}, ${content.address.city}, ${content.address.postalCode}`;
 const whatsappWithText = `${content.links.whatsapp}?text=${encodeURIComponent("Olá! Vim pelo site da Oliveira Barbearia e quero agendar um horário.")}`;
 
-/** Um serviço avulso está "no plano" quando algum plano o inclui (o Clube One cobre o corte). */
-function plansCovering(serviceName: string) {
-  const key = serviceName.toLowerCase();
-  return content.subscription.families.filter((family) =>
-    family.plans.some(
-      (plan) =>
-        plan.includes.includes(serviceName) || (plan.simulator.covers as string[]).includes(key),
-    ),
-  );
-}
-
-const serviceDetails: Record<string, string> = {
-  Corte: "Corte de cabelo masculino, do jeito que você pedir.",
-  Barba: "Barba feita e alinhada.",
-  Pezinho: "Acabamento do contorno para manter o corte em dia.",
-  "Barba Express": "Ajuste rápido da barba.",
-};
+const blackFamily = content.subscription.families.find((family) => family.id === "black");
+const otherFamilies = content.subscription.families.filter((family) => family.id !== "black");
 
 const marqueeItems = [
-  ...content.services.map((service) => service.name),
+  "Black Ilimitado",
+  "Corte",
+  "Barba",
+  "Pezinho",
+  "Barba Express",
   "Clube OLVR",
-  ...content.subscription.families.map((family) => family.name),
+  "Segunda a sábado",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -497,8 +490,8 @@ function Index() {
 
   return (
     <>
-      <a className="skip-link" href="#servicos">
-        Pular para os serviços
+      <a className="skip-link" href="#assinatura">
+        Pular para os planos
       </a>
 
       <header className={`site-header${scrolled || menuOpen ? " is-solid" : ""}`}>
@@ -558,11 +551,11 @@ function Index() {
               {bookingButton("hero", "Agendar horário", "btn btn-lg")}
               <a
                 className="btn btn-lg btn-ghost"
-                href="#servicos"
+                href="#planos"
                 data-track="plans"
                 data-track-origin="hero"
               >
-                Ver serviços e preços
+                Conhecer o plano Black
               </a>
             </div>
             <ul className="hero-facts">
@@ -585,8 +578,8 @@ function Index() {
                 <span>{content.openingHours.hours}</span>
               </li>
               <li>
-                <strong>{formatPrice(lowestPlanPrice)}/mês</strong>
-                <span>Clube OLVR a partir de</span>
+                <strong>{formatPrice(blackFromPrice)}/mês</strong>
+                <span>Black Ilimitado a partir de</span>
               </li>
             </ul>
           </div>
@@ -605,48 +598,7 @@ function Index() {
           </div>
         </section>
 
-        {/* Serviços */}
-        <section id="servicos" className="section" aria-labelledby="servicos-title">
-          <div className="container">
-            <SectionHead
-              id="servicos-title"
-              kicker="Serviços"
-              title="Escolha o serviço. A gente cuida do resto."
-              text="Preço avulso de cada atendimento. Quem é do Clube OLVR usa os serviços do plano por uma mensalidade fixa."
-            />
-            <ul className="service-list" data-reveal>
-              {content.services.map((service) => {
-                const families = plansCovering(service.name);
-                return (
-                  <li key={service.name} className="service-row">
-                    <div className="service-info">
-                      <h3>{service.name}</h3>
-                      <p>{serviceDetails[service.name]}</p>
-                      {families.length > 0 && (
-                        <span className="tag">
-                          No plano {families.map((family) => family.name).join(", ")}
-                        </span>
-                      )}
-                    </div>
-                    <p className="service-price">{formatPrice(service.price)}</p>
-                    <TrackedLink
-                      className="btn btn-sm btn-outline"
-                      href={content.links.booking}
-                      track="booking"
-                      origin={`service-${service.name}`}
-                      label={`Agendar ${service.name} no Cash Barber`}
-                    >
-                      Agendar
-                    </TrackedLink>
-                  </li>
-                );
-              })}
-            </ul>
-            <p className="note">{content.servicesNote}</p>
-          </div>
-        </section>
-
-        {/* Clube OLVR */}
+        {/* Clube OLVR: o Black vem primeiro, como a opção principal */}
         <section
           id="assinatura"
           className="section section-light"
@@ -656,31 +608,86 @@ function Index() {
             <SectionHead
               id="assinatura-title"
               kicker={content.subscription.name}
-              title="Barbearia por assinatura."
-              text="Uma mensalidade fixa e o visual sempre em dia. Escolha a rotina que combina com você e assine pelo celular."
-            >
-              <TrackedLink href={content.links.booking} track="plans" origin="subscription-head">
-                Assinar no Cash Barber
-                <ArrowUpRight aria-hidden="true" />
-              </TrackedLink>
-            </SectionHead>
+              title="Assine o Black. Fique sempre em dia."
+              text="Uma mensalidade fixa para manter corte e barba em dia, de segunda a sábado. Assine pelo celular e agende online."
+            />
+
+            {blackFamily && (
+              <article className="black-feature" id="planos" data-reveal>
+                <div className="black-feature-head">
+                  <span className="tag tag-solid black-badge">
+                    <Crown aria-hidden="true" />
+                    Nossa recomendação
+                  </span>
+                  <h3>
+                    Black <em>Ilimitado</em>
+                  </h3>
+                  <p className="black-feature-text">
+                    O plano mais completo do Clube OLVR: use todos os dias de funcionamento, com
+                    pezinho e Barba Express incluídos.
+                  </p>
+                  <ul className="black-perks">
+                    <li>
+                      <Check aria-hidden="true" />
+                      {blackFamily.days}, todos os dias de funcionamento
+                    </li>
+                    <li>
+                      <Check aria-hidden="true" />
+                      {blackFamily.bookingWindow}
+                    </li>
+                    <li>
+                      <Check aria-hidden="true" />
+                      {content.blackSelector.extras}
+                    </li>
+                    <li>
+                      <Check aria-hidden="true" />
+                      Cancele quando quiser, sem multa
+                    </li>
+                  </ul>
+                </div>
+                <ul className="black-options">
+                  {blackFamily.plans.map((plan) => (
+                    <li key={plan.id} className={plan.highlight ? "is-highlight" : undefined}>
+                      {plan.highlight && plan.highlightLabel && (
+                        <span className="tag tag-solid">{plan.highlightLabel}</span>
+                      )}
+                      <h4>{plan.label}</h4>
+                      <p className="black-option-price">
+                        {formatPrice(plan.price)}
+                        <span>/mês</span>
+                      </p>
+                      <p className="plan-includes">{plan.includes.join(" · ")}</p>
+                      {plan.allowance && (
+                        <p className="plan-allowance">
+                          {plan.name}: {plan.allowance.toLowerCase()}.
+                        </p>
+                      )}
+                      <TrackedLink
+                        className={`btn btn-block${plan.highlight ? "" : " btn-outline"}`}
+                        href={content.links.booking}
+                        track="booking"
+                        origin={`plan-${plan.id}`}
+                        label={`Assinar o ${plan.label} no Cash Barber`}
+                      >
+                        Assinar
+                        <ArrowUpRight aria-hidden="true" />
+                      </TrackedLink>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            )}
 
             <ol className="feature-cards" data-reveal>
               <li>
                 <span className="feature-n">01</span>
                 <h3>Sempre alinhado</h3>
-                <p>
-                  Planos para corte, barba ou os dois, com pezinho e Barba Express incluídos
-                  conforme o plano.
-                </p>
+                <p>Corte, barba ou os dois por uma mensalidade fixa, sem pagar a cada visita.</p>
               </li>
               <li>
                 <span className="feature-n">02</span>
-                <h3>Do seu jeito</h3>
-                <p>
-                  Black para usar de segunda a sábado, Smart para o início da semana e One para um
-                  corte por mês.
-                </p>
+                <h3>Segunda a sábado</h3>
+                <p>No Black você usa o plano em todos os dias de funcionamento da barbearia.</p>
               </li>
               <li>
                 <span className="feature-n">03</span>
@@ -692,37 +699,39 @@ function Index() {
               </li>
             </ol>
 
-            <div className="plan-families" id="planos" data-reveal>
-              {content.subscription.families.map((family) => (
-                <article key={family.id} className={`plan-card plan-card-${family.id}`}>
-                  <header>
-                    <p className="kicker">Plano</p>
-                    <h3>{family.name}</h3>
-                    <p className="plan-card-days">
-                      <Clock aria-hidden="true" />
-                      {family.days}
-                    </p>
-                    {family.valueHighlight && (
-                      <p className="plan-card-text">{family.valueHighlight}</p>
-                    )}
-                  </header>
-                  <ul className="plan-rows">
-                    {family.plans.map((plan) => (
-                      <PlanRow key={plan.id} plan={plan} />
-                    ))}
-                  </ul>
-                  <p className="plan-card-window">{family.bookingWindow}</p>
-                  <TrackedLink
-                    className={`btn btn-block${family.id === "black" ? "" : " btn-outline"}`}
-                    href={content.links.booking}
-                    track="booking"
-                    origin={`plan-${family.id}`}
-                  >
-                    Assinar o {family.name}
-                    <ArrowUpRight aria-hidden="true" />
-                  </TrackedLink>
-                </article>
-              ))}
+            <div className="other-plans" data-reveal>
+              <p className="kicker">Outras opções do Clube OLVR</p>
+              <div className="plan-families">
+                {otherFamilies.map((family) => (
+                  <article key={family.id} className={`plan-card plan-card-${family.id}`}>
+                    <header>
+                      <h3>{family.name}</h3>
+                      <p className="plan-card-days">
+                        <Clock aria-hidden="true" />
+                        {family.days}
+                      </p>
+                      {family.valueHighlight && (
+                        <p className="plan-card-text">{family.valueHighlight}</p>
+                      )}
+                    </header>
+                    <ul className="plan-rows">
+                      {family.plans.map((plan) => (
+                        <PlanRow key={plan.id} plan={plan} />
+                      ))}
+                    </ul>
+                    <p className="plan-card-window">{family.bookingWindow}</p>
+                    <TrackedLink
+                      className="btn btn-block btn-outline"
+                      href={content.links.booking}
+                      track="booking"
+                      origin={`plan-${family.id}`}
+                    >
+                      Assinar o {family.name}
+                      <ArrowUpRight aria-hidden="true" />
+                    </TrackedLink>
+                  </article>
+                ))}
+              </div>
             </div>
 
             <details className="conditions">

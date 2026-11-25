@@ -358,8 +358,7 @@ export const siteContent = {
     ],
   },
   navigation: [
-    { id: "servicos", label: "Serviços" },
-    { id: "assinatura", label: "Clube OLVR" },
+    { id: "assinatura", label: "Plano Black" },
     { id: "galeria", label: "Galeria" },
     { id: "equipe", label: "Equipe" },
     { id: "local", label: "Onde estamos" },
