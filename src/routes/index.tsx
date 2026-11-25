@@ -29,6 +29,10 @@ const description =
 /** Endereço definitivo informado pelo proprietário em 13/11/2026. Se mudar, atualize também public/sitemap.xml e public/robots.txt. */
 const siteUrl = "https://oliveirabarbearia.vercel.app/";
 
+/** Imagem de compartilhamento (1200×630) recortada da foto da fachada enviada pelo proprietário. */
+const ogImage = `${siteUrl}og-image.jpg`;
+const ogImageAlt = "Fachada da Barbearia Oliveira em Arapiraca, com o letreiro “Você em sua melhor versão”";
+
 /**
  * Dados estruturados do negócio local, só com informações já exibidas no site.
  * Não inclui aggregateRating: a nota é informada pelo proprietário e não pode ser verificada
@@ -51,6 +55,7 @@ const localBusinessJsonLd = {
     addressCountry: "BR",
   },
   openingHours: content.openingHours.schema,
+  image: ogImage,
   hasMap: content.links.maps,
   sameAs: [content.links.instagram],
 };
@@ -65,9 +70,17 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: siteUrl },
       { property: "og:locale", content: "pt_BR" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: ogImage },
+      { property: "og:image:secure_url", content: ogImage },
+      { property: "og:image:type", content: "image/jpeg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: ogImageAlt },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
+      { name: "twitter:image", content: ogImage },
+      { name: "twitter:image:alt", content: ogImageAlt },
       { name: "google-site-verification", content: "LKIR6oUAxTfFsgO4nigKmjjv_oTEFbZeNjcO8bkRVqM" },
     ],
     links: [{ rel: "canonical", href: siteUrl }],
@@ -515,6 +528,29 @@ function Index() {
         />
 
         <LeadForm />
+
+        <section id="espaco" className="section space-section" aria-labelledby="space-title">
+          <div className="page-container">
+            <h2 id="space-title">{content.space.title}</h2>
+            <p className="lead">{content.space.text}</p>
+            <ul className="space-gallery">
+              {content.space.photos.map((photo) => (
+                <li key={photo.file}>
+                  <img
+                    src={`/fotos/${photo.file}-600.webp`}
+                    srcSet={`/fotos/${photo.file}-600.webp 600w, /fotos/${photo.file}-1200.webp 1200w`}
+                    sizes="(max-width: 759px) 50vw, 25vw"
+                    width={600}
+                    height={1067}
+                    alt={photo.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
 
         <section
           id="contato"

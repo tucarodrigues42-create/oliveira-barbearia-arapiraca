@@ -282,6 +282,14 @@ em { font-style: normal; }
 .step-number { display: block; margin-bottom: 12px; font-size: 14px; font-weight: 700; color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
 .steps p { margin-top: 8px; font-size: 15px; color: var(--muted-foreground); }
 
+/* O espaço */
+.space-section { border-top: 1px solid var(--border); }
+.space-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 20px); margin: 40px 0 0; padding: 0; list-style: none; }
+.space-gallery img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius); background: var(--secondary); }
+@media (max-width: 759px) {
+  .space-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 28px; }
+}
+
 /* Contato */
 .contact-section { border-top: 1px solid var(--border); }
 .contact-section address { display: flex; gap: 14px; margin-top: 32px; font-style: normal; color: var(--muted-foreground); }
