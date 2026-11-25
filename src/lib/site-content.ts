@@ -225,7 +225,7 @@ export const siteContent = {
     titleAccent: "Cuidado que cabe na sua rotina.",
     tagline: "Você em sua melhor versão.",
     text: "Atendimento avulso ou pelos planos do Clube OLVR, em Arapiraca. Segunda a sábado, das 9h às 20h.",
-    ratingBadge: "5,0 ★ · 347 avaliações no Google",
+    ratingBadge: "5,0 ★ · 351 avaliações no Google",
     subheadline:
       "Assine o Black, pague uma mensalidade fixa a partir de R$ 79,90 e deixe o visual sempre em dia.",
     slogan: "Você em sua melhor versão.",
@@ -302,8 +302,8 @@ export const siteContent = {
   },
   reviews: {
     rating: 5.0,
-    count: 347,
-    date: "11/11/2026",
+    count: 351,
+    date: "25/11/2026",
     source: "Dados do perfil Google fornecidos",
     profileUrl: "https://maps.app.goo.gl/x1bCGX52mGnLAja78",
     independentlyVerified: false,
