@@ -228,6 +228,10 @@ export const siteContent = {
       secondary: { label: "Comparar planos", anchor: "planos" },
     },
   },
+  /** Umami Cloud (sem cookies). Vazio = mensuração desligada; o ID não é segredo. */
+  analytics: {
+    umamiWebsiteId: "",
+  },
   links: {
     booking: "https://cashbarber.com.br/oliveirabsara",
     whatsapp: "https://wa.me/5582981820974",

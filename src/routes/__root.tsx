@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { UMAMI_SCRIPT_SRC, installClickTracking, umamiWebsiteId } from "../lib/analytics";
 
 function NotFoundComponent() {
   return (
@@ -98,6 +99,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap",
       },
     ],
+    scripts: umamiWebsiteId()
+      ? [{ src: UMAMI_SCRIPT_SRC, defer: true, "data-website-id": umamiWebsiteId() }]
+      : [],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -121,6 +125,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => (umamiWebsiteId() ? installClickTracking() : undefined), []);
 
   return (
     <QueryClientProvider client={queryClient}>

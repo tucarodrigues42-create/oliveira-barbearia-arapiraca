@@ -78,7 +78,7 @@ export const Route = createFileRoute("/")({
 
 type Variant = "editorial" | "editorialOutline" | "editorialLink";
 
-/** Link externo seguro. data-track/data-track-origin preparam mensuração futura (nenhuma ferramenta instalada). */
+/** Link externo seguro. data-track/data-track-origin alimentam a mensuração de cliques (src/lib/analytics.ts). */
 function ExternalLink({
   href,
   children,
